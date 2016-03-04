@@ -1,0 +1,103 @@
+/**
+ * All your custom of pedidos CSS should go into this file
+*/
+section h3 {
+	margin-left: 100px;
+	font-weight: bold;
+}
+
+section a.new_order {
+	margin-left: 130px;
+}
+section a.btn-primary {
+	margin-left: 250px;
+}
+
+section h4 {
+	text-align: center;
+}
+
+section .especies {
+	margin-left: 200px;
+}
+
+section .especies img {
+	padding: 30px 10px;
+}
+
+section .especies img:hover {
+	cursor: pointer;
+}
+
+section #productos {
+	margin-left: 200px;
+}
+
+section #productos img{
+	padding: 10px 10px;
+}
+
+section #productos img:hover{
+	cursor: pointer;
+}
+
+section #productos_detalles {
+	margin-left: 200px;
+}
+
+section .transportes img {
+	padding: 30px 10px;
+}
+
+section .transportes img:hover {
+	cursor: pointer;
+}
+
+article div {
+	margin-left: 200px;
+
+}
+
+/* Estilo del carrito */
+article .carrito {
+	float: right;
+	margin-top: -100px;
+	margin-right: 100px;
+	background-color: #F6E2C3;
+	width: 220px;
+	border-radius: 20px 2px;
+	box-shadow: 10px 10px 5px #B5C1C5;
+}
+article .carrito h4  {
+	text-align: center;
+}
+
+article .carrito h5{
+
+	font-weight: bold;
+	display: inline-table;
+	font-size: 12px;
+	padding: 1px 5px;
+}
+article .carrito h6{
+	font-weight: bold;
+	display: inline;
+	font-size: 10px;
+	padding: 5px 10px;
+}
+/* Imagenes pequeñas */
+.imagenes_pequenas {
+    width: 75px;
+    height: 75px;
+}
+
+/* Desabilitar iconos  */
+.opacity {
+	opacity: 0.2;
+}
+
+.opacity:hover {
+	cursor: normal;
+}
+
+

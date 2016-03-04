@@ -1,0 +1,473 @@
+/**
+ * Estilos generales
+*/
+*{ margin: 0; padding: 0; }
+/* Todo el cuerpo*/
+body{
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-image: url(../../img/fondo_planta4.jpg);
+	background-size: 100% 100%;
+}
+/* Todo el cuerpo --termina--*/
+/* Definicion del bloque Cabecera*/
+header{
+	width: 100%;
+	height: 70px;
+	color:#fff;
+	background-color: #0146AE;
+	border-bottom: 2px solid #cbcbcb;
+	font-family: 'Strait', sans-serif;
+	position: fixed;
+	top: 0px;
+}
+
+header h1{
+	padding-left: 30px;
+	padding-right: 20px;
+	/* font-family: Helvetica, sans-serif; */
+	text-transform: uppercase;
+	font-size: 32px;
+	font-weight:bold;
+	float: left;
+}
+
+header img{
+	float: right;
+	padding-right: 20px;
+}
+
+header p {	
+	padding-top: 23px;
+	font-size: 10px;
+}
+
+header p a{
+	color: #D1D1DC;
+	padding: 2px 2px;
+}
+
+header p a:hover {
+	color: #FFF;
+}
+
+header p a {
+	color: #D1D1DC;
+	padding: 2px 2px;
+}
+
+header p a:hover {
+	color: #FFF;
+}
+/* Definicion del bloque Cabecera --termina--*/
+/* Definicion del bloque menu lateral */
+
+aside {
+	width:15%;
+	overflow:hidden; 
+  	font-weight: bold;
+  	float: left;
+  	height: 100%;
+  	background-color: #F5F5F5;
+  	border-top: 1px solid #dddddd;
+  	border-right: 1px solid #dddddd;
+  	position: fixed;
+    top: 70px;
+}
+aside .list-group{
+
+}
+aside .aside-text {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 0px 10px;
+
+}
+aside .list-group-item:first-child {
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+aside .list-group-item:last-child {
+	border-bottom-left-radius: 0px; 
+	border-bottom-right-radius: 0px;
+}
+
+aside .list-group-item {
+	margin-top: -1px; 
+	background-color: #F5F5F5;
+	border: 0px;
+}
+
+aside .list-group-item:hover{
+	background-color: #3E85C4; 
+	color: #F5F5F5;
+}
+/* Definicion del bloque menu lateral --termina--*/
+/* Definicion del bloque submenu */
+
+nav {
+	margin-left: 15%;
+	height: 30px;
+	top: 70px;
+	width:85%;
+	position: relative;
+
+}
+.navbar {
+	position: fixed;
+	border-radius: 0px;
+	border-bottom: 1px solid #dddddd;
+	min-height: 30px;
+	background-color: #F5F5F5;
+}
+nav .breadcrumb{
+	font-size: 10px;
+	display: inherit;
+	background: transparent;
+}
+
+nav .nav-text {
+	font-size: 10px;
+	font-weight: bold;
+	padding: 0px 5px;
+}
+
+.navbar-brand {
+	padding: 5px;
+	margin-left: 10px;
+}
+
+.navbar-form {
+	margin-top: 4px;
+}
+
+.regresar{
+	cursor: pointer;
+}
+
+/* Definicion del bloque submenu --termina--*/
+/* Definicion del bloque pie de pagina */
+footer { 
+	font-family: Helvetica, sans-serif; 
+	width: 85%;
+	height: 30px;
+	bottom: 0;
+	position: fixed; 
+	margin-left: 15%;
+	padding-top: 4px;
+	background-color: #000000;
+	color: #757575; 
+	text-align: center;
+	border-top: 1px solid #000000;
+	box-shadow: 2px 0px 9px rgba(0,0,0,0.35);
+}
+/* Definicion del bloque pie de pagina --termina-- */
+/* elimina el primer campo de las tablas*/
+table > thead > tr > th:first-child{ 
+    display: none; 
+} 
+
+table > tbody > tr > td:first-child{ 
+    display: none; 
+}
+
+a { text-decoration: none; } 
+
+.thead-text{
+	padding-left: 5px;
+	color:#909090;
+}
+
+/**
+ * modificar a conveniencia de la aplicacion
+*/
+/* Definicion del bloque section */
+section { 
+	margin-left: 15%;
+	margin-top: 10%;
+	padding-bottom: 40px;
+	width: 85%;
+	height: 100%;
+	font-size: 12px;
+}
+section .panel {
+	margin: 0px auto; 
+	width: 80%;
+}
+
+section .panel-primary {
+	width: 90%;
+	border-color: #dddddd;
+}
+/* coloa azul para el panel
+section .panel .panel-heading{
+	background-color: #0146AE;
+	border-color: #0146AE;
+}
+*/
+section .panel-body{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin: 0px auto;
+	width: 100%;
+}
+
+section .panel-footer {
+	border-top: 1px solid #FFF;
+	padding: 0px; 
+}
+
+section legend { 
+	padding: 0 2px; 
+	color: #B7001C; 
+}
+
+section label { 
+	color: #006699;
+}	
+section h3 {
+	margin-left: 100px;
+	font-weight: bold;
+}
+section a.new_order {
+	margin-left: 130px;
+}
+section a.btn-primary {
+	margin-left: 45px;
+}
+
+section h4 {
+	text-align: center;
+}
+
+section div div .especies {
+/*	margin-left: 200px; */ 
+}
+
+section div div .especies img {
+	width: 70px;
+	height: 50px;
+	margin-right: 25px;
+}
+
+section div div .especies img:hover {
+	cursor: pointer;
+}
+/* paso 2 */
+/* paso3*/
+section div div #productos {
+	margin-left: 15px;
+}
+
+section div div #productos img{
+	padding: 10px 10px;
+}
+
+section div div #productos img:hover{
+	cursor: pointer;
+}
+section div div form #productos_detalles label strong{
+	font-size: 14px;
+	font-weight: bold;
+}
+section div div form #productos_detalles label.label-marca{
+	font-weight: normal;
+	width: 180px;
+}
+section div div form #productos_detalles label.label-desc{
+	font-weight: normal;
+	width: 350px;
+	margin-left: 10px;
+}
+section div div form #productos_detalles select{
+	width: 250px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+section div div form #productos_detalles input[type='text']{
+	width: 250px;
+	margin-left: 10px;
+}
+section div div form #productos_detalles input[type='number']{
+	width: 250px;
+	margin-left: 10px;
+}
+section div div form #productos_detalles .estilo_pedidos{
+	width: 180px;
+}
+section div div form #productos_detalles #checkAditivo label.estilo_pedidos{
+	width: 100px;
+}
+section div div form #productos_detalles #anadir_carrito{
+	margin-left: 50%;
+	margin-top: -20%;
+}
+section div div .siguiente_paso3{
+	margin-left: 80%;
+	margin-top: 2%;
+}
+section div div #paso5_form{
+	margin-left: 10%;
+}
+textarea.form-control {
+	width: 241px; 
+}
+/* termina el paso 3 */
+section div div .transportes img {
+	padding: 10px 30px;
+	margin-left: 150px;
+
+}
+
+section div div .transportes img:hover {
+	cursor: pointer;
+}
+
+/*formulario personal autorizado*/
+section div div form fieldset.Usuarios_orden_compra div.form-group{
+	margin: 0px auto;
+}
+section div div form fieldset.Usuarios_orden_compra div.form-group input{
+	margin-bottom: 20px;
+	margin-right: 20px;
+	width: 300px;
+}
+section div div form fieldset.Usuarios_orden_compra div.form-group label{
+	width: 150px;
+}
+section div div form fieldset.botones{
+	margin-left: 35%;
+	margin-top: 30px;
+}
+
+section div div form fieldset.botones #guardar{
+	margin-left: 5%;
+}
+/*formulario personal autorizado --termina--*/
+/* Imagenes pequeñas */
+.imagenes_pequenas {
+    width: 75px;
+    height: 75px;
+}
+/* Imagenes pequeñas --termina--*/
+/* Desabilitar iconos  */
+.opacity {
+	opacity: 0.2;
+}
+
+.opacity:hover {
+	cursor: normal;
+}
+/* Desabilitar iconos --termina-- */
+.modal_terminos{
+	cursor: pointer;
+}
+
+.modal-lg{
+	width: 950px;
+}
+.form_vista_paso4 input{
+	margin: 10px;
+}
+.form_vista_paso4 select{
+	margin: 10px;
+	width: 300px;
+}
+.form_vista_paso4 textarea{
+	margin: 10px;
+	width: 600px;
+}
+/* Definicion del bloque section --termina--*/
+/* Definicion del bloque articulos */
+article { 
+	margin: 0 auto; 
+	background: transparent; 
+}
+article > p:first-child { 
+	font-size: 18px; 
+	color: #4b545f; 
+	text-align: justify;
+}
+article > p:first-child > a { 
+	text-decoration: none; 
+	color: #4b545f; 
+}
+article div {
+	margin-left: 200px;
+
+}
+/* Estilo del carrito */
+article .carrito {
+	float: right;
+	margin-top: 50px;
+	margin-right: 40px;
+	background-color: #F6E2C3;
+	width: 250px;
+	/*border-radius: 0px 0px;
+	box-shadow: 10px 10px 5px #B5C1C5;*/
+	box-shadow: 2px 5px 10px #B5C1C5;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+article .carrito caption{
+	text-align: center;
+	background-color: #F6E2C3;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+article .carrito th{
+	font-weight: bold;
+	font-size: 12px;
+	padding: 5px 10px;
+}
+article .carrito td{
+	font-weight: bold;
+	font-size: 10px;
+	padding: 5px 10px;
+}
+/* Estilo del carrito --termina--*/
+/* Definicion del bloque articulos --termina-- */
+/* iconos de la aplicacion */
+.fa-times{
+	color:#BE0C0C;
+}
+.fa-pencil-square-o{
+	color:#F8B226;
+}
+a.td .fa-file-pdf-o{
+	color:#BE0C0C;
+}
+.fa-trash-o{
+	color: #A10F0F;
+	cursor: pointer;
+}
+.btn-danger .fa-trash-o{
+	color: #FFF;
+}
+
+table.table thead th .fa-list-alt {
+	color:#909090;
+}
+table.table thead th .fa-male {
+	color:#909090;
+}
+table.table thead th .fa-university {
+	color:#909090;
+}
+table.table thead th .fa-truck  {
+	color:#909090;
+}
+table.table thead th .fa-calendar {
+	color:#909090;
+}
+table.table thead th .fa-slack {
+	color:#909090;
+}
+/* iconos de la aplicacion --termina--*/
+/**
+ * Termina el archivo estilo.css 
+ * diseñado para ordenes de compra
+*/

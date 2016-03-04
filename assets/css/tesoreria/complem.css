@@ -1,0 +1,25 @@
+
+.espacio{
+	padding-top:  16px
+}
+.boxv{
+	position: fixed;
+	top: 120px;
+    left: 230px;
+}
+.jumbotron{
+	position: fixed;
+	top: 130px;
+    left: 240px;
+    width: 80%;
+	text-transform: uppercase;
+
+}
+
+.money{
+	text-transform: uppercase;
+}
+.form-control{
+	width: 200px;
+
+}

@@ -1,0 +1,131 @@
+/**
+ * Estilos generales
+*/
+*{ margin: 0; padding: 0; }
+/* Todo el cuerpo
+
+body{
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-image: url(../../img/fondo_planta4.jpg);
+	background-size: 100% 100%;
+}
+*/
+/* Todo el cuerpo --termina--*/
+/* Definicion del bloque Cabecera*/
+header{
+	width: 100%;
+	height: 70px;
+	color:#fff;
+	background-color: #0146AE;
+	border-bottom: 2px solid #cbcbcb;
+	font-family: 'Strait', sans-serif;
+	position: fixed;
+	top: 0px;
+}
+
+header h1{
+	padding-left: 30px;
+	padding-right: 20px;
+	/* font-family: Helvetica, sans-serif; */
+	text-transform: uppercase;
+	font-size: 32px;
+	font-weight:bold;
+	float: left;
+}
+
+header img{
+	float: right;
+	padding-right: 20px;
+}
+
+header p {	
+	padding-top: 23px;
+	font-size: 10px;
+}
+
+header p a{
+	color: #D1D1DC;
+	padding: 2px 2px;
+}
+
+header p a:hover {
+	color: #FFF;
+}
+
+header p a {
+	color: #D1D1DC;
+	padding: 2px 2px;
+}
+
+header p a:hover {
+	color: #FFF;
+}
+/* Definicion del bloque Cabecera --termina--*/
+/* Definicion del bloque footer */
+footer { 
+	font-family: Helvetica, sans-serif; 
+	width: 100%;
+	height: 30px;
+	bottom: 0;
+	position: fixed; 
+	padding-top: 4px;
+	background-color: #000000;
+	color: #757575; 
+	text-align: center;
+	border-top: 1px solid #000000;
+	box-shadow: 2px 0px 9px rgba(0,0,0,0.35);
+}
+ 
+a { text-decoration: none; } 
+
+/**
+ * All your custom of aplication CSS should go into this file
+*/
+section { 
+	margin: 0 0 auto;
+	margin-top: 8%;
+	width: 100%;
+	height: 100%;
+}
+
+#aplicaciones {
+        margin-top: 20px;
+        text-align: center;
+}
+
+#aplicaciones ul li{
+    display: inline-block;      
+}
+
+#aplicaciones ul li a p{
+    margin: 10px 10px; 
+	height: 72px;
+    width: 250px; 
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    padding: 5px 5px;        
+}
+
+
+#aplicaciones ul li a p:hover{
+    background-color: #E8F1FF;
+    border-width: 1px;
+    border-color: #5FC3FD;
+    border-style: solid;
+}
+
+.logo_aplicaciones {
+        width: 60px;
+        height: 60px;
+}
+
+.tex-menu {
+        display: inline-block;
+        position: relative ;
+        font-size: 1em;
+        text-align: center;
+}
+ 

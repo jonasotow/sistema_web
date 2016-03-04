@@ -1,0 +1,84 @@
+.disabe
+	background-color #eee
+	opacity 1
+	cursor: not-allowed;
+	
+.right
+	text-align right
+
+.left	
+	text-align left
+	font-weight normal
+.moneda
+	&:before
+		content "$ "
+
+
+.flujo 
+	.panel-primary 
+		width 98%
+		.panel-heading
+			text-transform uppercase
+		.panel-body
+			.col-md-6
+				label
+					margin-top 5px 
+			.col-md-12
+				padding 0
+					
+				.form-group				
+					.nav-pills
+						text-transform uppercase
+					.panel
+						margin 0
+						width 100%
+						table
+							text-transform uppercase
+							font-size 10px
+							thead
+								tr 
+									th 
+										text-align center
+							tbody
+								
+								.total
+										font-weight bold
+										font-size 12px
+								.saldo
+									&:before
+										content "$ "
+								tr
+									td 
+										text-align center
+									
+										
+						.flujomodal	
+							.modal
+								.modal-dialog
+									width 90%
+									.modal-content
+										.modal-header
+											background-color rgb(63,81,181)
+											color #fff
+											border-bottom 1px solid rgb(63,81,181)
+											box-shadow 0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.2),0 1px 8px 0 rgba(0,0,0,.12);
+
+											.close
+												color #fff
+										.modal-body
+											.form-group
+												display flex
+												padding-left 100px
+												span
+													&:before
+														content "$ "
+												label
+													padding-top 7px
+													padding-bottom 7px
+													margin-bottom 0
+												.input-group
+													padding-left 15px
+													float left
+													
+												.textarea
+													overhide

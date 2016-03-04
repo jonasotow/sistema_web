@@ -1,0 +1,47 @@
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1" class=""></li>
+				<li data-target="#myCarousel" data-slide-to="2" class=""></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="item next left">
+					
+					<div class="container">
+						<div class="carousel-caption">
+							<h1 class="mdl-typography--text-uppercase">Bienvenidos al Sistema de Tesoreria</h1>
+							<p>Encontraras todo la información financiera de todos las empresas de VIMIFOS.</p>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<img src="<?=base_url('assets/img/tesoreria/tesoreria.jpg');?>" alt="Chania">
+					<div class="container">
+						<div class="carousel-caption">
+							<h1></h1>
+							<p></p>
+						</div>
+					</div>
+				</div>
+				<div class="item active left">
+			<img src="<?=base_url('assets/img/tesoreria/financiero.jpg');?>" alt="Chania">
+					<div class="container">
+						<div class="carousel-caption">
+							<h1></h1>
+							<p></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+
+

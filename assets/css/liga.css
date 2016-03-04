@@ -1,0 +1,129 @@
+/* $.liga('mensaje', ...) */
+.msj1, .msj2 {
+    font-size:95%;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    text-align:center;
+    font-weight:bold;
+    margin:0px auto;
+    width:350px;
+    max-height:150px;
+    max-width:80%;
+    overflow:auto;
+    padding:7px;
+    vertical-align:middle;
+}
+.msj1 {
+    background-color:#D0D0D0 ;
+    color:#A0A0A0;
+    border:1px solid #006448;
+}
+.msj2 {
+    background-color:#ffd779;
+    color:#b7351e;
+    border:1px solid #b7351e;
+}
+.cerrarMsj {
+    font-size:75%;
+    font-weight:bold;
+    background-color:#CF3800;
+    border-color:#CF3800;
+    color:white;
+    padding:1px;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    float:right;
+    display:block;
+}
+.cerrarMsj:hover {
+    cursor:pointer;
+}
+/* Errores en Formularios */
+span.error {
+    font-size:102%px;
+    font-weight:bold;
+    color:#b7351e;
+    border:1px solid #b7351e;
+    background-color: #ffd779;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    margin-left: 5px;
+    padding: 3px;
+    position:absolute;
+}
+.sin-scroll {
+  position: relative;
+  margin-right: 24.8px;
+  overflow: hidden;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  -o-user-select: none;
+  user-select:none;
+}
+/* $.liga('alerta', ...) */
+.titAlerta {
+    z-index:60;
+    background-color:#428BCA;
+    color:#FFF;
+    font-size:108%;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    text-align:center;
+    font-weight:bold;
+    margin:0px auto;
+    margin-bottom:5px;
+    padding:5px;
+    border:thin outset;
+}
+.alerta {
+    display:none;
+    position:fixed;
+    z-index:50;
+    background-color:#FFF;
+    color:#428BCA;
+    font-size:14px;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    text-align:center;
+    font-weight:bold;
+    margin:0px auto;
+    max-width:90%;
+    min-width:400px;
+    overflow:auto;
+    max-height:90%;
+    padding:3px;
+    border:medium outset;
+}
+.alerta thead th {
+	text-align:center;
+}
+.cerrarMsjAlerta {
+    margin-top:10px;
+    font-size:103%;
+    font-weight:bold;
+}
+.cerrarMsjAlerta:hover {
+    cursor:pointer;
+}
+/* Capa que bloquea los elementos (se puede cambiar el color) */
+.bloquea {
+    background-color:#c0c0c0;
+}
+
+/* Para uso en otros botones */
+.btn1, .btn2 {
+    padding:5px 10px;
+    font-weight:bold;
+}
+.btn1 {
+    color:#07853d;
+}
+.btn2 {
+    color:#753700;
+}
