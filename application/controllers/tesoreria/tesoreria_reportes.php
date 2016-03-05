@@ -31,6 +31,14 @@ class Tesoreria_reportes extends MY_Controller {
         $this->template['reportetrapasos'] = $this->reporte_model->reportetrapasos_f($fecha);
         $this->_run('reportes/reportetraspasosactual');
 
+    } 
+        function saldoune(){
+        $fecha = $data['fecha'];
+        $this->template['fecha'] = $data['fecha'];
+        $this->template['title'] = 'reportes saldos inicales';
+        $this->template['reportetrapasos'] = $this->reporte_model->reportetrapasos_f($fecha);
+        $this->_run('reportes/saldosune');
+
     }    
 
 

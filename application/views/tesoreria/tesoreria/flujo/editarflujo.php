@@ -4,7 +4,7 @@
 			<?=$title;?> | <?=$obtenercuentaune->result()[0]->une_nombre;?> - <?=$obtenercuentaune->result()[0]->cue_divisa;?> - <?=$obtenercuentaune->result()[0]->ban_nombre;?> <?=$obtenercuentaune->result()[0]->cue_numero;?> 
 		</div>
 		<div class="panel-body shadow">
-			<?= form_open("/flujo/updateFlujo/".$id) ?>
+			<?=form_open("/flujo/updateFlujo/".$id) ?>
 			<div class="form">
 				<?php
 					$sumaentradas = $obtenercuentaune->result()[0]->cued_sald_ini + $obtenercuentaune->result()[0]->cued_depos_fir + $obtenercuentaune->result()[0]->cued_depos_24h; 
@@ -194,3 +194,7 @@
 		</div>
 	</div>
 </section>
+
+<script type="text/javascript">
+	$('form').attr('autocomplete', 'off');
+</script>

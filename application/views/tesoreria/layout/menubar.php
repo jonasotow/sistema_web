@@ -22,17 +22,19 @@
             </a>
         </span>
         <nav class="mdl-navigation">
-			<a class="mdl-navigation__link" href="<?=site_url('flujo');?>">Flujo</a>
-			<a class="mdl-navigation__link" href="<?=site_url('reportes');?>">Reporte</a>
+			<a class="mdl-navigation__link a-prin" href="<?=site_url('flujo');?>">Flujo</a>
+			<a class="mdl-navigation__link a-prin" href="<?=site_url('reportes');?>">Reportes y Notificaciones</a>
+            <a class="mdl-navigation__link a-prin" href="<?=site_url('reportes');?>">Tipo de Cambio</a>
+
 			<div class="vimifos-drawer-separator"></div>
             <a class="mdl-navigation__link a-green" href="<?=site_url('catalogos/');?>">Catalogos</a>
-			<a class="mdl-navigation__link" href="<?=site_url('catalogos/cuentas');?>">Cuentas</a>
-			<a class="mdl-navigation__link" href="<?=site_url('catalogos/bancos');?>">Bancos</a>
-			<a class="mdl-navigation__link" href="<?=site_url('catalogos/beneficiarios');?>">Beneficiarios</a>
-			<a class="mdl-navigation__link" href="<?=site_url('catalogos/lineas');?>">Lineas</a>
-			<a class="mdl-navigation__link" href="<?=site_url('catalogos/une');?>">Unidades de Negocios</a>
-			<div class="vimifos-drawer-separator"></div>
-			<a class="mdl-navigation__link" href="<?=site_url('inicio_class/logout');?>">Cerrar Sesión</a>
+			<a class="mdl-navigation__link a-tab" href="<?=site_url('catalogos/cuentas');?>">Cuentas</a>
+			<a class="mdl-navigation__link a-tab" href="<?=site_url('catalogos/bancos');?>">Bancos</a>
+			<a class="mdl-navigation__link a-tab" href="<?=site_url('catalogos/beneficiarios');?>">Beneficiarios</a>
+			<a class="mdl-navigation__link a-tab" href="<?=site_url('catalogos/lineas');?>">Lineas</a>
+			<a class="mdl-navigation__link a-tab" href="<?=site_url('catalogos/une');?>">Unidades de Negocios</a>
+            <div class="vimifos-drawer-separator"></div>
+			<a class="mdl-navigation__link a-red" href="<?=site_url('inicio_class/logout');?>"><i class="material-icons">exit_to_app</i> Cerrar Sesión </a>
         </nav>
       </div>
 
