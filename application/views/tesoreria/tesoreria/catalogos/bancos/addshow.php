@@ -37,7 +37,7 @@
 							<article>
 								<div class="data"><?= $ban->ban_nombre; ?></div>
 								<div class="button-block">
-									<a href="editarbanco/<?= $ban->ban_id;?>" class="btn btn-default"><i class="fa fa-pencil"></i> Editar</a>
+									<a href="editarBanco/<?=$ban->ban_id;?>" class="btn btn-default"><i class="fa fa-pencil"></i> Editar</a>
 									<a href="" class="btn btn-danger" data-toggle="modal" data-target="#deletemodal<?= $ban->ban_id;?>"><i class="fa fa-times"></i> Eliminar</a>
 									<div class="modal fade" id="deletemodal<?= $ban->ban_id;?>" role="dialog"><!-- Modal -->
 										<div class="modal-dialog"><!-- Modal -->

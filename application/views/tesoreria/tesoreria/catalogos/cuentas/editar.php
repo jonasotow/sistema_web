@@ -5,7 +5,7 @@
 		</div>
 		<div class="box-catalogo">
 			<div class="form-group">
-				<?=form_open("/catalogos/addCuenta") ?>
+				<?=form_open("/catalogos/updateCuenta") ?>
 					<div class="form">
 						<?php
 							$cue_numero = array(
@@ -15,6 +15,7 @@
 								'type'=>'text',
 								'pattern'=>'[0-9]{4,11}',
 								'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
+								'value' => $ctabanune->result()[0]->cue_numero
 							);
 						?>
 						<?php
@@ -22,6 +23,7 @@
 								'name'	=>	'cue_nombre',
 								'placeholder' => 'Ejemplo: Chequera',
 								'class' => 'form-control',
+								'value' => $ctabanune->result()[0]->cue_nombre
 							);	
 						?>
 						<?php
@@ -29,13 +31,14 @@
 								'name'	=>	'cue_descripcion',
 								'placeholder' => 'Ejemplo: Cuenta de Chequera ',
 								'class' => 'form-control',
+								'value' => $ctabanune->result()[0]->cue_descripcion
 							);
 						?>
 
 						<div class="col-md-6">
 							<label for="cue_banco_id">Selecciones el Banco</label>
 							<select name="cue_banco_id" class="form-control" required="">
-									<option value> -- Seleccione uno Banco -- </option>
+									<option value="<?= $ctabanune->result()[0]->ban_id ?>">-- <?= $ctabanune->result()[0]->ban_nombre ?> --</option>
 							<?php
 								if ($ban) {
 								foreach ($ban->result() as $ban) { 
@@ -55,7 +58,7 @@
 
 							<label for="cue_es_inversion">¿Es Cuenta de Inversión?</label>
 							<select name="cue_es_inversion" class="form-control" required="">
-								<option value>-- Seleccione una Opción	--</option>
+								<option value="<?= $ctabanune->result()[0]->cue_es_inversion ?>">-- Seleccione una Opción --</option>
 								<option value="<?= $cue_es_inversion='1'?>">SI</option>
 								<option value="<?= $cue_es_inversion='0'?>">NO</option>
 							</select>
@@ -64,7 +67,8 @@
 						<div class="col-md-6">
 							<label for="cue_uninegocio_id">Selecciones la Unidad</label>
 							<select name="cue_uninegocio_id" class="form-control" required="">
-									<option value> -- Seleccione una Unidad -- </option>
+									<option value="<?= $ctabanune->result()[0]->une_id ?>">-- <?= $ctabanune->result()[0]->une_nombre ?> --</option>
+
 							<?php
 								if ($une) {
 								foreach ($une->result() as $une) { ?>
@@ -79,7 +83,7 @@
 
 							<label for="cue_divisa">Selecciones la Divisa</label>
 							<select name="cue_divisa" class="form-control" required="">
-								<option value> -- Seleccione Divisa -- </option>
+								<option value="<?= $ctabanune->result()[0]->cue_divisa ?>">-- <?= $ctabanune->result()[0]->cue_divisa ?> --</option>
 								<option value="USD">USD</option>
 								<option value="MXN">MXN</option>
 								<option value="EUR">EUR</option>
@@ -88,7 +92,7 @@
 						</div>
 						<div class="mdl-card__actions mdl-card--border">
 							<button type="submit" class="btn btn-success">Actualizar</button>
-							<a href="<?=base_url().'catalogos/bancos' ?>" type="button" class="btn btn-default">Cancelar</a>
+							<a href="<?=base_url().'catalogos/cuentas' ?>" type="button" class="btn btn-default">Cancelar</a>
 
 						</div>	
 					</div>	

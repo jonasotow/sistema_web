@@ -18,23 +18,28 @@
 						<th>SALDO ANTES DE DEPOSITOS</th>
 						<th>DEPOSITOS EN FIRME</th>
 						<th>DEPOSITOS 24 HRS</th>
-						<th>SALDO ANTES DE TRASPASOS</th>
 						<th>TRASPASO</th>
 						<th>SALDO FINAL DEL DIA</th> 
 					</tr> 
 				</thead> 
 				<tbody>
 				<?php
-					if ($reportetrapasos) {
-					foreach ($reportetrapasos as $reportetrapasos) { ?> 
+					if ($saldosunes) {
+					foreach ($saldosunes as $saldosunes) { ?> 
 					<tr> 
-						<th scope="row"><?=$reportetrapasos->tra_fecha;?></th> 
-						<td><?=$reportetrapasos->une_nombre;?></td>
-						<td><?=$reportetrapasos->T1C;?> <?=$reportetrapasos->T1N;?></td> 
-						<td><?=$reportetrapasos->T2C;?> <?=$reportetrapasos->T2N;?></td> 
-						<td><?=$reportetrapasos->divisa;?></td> 
-						<th class="moneda"><?=number_format($reportetrapasos->tra_monto);?></th> 
-						<td><?=$reportetrapasos->tra_descripcion;?></td> 
+						<th scope="row"><?=$saldosunes->une_nombre;?></th> 
+						<td><?=$saldosunes->cue_divisa;?></td>
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+ 
 					</tr> 
 				<?php } 
 				}else{

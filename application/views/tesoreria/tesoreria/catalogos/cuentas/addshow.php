@@ -109,7 +109,7 @@
 							<article>
 								<div class="ctabanune center-text "><span><?= $ctabanune->une_nombre; ?></span> - <?= $ctabanune->ban_nombre; ?> - <span><?= $ctabanune->cue_numero; ?></span> - <?= $ctabanune->cue_divisa; ?> </div>
 								<div class="button-block center-text">
-									<a href="editarCuenta/<?= $ctabanune->cue_id;?>" class="btn btn-default"><i class="fa fa-pencil"></i> Editar</a>
+									<a href="editarCuenta/<?=$ctabanune->cue_id;?>" class="btn btn-default"><i class="fa fa-pencil"></i> Editar</a>
 									<a href="" class="btn btn-danger" data-toggle="modal" data-target="#deletemodal<?= $ctabanune->cue_id;?>"><i class="fa fa-times"></i> Eliminar</a>
 								</div>
 

@@ -5,7 +5,7 @@
 		</div>
 		<div class="box-catalogo">
 			<div class="form-group">
-				<?=form_open("/catalogos/updateUnidad/".$id) ?>
+				<?=form_open("/catalogos/updateUnidad/".$id);?>
 					<div class="form">
 						<?php
 							$nombre_unidades = array(

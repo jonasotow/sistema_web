@@ -47,6 +47,11 @@
 								.saldo
 									&:before
 										content "$ "
+								.zero
+									color red
+									font-weight bold
+									&:before
+										content "$ "
 								tr
 									td 
 										text-align center
@@ -54,6 +59,8 @@
 										
 						.flujomodal	
 							.modal
+								.errormt
+									width 70%
 								.modal-dialog
 									width 90%
 									.modal-content
@@ -65,6 +72,8 @@
 
 											.close
 												color #fff
+										.errorht
+											background-color #ac2925
 										.modal-body
 											.form-group
 												display flex
@@ -82,3 +91,8 @@
 													
 												.textarea
 													overhide
+											.errort
+												font-size 2em
+												text-align center
+												margin 0 auto
+												width 50%

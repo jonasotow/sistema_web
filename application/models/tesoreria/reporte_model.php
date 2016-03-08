@@ -33,5 +33,50 @@ class Reporte_model extends My_Model {
         else return false;
     }
 
+    function saldosunes(){
+        $this->db->select('*');
+        $this->db->select_sum('cued_sald_ini');
+        $this->db->select_sum('cued_cheq_circ');
+        $this->db->select_sum('cued_cheques');
+        $this->db->select_sum('cued_pagos_lin');
+        $this->db->select_sum('cued_depos_fir');
+        $this->db->select_sum('cued_depos_24h');
+        $this->db->select_sum('tra_monto');
+        $this->db->select_sum('cued_sald_fin');
+        $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cue_cuentas_mstr, cued_cuentas_det');
+        $this->db->join('tra_traspasos_mstr','tra_traspasos_mstr.tra_cue_dest_id = cued_cuentas_det.cued_id AND tra_traspasos_mstr.tra_fecha = cued_cuentas_det.cued_fecha', 'left');
+        $this->db->where('cue_cuentas_mstr.cue_id = cued_cuentas_det.cued_id');     
+        $this->db->where('cue_cuentas_mstr.cue_uninegocio_id = une_uninegocio_mstr.une_id');
+        $this->db->where('ban_bancos_mstr.ban_id = cue_cuentas_mstr.cue_banco_id');
+        $this->db->where('cued_fecha = CURDATE()'); // filtro por fecha actual.
+        $this->db->group_by('une_nombre');
+        $this->db->group_by('cue_divisa');
+        $consulta = $this->db->get();
+        if($consulta->num_rows() > 0) return $consulta->result();
+        else return false;
+    }
+    function saldosunes_f($fecha){
+        $this->db->select('*');
+        $this->db->select_sum('cued_sald_ini');
+        $this->db->select_sum('cued_cheq_circ');
+        $this->db->select_sum('cued_cheques');
+        $this->db->select_sum('cued_pagos_lin');
+        $this->db->select_sum('cued_depos_fir');
+        $this->db->select_sum('cued_depos_24h');
+        $this->db->select_sum('tra_monto');
+        $this->db->select_sum('cued_sald_fin');
+        $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cue_cuentas_mstr, cued_cuentas_det');
+        $this->db->join('tra_traspasos_mstr','tra_traspasos_mstr.tra_cue_dest_id = cued_cuentas_det.cued_id AND tra_traspasos_mstr.tra_fecha = cued_cuentas_det.cued_fecha', 'left');
+        $this->db->where('cue_cuentas_mstr.cue_id = cued_cuentas_det.cued_id');     
+        $this->db->where('cue_cuentas_mstr.cue_uninegocio_id = une_uninegocio_mstr.une_id');
+        $this->db->where('ban_bancos_mstr.ban_id = cue_cuentas_mstr.cue_banco_id');
+        $this->db->where('cued_fecha', $fecha); // filtro por fecha actual.
+        $this->db->group_by('une_nombre');
+        $this->db->group_by('cue_divisa');
+        $consulta = $this->db->get();
+        if($consulta->num_rows() > 0) return $consulta->result();
+        else return false;
+    }
+
 }
 

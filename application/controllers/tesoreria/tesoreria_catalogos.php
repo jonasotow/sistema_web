@@ -15,23 +15,14 @@ class Tesoreria_catalogos extends MY_Controller {
 
 // Catalogos de Bancos -->
     function bancos(){
-        //$data['ban'] = $this->tesoreria_model->obtenerBancos();
-        //$this->load->view('tesoreria/tesoreria/bancos',$data);
-        //$this->template['ban'] = $this->tesoreria_model->obtenerBancos();
         $this->template['title'] = 'Banco';
         $this->template['titles'] = 'Bancos';
         $this->template['segmento'] = $this->uri->segment(3);
-        if(!$this->template['segmento']){
-            $this->template['ban'] = $this->tesoreria_model->obtenerBancos();
-        }
-        else{
-            $this->template['ban'] = $this->tesoreria_model->obtenerBanco($this->template['segmento']);
-        }
         $this->template['id'] = $this->uri->segment(3);
-        $this->template['banco'] = $this->tesoreria_model->obtenerBanco($this->template['id']);
+        $this->template['ban'] = $this->tesoreria_model->obtenerBancos($this->template['id']);
         $this->_run('catalogos/bancos/addshow');
     }
-    function editarbanco(){ 
+    function editarBanco(){ 
         $this->template['title'] = 'Banco';
         $this->template['titles'] = 'Bancos';
         $this->template['id'] = $this->uri->segment(3);
@@ -46,7 +37,7 @@ class Tesoreria_catalogos extends MY_Controller {
         $this->template['ban'] = $this->tesoreria_model->obtenerBancos();
         redirect(base_url('catalogos/bancos'));
     }
-    function updateank(){
+    function updatebank (){
         $data = array(
             'nombre_bancos' => $this->input->post('nombre_bancos')
         );
@@ -198,19 +189,15 @@ class Tesoreria_catalogos extends MY_Controller {
         $this->template['titles'] = 'Cuentas';
         $this->template['ban'] = $this->tesoreria_model->obtenerBancos();
         $this->template['une'] = $this->tesoreria_model->obtenerUnidades();
-        $this->template['cta'] = $this->tesoreria_model->obtenerCuentas();
         $this->template['ctabanune'] = $this->tesoreria_model->obtenerCuentasBancosUne();
         $this->_run('catalogos/cuentas/addshow');
     }
     function editarCuenta(){
-        $this->template['title'] = 'Cuenta';
         $this->template['titles'] = 'Cuentas';
         $this->template['id'] = $this->uri->segment(3);
-        $this->template['ids'] = $this->uri->segment(3);
-        $this->template['cta'] = $this->tesoreria_model->obtenerCuenta($this->template['id']);
-        $this->template['ctabanune'] = $this->tesoreria_model->obtenerCuentasBancosUnes($this->template['ids']);
         $this->template['ban'] = $this->tesoreria_model->obtenerBancos();
         $this->template['une'] = $this->tesoreria_model->obtenerUnidades();
+        $this->template['ctabanune'] = $this->tesoreria_model->obtenerCuentasBancosUnes($this->uri->segment(3));
         $this->_run('catalogos/cuentas/editar');
     }
     function addCuenta(){

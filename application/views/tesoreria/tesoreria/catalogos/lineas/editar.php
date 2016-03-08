@@ -5,7 +5,7 @@
 		</div>
 		<div class="box-catalogo">
 			<div class="form-group">
-				<?= form_open("/catalogos/updateLinea/".$id) ?>
+				<?=form_open("/catalogos/updateLinea/".$id);?>
 					<div class="form">
 						<?php
 							$linea_descripcion = array(

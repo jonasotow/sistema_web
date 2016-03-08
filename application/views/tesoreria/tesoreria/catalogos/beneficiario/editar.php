@@ -5,7 +5,7 @@
 		</div>
 		<div class="box-catalogo">
 			<div class="form-group">
-				<?= form_open("/catalogos/updateBeneficiario/".$id) ?>
+				<?=form_open("/catalogos/updateBeneficiario/".$id);?>
 					<div class="form">
 						<?php
 							$nombre_beneficiarios = array(

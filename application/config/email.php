@@ -26,7 +26,7 @@ $config['smtp_pass'] = 'gue6529T';
 //$config['wordwrap'] = TRUE;
 
 $config['mailtype'] = 'html';
-$config['charset']  = 'iso-8859-1';
+$config['charset']  = 'utf-8';
 $config['validate'] = TRUE;
 
 //$this->email->initialize($config);
