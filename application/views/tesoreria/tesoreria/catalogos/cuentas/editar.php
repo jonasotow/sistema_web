@@ -5,7 +5,7 @@
 		</div>
 		<div class="box-catalogo">
 			<div class="form-group">
-				<?=form_open("/catalogos/updateCuenta") ?>
+				<?=form_open("/catalogos/updateCuenta/".$id);?>
 					<div class="form">
 						<?php
 							$cue_numero = array(
@@ -26,14 +26,6 @@
 								'value' => $ctabanune->result()[0]->cue_nombre
 							);	
 						?>
-						<?php
-							$cue_descripcion = array(
-								'name'	=>	'cue_descripcion',
-								'placeholder' => 'Ejemplo: Cuenta de Chequera ',
-								'class' => 'form-control',
-								'value' => $ctabanune->result()[0]->cue_descripcion
-							);
-						?>
 
 						<div class="col-md-6">
 							<label for="cue_banco_id">Selecciones el Banco</label>
@@ -53,8 +45,13 @@
 
 							<?=form_label('Número de Cuenta:','cue_numero')?>
 							<?=form_input($cue_numero) ?>
-							<?=form_label('Descripción de Cuenta:','cue_descripcion')?>		
-							<?=form_input($cue_descripcion) ?>
+
+							<label for="cue_descripcion">Selecciones la Ciudad </label>
+							<select name="cue_descripcion" class="form-control" required="">
+								<option value="<?= $ctabanune->result()[0]->cue_descripcion ?>">-- <?= $ctabanune->result()[0]->cue_descripcion ?> --</option>
+								<option value="GUADALAJARA">GUADALAJARA</option>
+								<option value="EUR">OBREGON</option>
+							</select>
 
 							<label for="cue_es_inversion">¿Es Cuenta de Inversión?</label>
 							<select name="cue_es_inversion" class="form-control" required="">
@@ -65,7 +62,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<label for="cue_uninegocio_id">Selecciones la Unidad</label>
+							<label for="cue_uninegocio_id">Seleccione la Unidad</label>
 							<select name="cue_uninegocio_id" class="form-control" required="">
 									<option value="<?= $ctabanune->result()[0]->une_id ?>">-- <?= $ctabanune->result()[0]->une_nombre ?> --</option>
 
@@ -81,7 +78,7 @@
 								<?= form_label('Nombre de Cuenta:','cue_nombre')?>		
 								<?= form_input($cue_nombre) ?>
 
-							<label for="cue_divisa">Selecciones la Divisa</label>
+							<label for="cue_divisa">Seleccione la Divisa</label>
 							<select name="cue_divisa" class="form-control" required="">
 								<option value="<?= $ctabanune->result()[0]->cue_divisa ?>">-- <?= $ctabanune->result()[0]->cue_divisa ?> --</option>
 								<option value="USD">USD</option>

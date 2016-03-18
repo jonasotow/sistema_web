@@ -180,16 +180,22 @@ class Flujo_model extends My_Model {
     }
     
 // Insert *** Agregar Traspaso ***
-    function nuevotraspaso($data,$fecha){
-        $this->db->insert('tra_traspasos_mstr',
-            array(
-                'tra_cue_orig_id'=> $data['tra_cue_orig_id'],
-                'tra_cue_dest_id' => $data['tra_cue_dest_id'],
-                'tra_monto' => $data['tra_monto'],
-                'tra_descripcion' => $data['tra_descripcion'],
-                'tra_fecha' => $fecha,
+    function nuevotraspaso($data,$fecha,$id_o,$id_d){
+        $this->db->where('tra_cue_orig_id',$id_o);
+        $this->db->where('tra_cue_dest_id',$id_d);
+        $this->db->where('tra_fecha',$fecha);
+        $query = $this->db->get('tra_traspasos_mstr');
+        $datos = array(
+            'tra_cue_orig_id'=> $data['tra_cue_orig_id'],
+            'tra_cue_dest_id' => $data['tra_cue_dest_id'],
+            'tra_monto' => $data['tra_monto'],
+            'tra_descripcion' => $data['tra_descripcion'],
+            'tra_responsable'=> $this->input->post('tra_responsable'),
+            'tra_fecha' => $fecha,
+        );
 
-                 ));
+       $this->db->insert('tra_traspasos_mstr', $datos);
+    
     }
 
 // Update *** Actualizar saldo flujo cuenta origen ***
@@ -225,5 +231,6 @@ class Flujo_model extends My_Model {
         $this->db->where('cued_fecha',$fecha);
         $query = $this->db->update('cued_cuentas_det',$datos);
     }
+
 
 }

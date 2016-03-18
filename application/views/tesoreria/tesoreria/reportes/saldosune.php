@@ -30,15 +30,15 @@
 						<th scope="row"><?=$saldosunes->une_nombre;?></th> 
 						<td><?=$saldosunes->cue_divisa;?></td>
 						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
-						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_cheq_circ);?></td> 
+						<td class="moneda"></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_cheques);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_pagos_lin);?></td> 
+						<td class="moneda"></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_depos_fir);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_depos_24h);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->tra_monto);?></td> 
+						<td class="moneda"><?=number_format($saldosunes->cued_sald_fin);?></td> 
  
 					</tr> 
 				<?php } 

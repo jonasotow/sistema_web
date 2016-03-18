@@ -13,6 +13,7 @@ class MY_Controller extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('inicio_model');
+        $this->load->model('tesoreria/tipocambio_model');
 
         // Se carga el modelo de usuarios.
 		$this->load->model('users');
@@ -191,8 +192,9 @@ class MY_Controller extends CI_Controller {
 	    $this->load->model('prenomina/modelo_generico_model');
     }
      public function cargar_tesoreria(){
-      $this->template['sub_menu'] = $this->inicio_model->menu();
-      $this->load->model('tesoreria/modelo_generico_model');
+    	$this->template['sub_menu'] = $this->inicio_model->menu();
+     	$this->load->model('tesoreria/modelo_generico_model');
+     	$this->template['displaytipo'] = $this->inicio_model->displaytipo();
     }
     
     /*

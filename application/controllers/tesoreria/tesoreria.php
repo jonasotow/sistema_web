@@ -2,20 +2,16 @@
 
 class Tesoreria extends MY_Controller {
 
-    /**
-     * [__construct description]
-     */
     function __construct() {
         parent::__construct();
+        $dbBase = $this->load->database('tesoreria',TRUE);
+        $this->load->model('tesoreria/tipocambio_model');
+        $this->load->helper('form');
         $this->template['module'] = 'tesoreria';
     }
 
-    /**
-     * [index description]
-     * @return [type] [description]
-     */
     public function index() {
-        $this->_run('tesoreria');
+        $this->_run('tesoreria/home');
     }
 
 }

@@ -122,7 +122,6 @@
 						$cued_sald_fin = array(
 							'id'=>'total',
 							'type'=>'text',
-							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
 							'class' => 'form-control disabe',
 							'name'	=>	'cued_sald_fin',

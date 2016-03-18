@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/flujo.css'?>" >
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/base.css'?>" >
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/reporte.css'?>">
+	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/tipo.css'?>">
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/carousel.css'?>">
 
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/perfect-scrollbar.css'?>" >

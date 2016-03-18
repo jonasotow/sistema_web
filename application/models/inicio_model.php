@@ -28,6 +28,18 @@ class Inicio_model extends CI_Model {
 	    	return $this->{'_menu' . ucfirst($this->session->userdata('app'))}();
     }
 
+
+    function displaytipo(){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->select('*');
+        $this->db->from('tc_tcambio_det');
+        $this->db->join('tc_tcambio_mstr', 'tc_tcambio_det.tcd_insti_id = tc_tcambio_mstr.tc_insti_id');
+        $this->db->where('tcd_fecha = CURDATE()');
+        $consulta = $this->db->get();
+        if($consulta->num_rows() > 0) return $consulta->result();
+        else return false;
+    }
+
     function submenu(){
         /*if(method_exists($this,'_menuSub' . ucfirst($this->session->userdata('app'))))
             return $this->{'_menuSub ' . ucfirst($this->session->userdata('app'))}();*/

@@ -88,13 +88,13 @@ class Tesoreria_flujo extends MY_Controller {
             $divisa = $separa_datos_destino[2];
             $id = $separa_datos_destino[3];
 
-    
         $data = array(
                 'tra_cue_orig_id'=> $this->input->post('tra_cue_orig_id'),
                 'tra_cue_dest_id' => $id_destino,
                 'tra_monto' => $this->input->post('tra_monto'),
                 'tra_descripcion' => $this->input->post('tra_descripcion'),
                 'saldoori' => $this->input->post('saldoori'),
+                'tra_responsable'=> $this->input->post('tra_responsable'),
                  );
 
         $fecha = date('Y-m-d');
@@ -111,10 +111,11 @@ class Tesoreria_flujo extends MY_Controller {
         $saldonuevodestino = $saldodest + $tra_monto;
 
     // Envia datos a model    
-        $this->flujo_model->nuevotraspaso($data,$fecha);
+        $this->flujo_model->nuevotraspaso($data,$fecha,$id_o,$id_d);
         $this->flujo_model->actualizarsaldoorigen($saldonuevoorigen,$id_o);
         $this->flujo_model->actualizarsaldodestino($saldonuevodestino,$id_d);
-        // Regresar a flujo con datos
+
+    // Regresar a flujo con datos
         $this->template['title'] = 'Flujo';
         $this->template['divisa'] = $divisa;
         $this->template['saldototalune'] = $this->flujo_model->saldototalune($id,$divisa);
@@ -125,4 +126,5 @@ class Tesoreria_flujo extends MY_Controller {
         $this->_run('flujo/data_flujo');
 
     }
+
 }

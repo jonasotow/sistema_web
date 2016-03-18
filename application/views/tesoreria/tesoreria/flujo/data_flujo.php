@@ -32,7 +32,7 @@
 								<?php
 								if ($movcuebanune) {
 								foreach ($movcuebanune->result() as $movcuebanune) { ?>
-
+	
 								<?php 
 									$saldoopera = $movcuebanune->cued_sald_ini - $movcuebanune->cued_cheq_circ;
 									$saldoandep = $saldoopera - $movcuebanune->cued_cheques - $movcuebanune->cued_pagos_lin;
@@ -74,6 +74,8 @@
 											<button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored " data-toggle="modal" data-target="#traspaso<?=$movcuebanune->cued_id?>"><i class="material-icons">add</i></button>
 										</td>
 									</tr>
+
+									
 
 								<?php
 									if ($movcuebanune->cued_sald_fin > 0) { ?>
@@ -127,7 +129,7 @@
 															?>
 															<?php
 																$tra_descripcion = array(
-																	'required'=>'', 'style'=>'width:100%', 'class'=>'form-control', 
+																	'required'=>'', 'class'=>'form-control', 
 																	'name'=>'tra_descripcion', 
 																);
 															?>
@@ -146,6 +148,18 @@
 																		<option value="CHEQUE">CHEQUE</option>
 																		<option value="CORREO">CORREO</option>
 																		<option value="TELEFONICO">TELEFONICO</option>
+																	</select>
+																</div>
+															</div>
+															<div class="form-group">
+															
+																<label class="control-label right col-xs-2">Operado por:</label>
+																<div class="col-xs-3">
+																	<select name="tra_responsable" class="form-control left" required="">
+																		<option value> -- Tipo de movimiento  -- </option>
+																		<option value="TESORERIA CORPORATIVO">TESORERIA CORPORATIVO</option>
+																		<option value="TESORERIA OCCIDENTE">TESORERIA OCCIDENTE</option>
+																		<option value="TESORERIA NOROESTE">TESORERIA NOROESTE</option>
 																	</select>
 																</div>
 															</div>

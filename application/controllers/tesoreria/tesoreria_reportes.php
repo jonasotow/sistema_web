@@ -13,10 +13,8 @@ class Tesoreria_reportes extends MY_Controller {
         $this->template['title'] = 'reportes';
         $this->template['title2'] = 'notificaciones';
         $this->_run('reportes/home');
-
     }
     function rtraspasoactual(){
-
         $this->template['title'] = 'reportes traspaso';
         $this->template['reportetrapasos'] = $this->reporte_model->reportetrapasos();
         $this->_run('reportes/reportetraspasosactual');
@@ -63,5 +61,11 @@ class Tesoreria_reportes extends MY_Controller {
         $this->email->message($usuario.' a capturado el saldo inicial de sus cuentas.');
         $this->email->send();
         redirect(base_url('reportes/'));
+    }
+    function tipodecambio(){
+        $this->template['title'] = 'Tipo de Cambio';
+        $this->template['displaytipo'] = $this->reporte_model->displaytipo();        
+        $this->_run('tipocambio/home');
+
     }
 }

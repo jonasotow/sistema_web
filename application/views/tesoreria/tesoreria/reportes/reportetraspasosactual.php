@@ -15,6 +15,7 @@
 						<th>DIVISA</th> 
 						<th>MONTO</th> 
 						<th>MOVIMIENTO</th> 
+						<th>OPERADO</th> 
 					</tr> 
 				</thead> 
 				<tbody>
@@ -29,6 +30,7 @@
 						<td><?=$reportetrapasos->divisa;?></td> 
 						<th class="moneda"><?=number_format($reportetrapasos->tra_monto);?></th> 
 						<td><?=$reportetrapasos->tra_descripcion;?></td> 
+						<td><?=$reportetrapasos->tra_responsable;?></td> 
 					</tr> 
 				<?php } 
 				}else{

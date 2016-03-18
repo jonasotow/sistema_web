@@ -1,4 +1,4 @@
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -16,11 +16,34 @@
 					</div>
 				</div>
 				<div class="item">
-					<img src="<?=base_url('assets/img/tesoreria/tesoreria.jpg');?>" alt="Chania">
 					<div class="container">
 						<div class="carousel-caption">
-							<h1></h1>
-							<p></p>
+							<h1 class="mdl-typography--text-uppercase">Tipo de cambio</h1>
+							<div class="tipocambiocarousel">
+								<table class="table tipocam"> 
+									<thead>
+										<tr> 
+											<th><img src="<?=base_url('assets/img/tesoreria/ico-monedas.png');?>" alt="Moneda"></th>
+											<th>COMPRA</th> 
+											<th>VENTA</th> 
+										</tr> 
+									</thead> 
+									<tbody>
+									<?php
+										if ($displaytipo) {
+										foreach ($displaytipo as $displaytipo) { ?> 
+										<tr> 
+											<td><?=$displaytipo->tc_institucion;?></td>
+											<td class="moneda"><?=($displaytipo->tcd_tc_compra);?></th> 
+											<td class="moneda"><?=($displaytipo->tcd_tc_venta);?></th> 
+										</tr> 
+									<?php } 
+									}else{
+										echo "<div class='nodata'>Aún no se captura el tipo de cambio.</div>";
+									}?>
+									</tbody> 
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

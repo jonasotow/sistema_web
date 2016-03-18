@@ -24,8 +24,8 @@
         <nav class="mdl-navigation">
 			<a class="mdl-navigation__link a-prin" href="<?=site_url('flujo');?>">Flujo</a>
 			<a class="mdl-navigation__link a-prin" href="<?=site_url('reportes');?>">Reportes y Notificaciones</a>
-            <a class="mdl-navigation__link a-prin" href="<?=site_url('reportes');?>">Tipo de Cambio</a>
-
+            <div class="vimifos-drawer-separator"></div>
+            <a class="mdl-navigation__link a-prin" href="<?=site_url('tipocambio');?>">Tipo de Cambio</a>
 			<div class="vimifos-drawer-separator"></div>
             <a class="mdl-navigation__link a-green" href="<?=site_url('catalogos/');?>">Catalogos</a>
 			<a class="mdl-navigation__link a-tab" href="<?=site_url('catalogos/cuentas');?>">Cuentas</a>
