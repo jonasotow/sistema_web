@@ -6,6 +6,27 @@ class Flujo_model extends My_Model {
 	}
 
 // Consultas
+    function montodetrs($id_origen,$id_destino,$fecha){
+        $this->db->select('tra_fecha, tra_cue_dest_id, T1.cue_nombre AS T1C, T1.cue_numero AS T1N, tra_cue_orig_id, T2.cue_nombre AS T2C, T2.cue_numero AS T2N, une_nombre, tra_monto, tra_descripcion, tra_responsable, T1.cue_divisa AS divisa');
+        $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cued_cuentas_det, tra_traspasos_mstr');
+        $this->db->join('cue_cuentas_mstr as T1 ', 'T1.cue_id = tra_cue_orig_id' ,'inner');
+        $this->db->join('cue_cuentas_mstr as T2 ', 'T2.cue_id = tra_cue_dest_id' ,'inner');
+        $this->db->where('T1.cue_id = cued_id');     
+        $this->db->where('T1.cue_uninegocio_id = une_id');
+        $this->db->where('ban_id = T1.cue_banco_id');
+        $this->db->where('tra_fecha = cued_fecha'); 
+        $this->db->where('tra_fecha', $fecha); // filtro por fecha actual.
+        $this->db->where('tra_cue_orig_id', $id_origen); 
+        $this->db->where('tra_cue_dest_id', $id_destino); 
+        $consulta = $this->db->get();
+
+        $cadena = "";
+
+        foreach ($consulta->result_array() as $reg) {
+            $cadena.="<input type='hidden' name='montodetrs' value='{$reg['tra_monto']}'>";
+        }
+        echo $cadena;
+    }
 
     function saldototalune($id,$divisa){
         $this->db->select('*');
@@ -190,14 +211,23 @@ class Flujo_model extends My_Model {
             'tra_cue_dest_id' => $data['tra_cue_dest_id'],
             'tra_monto' => $data['tra_monto'],
             'tra_descripcion' => $data['tra_descripcion'],
-            'tra_responsable'=> $this->input->post('tra_responsable'),
             'tra_fecha' => $fecha,
         );
 
-       $this->db->insert('tra_traspasos_mstr', $datos);
+        if ($query->num_rows() > 0)
+        {
+            $this->db->where('tra_cue_orig_id',$id_o);
+            $this->db->where('tra_cue_dest_id',$id_d);
+            $this->db->where('tra_fecha',$fecha);
+            $this->db->update('tra_traspasos_mstr', $datos);
+
+        }
+        else
+        {
+            $this->db->insert('tra_traspasos_mstr', $datos);
+        }
     
     }
-
 // Update *** Actualizar saldo flujo cuenta origen ***
     function actualizarsaldoorigen($saldonuevoorigen,$id_o){
         $datos = array(

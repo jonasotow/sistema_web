@@ -127,4 +127,13 @@ class Tesoreria_flujo extends MY_Controller {
 
     }
 
+    function montotraspaso(){
+
+        $id_origen = 3;
+        $fecha = date('Y-m-d');
+
+        $this->template['montodetrs'] = $this->flujo_model->montodetrs($id_origen,$id_destino,$fecha);  
+    }
+
+
 }
