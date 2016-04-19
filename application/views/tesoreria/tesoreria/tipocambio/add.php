@@ -10,13 +10,17 @@
 						<div class="col-md-4">
 							<label for="tcd_insti_id">Selecciones una Institución</label>
 							<select name="tcd_insti_id" class="form-control" required="">
-								<option value> -- Seleccione uno Banco -- </option>
+								<option value> -- Seleccione uno Institución -- </option>
 									<?php
-										foreach ($insti->result() as $insti) { 
+									if ($insti) {
+										foreach ($insti->result() as $i) { 
+										
 									?>
-								<option value="<?=$insti->tc_insti_id;?>"><?=$insti->tc_institucion;?></option>
+								<option value="<?=$i->tc_insti_id;?>"><?=$i->tc_institucion;?></option>
 									<?php }	
-									?>
+									}else{
+										echo "<option>NO HAY DATOS</option>";
+									}?>
 							</select>
 
 							<label for="tcd_fecha">Fecha:</label>

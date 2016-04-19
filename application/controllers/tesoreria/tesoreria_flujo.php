@@ -81,39 +81,44 @@ class Tesoreria_flujo extends MY_Controller {
 // Traspasos *****
     function addtranspaso(){
 
-            $result_datos_destino = $_POST['datos_destino'];
-            $separa_datos_destino = explode('|', $result_datos_destino);
-            $id_destino = $separa_datos_destino[0];
-            $saldo_destino = $separa_datos_destino[1];
-            $divisa = $separa_datos_destino[2];
-            $id = $separa_datos_destino[3];
+        $result_datos_destino = $_POST['datos_destino'];
+        $separa_datos_destino = explode('|', $result_datos_destino);
+        $id_destino = $separa_datos_destino[0];
+        $saldo_destino = $separa_datos_destino[1];
+        $divisa = $separa_datos_destino[2];
+        $id = $separa_datos_destino[3];
 
         $data = array(
-                'tra_cue_orig_id'=> $this->input->post('tra_cue_orig_id'),
+                'tra_cue_orig_id' => $this->input->post('tra_cue_orig_id'),
                 'tra_cue_dest_id' => $id_destino,
                 'tra_monto' => $this->input->post('tra_monto'),
                 'tra_descripcion' => $this->input->post('tra_descripcion'),
                 'saldoori' => $this->input->post('saldoori'),
-                'tra_responsable'=> $this->input->post('tra_responsable'),
+                'tra_responsable' => $this->input->post('tra_responsable'),
+                'montoanterior' => $this->input->post('montoanterior'),
                  );
 
         $fecha = date('Y-m-d');
         $tra_monto = $data['tra_monto'];
+        $montoanterior = $data['montoanterior'];
+    // Saldo anterior *****
 
     // Restar traspaso a origen *****
         $id_o = $data['tra_cue_orig_id'];
         $saldoori = $data['saldoori']; 
-        $saldonuevoorigen = $saldoori - $tra_monto;
+        $stuori = $saldoori + $montoanterior;
+        $saldonuevoorigen = $stuori - $tra_monto;
 
     // Sumar traspaso a destino *****
         $id_d = $id_destino;
         $saldodest = $saldo_destino;
-        $saldonuevodestino = $saldodest + $tra_monto;
+        $studes = $saldodest - $montoanterior;
+        $saldonuevodestino = $studes + $tra_monto;
 
     // Envia datos a model    
         $this->flujo_model->nuevotraspaso($data,$fecha,$id_o,$id_d);
-        $this->flujo_model->actualizarsaldoorigen($saldonuevoorigen,$id_o);
-        $this->flujo_model->actualizarsaldodestino($saldonuevodestino,$id_d);
+        $this->flujo_model->actualizarsaldoorigen($saldonuevoorigen,$id_o,$fecha);
+        $this->flujo_model->actualizarsaldodestino($saldonuevodestino,$id_d,$fecha);
 
     // Regresar a flujo con datos
         $this->template['title'] = 'Flujo';
@@ -126,12 +131,11 @@ class Tesoreria_flujo extends MY_Controller {
         $this->_run('flujo/data_flujo');
 
     }
-
+    // Recibe datos por JavaScript
     function montotraspaso(){
-
-        $id_origen = 3;
+        $id_origen = $this->input->post('id_origen');
+        $id_destino = $this->input->post('id_destino');
         $fecha = date('Y-m-d');
-
         $this->template['montodetrs'] = $this->flujo_model->montodetrs($id_origen,$id_destino,$fecha);  
     }
 

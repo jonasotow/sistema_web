@@ -7,25 +7,26 @@ class Flujo_model extends My_Model {
 
 // Consultas
     function montodetrs($id_origen,$id_destino,$fecha){
-        $this->db->select('tra_fecha, tra_cue_dest_id, T1.cue_nombre AS T1C, T1.cue_numero AS T1N, tra_cue_orig_id, T2.cue_nombre AS T2C, T2.cue_numero AS T2N, une_nombre, tra_monto, tra_descripcion, tra_responsable, T1.cue_divisa AS divisa');
+        $this->db->select('tra_fecha, tra_cue_dest_id, T1.cue_nombre, T1.cue_numero, tra_cue_orig_id, T2.cue_nombre, T2.cue_numero, une_nombre, tra_monto, tra_descripcion, tra_responsable, T1.cue_divisa');
         $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cued_cuentas_det, tra_traspasos_mstr');
-        $this->db->join('cue_cuentas_mstr as T1 ', 'T1.cue_id = tra_cue_orig_id' ,'inner');
-        $this->db->join('cue_cuentas_mstr as T2 ', 'T2.cue_id = tra_cue_dest_id' ,'inner');
+        $this->db->join('cue_cuentas_mstr as T1 ', 'T1.cue_id = tra_cue_orig_id');
+        $this->db->join('cue_cuentas_mstr as T2 ', 'T2.cue_id = tra_cue_dest_id');
         $this->db->where('T1.cue_id = cued_id');     
         $this->db->where('T1.cue_uninegocio_id = une_id');
-        $this->db->where('ban_id = T1.cue_banco_id');
+        $this->db->where('T1.cue_banco_id = ban_id');
         $this->db->where('tra_fecha = cued_fecha'); 
+        $this->db->where('T1.cue_id', $id_origen); 
         $this->db->where('tra_fecha', $fecha); // filtro por fecha actual.
-        $this->db->where('tra_cue_orig_id', $id_origen); 
-        $this->db->where('tra_cue_dest_id', $id_destino); 
+        $this->db->where('T2.cue_id', $id_destino); 
         $consulta = $this->db->get();
 
         $cadena = "";
 
         foreach ($consulta->result_array() as $reg) {
-            $cadena.="<input type='hidden' name='montodetrs' value='{$reg['tra_monto']}'>";
+            $cadena.="{$reg['tra_monto']}";
         }
         echo $cadena;
+    
     }
 
     function saldototalune($id,$divisa){
@@ -106,8 +107,10 @@ class Flujo_model extends My_Model {
     function obtenerUnidad($id){
         $this->db->where('une_id',$id);
         $query = $this->db->get('une_uninegocio_mstr');
-        if($query->num_rows() > 0) return $query;
-        else return false;
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
 
     function flujoindex($id){
@@ -129,8 +132,10 @@ class Flujo_model extends My_Model {
         $this->db->where('cued_id',$id); 
         $this->db->where('cued_fecha = CURDATE();');
         $consulta = $this->db->get();
-        if($consulta->num_rows() > 0) return $consulta;
-        else return false;
+        if ($consulta->num_rows() > 0){
+           return $consulta->row();
+        }
+        return null;
     }
 
     function obternertraspasoenflujoorigen($id){
@@ -140,8 +145,10 @@ class Flujo_model extends My_Model {
         $this->db->where('cued_id',$id);
         $this->db->where('cued_fecha = CURDATE();');
         $consulta = $this->db->get();
-        if($consulta->num_rows() > 0) return $consulta;
-        else return false;
+        if ($consulta->num_rows() > 0){
+           return $consulta->row();
+        }
+        return null;
 
     }
     function obternertraspasoenflujodestino($id){
@@ -151,8 +158,10 @@ class Flujo_model extends My_Model {
         $this->db->where('cued_id',$id);
         $this->db->where('cued_fecha = CURDATE();');
         $consulta = $this->db->get();
-        if($consulta->num_rows() > 0) return $consulta;
-        else return false;
+        if ($consulta->num_rows() > 0){
+           return $consulta->row();
+        }
+        return null;
 
     }
     function obtenerBancos(){
@@ -211,6 +220,7 @@ class Flujo_model extends My_Model {
             'tra_cue_dest_id' => $data['tra_cue_dest_id'],
             'tra_monto' => $data['tra_monto'],
             'tra_descripcion' => $data['tra_descripcion'],
+            'tra_responsable' => $data['tra_responsable'],
             'tra_fecha' => $fecha,
         );
 
@@ -229,20 +239,22 @@ class Flujo_model extends My_Model {
     
     }
 // Update *** Actualizar saldo flujo cuenta origen ***
-    function actualizarsaldoorigen($saldonuevoorigen,$id_o){
+    function actualizarsaldoorigen($saldonuevoorigen,$id_o,$fecha){
         $datos = array(
                 'cued_sald_fin' => $saldonuevoorigen,
                  );
         $this->db->where('cued_id',$id_o);
+        $this->db->where('cued_fecha',$fecha);
         $query = $this->db->update('cued_cuentas_det',$datos);
     }
 
 // Update *** Actualizar saldo flujo cuenta destino ***
-    function actualizarsaldodestino($saldonuevodestino,$id){
+    function actualizarsaldodestino($saldonuevodestino,$id,$fecha){
         $datos = array(
                 'cued_sald_fin' => $saldonuevodestino,
                  );
         $this->db->where('cued_id',$id);
+        $this->db->where('cued_fecha',$fecha);
         $query = $this->db->update('cued_cuentas_det',$datos);
     }
 

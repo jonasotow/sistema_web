@@ -1,15 +1,15 @@
  <section class="vimifos-content mdl-layout__content">
 	<div class="panel panel-primary">
 		<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast">
-			<?=$title;?> | <?=$obtenercuentaune->result()[0]->une_nombre;?> - <?=$obtenercuentaune->result()[0]->cue_divisa;?> - <?=$obtenercuentaune->result()[0]->ban_nombre;?> <?=$obtenercuentaune->result()[0]->cue_numero;?> 
+			<?=$title;?> | <?=$obtenercuentaune->une_nombre;?> - <?=$obtenercuentaune->cue_divisa;?> - <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?> 
 		</div>
 		<div class="panel-body shadow">
 			<?=form_open("/flujo/updateFlujo/".$id) ?>
 			<div class="form">
 				<?php
-					$sumaentradas = $obtenercuentaune->result()[0]->cued_sald_ini + $obtenercuentaune->result()[0]->cued_depos_fir + $obtenercuentaune->result()[0]->cued_depos_24h; 
-					$restaflujo = $obtenercuentaune->result()[0]->cued_cheq_circ + $obtenercuentaune->result()[0]->cued_cheques + $obtenercuentaune->result()[0]->cued_pagos_lin;
-					$totaldesaldo = $obtenercuentaune->result()[0]->cued_sald_fin;
+					$sumaentradas = $obtenercuentaune->cued_sald_ini + $obtenercuentaune->cued_depos_fir + $obtenercuentaune->cued_depos_24h; 
+					$restaflujo = $obtenercuentaune->cued_cheq_circ + $obtenercuentaune->cued_cheques + $obtenercuentaune->cued_pagos_lin;
+					$totaldesaldo = $obtenercuentaune->cued_sald_fin;
 				?>	
 					<?php
 						$cued_sald_ini = array(
@@ -22,7 +22,7 @@
 							'name' => 'cued_sald_ini',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->result()[0]->cued_sald_ini 
+							'value' => $obtenercuentaune->cued_sald_ini 
 						);
 					?>
 					<?php
@@ -36,7 +36,7 @@
 							'name' => 'cued_depos_fir',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->result()[0]->cued_depos_fir 
+							'value' => $obtenercuentaune->cued_depos_fir 
 						);
 					?>
 					<?php
@@ -50,7 +50,7 @@
 							'name' => 'cued_depos_24h',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->result()[0]->cued_depos_24h 
+							'value' => $obtenercuentaune->cued_depos_24h 
 						);
 					?>
 					<?php
@@ -64,7 +64,7 @@
 							'name' => 'cued_cheques',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->result()[0]->cued_cheques 
+							'value' => $obtenercuentaune->cued_cheques 
 						);
 					?>
 
@@ -79,7 +79,7 @@
 							'class' => 'form-control',
 							'name'	=>	'cued_cheq_circ',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->result()[0]->cued_cheq_circ 
+							'value' => $obtenercuentaune->cued_cheq_circ 
 						);
 					?>
 					<?php
@@ -93,7 +93,7 @@
 							'class' => 'form-control',
 							'name'	=>	'cued_pagos_lin',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->result()[0]->cued_pagos_lin 
+							'value' => $obtenercuentaune->cued_pagos_lin 
 						);
 					?>
 					<?php
@@ -104,7 +104,7 @@
 							'style' => 'width: 150%',
 							'class' => 'form-control disabe',
 							'name'	=>	'tra_monto_favor',
-							'value' => $obternertraspasoenflujoorigen->result()[0]->tra_monto 
+							'value' => $obternertraspasoenflujoorigen->tra_monto 
 						);
 					?>
 					<?php
@@ -115,7 +115,7 @@
 							'style' => 'width: 150%',
 							'class' => 'form-control disabe',
 							'name'	=>	'tra_monto_contra',
-							'value' => $obternertraspasoenflujodestino->result()[0]->tra_monto 
+							'value' => $obternertraspasoenflujodestino->tra_monto 
 						);
 					?>
 					<?php

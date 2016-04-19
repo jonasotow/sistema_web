@@ -13,7 +13,7 @@
 								'class' => 'form-control',
 								'style' => 'width: 50%',
 								'required' => '',
-								'value' => $unidad->result()[0]->une_nombre
+								'value' => $unidad->une_nombre
 
 							);
 						?>

@@ -15,7 +15,7 @@
 								'type'=>'text',
 								'pattern'=>'[0-9]{4,11}',
 								'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
-								'value' => $ctabanune->result()[0]->cue_numero
+								'value' => $ctabanune->cue_numero
 							);
 						?>
 						<?php
@@ -23,14 +23,14 @@
 								'name'	=>	'cue_nombre',
 								'placeholder' => 'Ejemplo: Chequera',
 								'class' => 'form-control',
-								'value' => $ctabanune->result()[0]->cue_nombre
+								'value' => $ctabanune->cue_nombre
 							);	
 						?>
 
 						<div class="col-md-6">
 							<label for="cue_banco_id">Selecciones el Banco</label>
 							<select name="cue_banco_id" class="form-control" required="">
-									<option value="<?= $ctabanune->result()[0]->ban_id ?>">-- <?= $ctabanune->result()[0]->ban_nombre ?> --</option>
+									<option value="<?= $ctabanune->ban_id ?>">-- <?= $ctabanune->ban_nombre ?> --</option>
 							<?php
 								if ($ban) {
 								foreach ($ban->result() as $ban) { 
@@ -46,16 +46,16 @@
 							<?=form_label('Número de Cuenta:','cue_numero')?>
 							<?=form_input($cue_numero) ?>
 
-							<label for="cue_descripcion">Selecciones la Ciudad </label>
+							<label for="cue_descripcion">Selecciones Origen </label>
 							<select name="cue_descripcion" class="form-control" required="">
-								<option value="<?= $ctabanune->result()[0]->cue_descripcion ?>">-- <?= $ctabanune->result()[0]->cue_descripcion ?> --</option>
+								<option value="<?= $ctabanune->cue_descripcion ?>">-- <?= $ctabanune->cue_descripcion ?> --</option>
 								<option value="GUADALAJARA">GUADALAJARA</option>
 								<option value="EUR">OBREGON</option>
 							</select>
 
 							<label for="cue_es_inversion">¿Es Cuenta de Inversión?</label>
 							<select name="cue_es_inversion" class="form-control" required="">
-								<option value="<?= $ctabanune->result()[0]->cue_es_inversion ?>">-- Seleccione una Opción --</option>
+								<option value="<?= $ctabanune->cue_es_inversion ?>">-- Seleccione una Opción --</option>
 								<option value="<?= $cue_es_inversion='1'?>">SI</option>
 								<option value="<?= $cue_es_inversion='0'?>">NO</option>
 							</select>
@@ -64,7 +64,7 @@
 						<div class="col-md-6">
 							<label for="cue_uninegocio_id">Seleccione la Unidad</label>
 							<select name="cue_uninegocio_id" class="form-control" required="">
-									<option value="<?= $ctabanune->result()[0]->une_id ?>">-- <?= $ctabanune->result()[0]->une_nombre ?> --</option>
+									<option value="<?= $ctabanune->une_id ?>">-- <?= $ctabanune->une_nombre ?> --</option>
 
 							<?php
 								if ($une) {
@@ -80,7 +80,7 @@
 
 							<label for="cue_divisa">Seleccione la Divisa</label>
 							<select name="cue_divisa" class="form-control" required="">
-								<option value="<?= $ctabanune->result()[0]->cue_divisa ?>">-- <?= $ctabanune->result()[0]->cue_divisa ?> --</option>
+								<option value="<?= $ctabanune->cue_divisa ?>">-- <?= $ctabanune->cue_divisa ?> --</option>
 								<option value="USD">USD</option>
 								<option value="MXN">MXN</option>
 								<option value="EUR">EUR</option>

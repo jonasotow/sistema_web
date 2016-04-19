@@ -13,7 +13,7 @@
 								'placeholder' => 'Ejemplo: Linea',
 								'class' => 'form-control',
 								'required' => '',
-								'value' => $lin->result()[0]->lin_descripcion 
+								'value' => $lin->lin_descripcion 
 							);
 						?>
 						<?php
@@ -24,7 +24,7 @@
 								'type'=>'text',
 								'pattern'=>'[0-9]{1,}',
 								'required title' => 'INGRESE SOLO NÚMEROS',
-								'value' => $lin->result()[0]->lin_autorizado 
+								'value' => $lin->lin_autorizado 
 							);
 						?>
 
@@ -36,13 +36,13 @@
 								'type'=>'text',
 								'pattern'=>'[0-9]{1,}',
 								'required title' => 'INGRESE SOLO NÚMEROS',
-								'value' => $lin->result()[0]->lin_disponible 
+								'value' => $lin->lin_disponible 
 							);
 						?>
 					<div class="col-md-6">
 						<label for="lin_banco_id">Selecciones el Banco</label>
 						<select name="lin_banco_id" class="form-control" required >
-								<option value="<?= $linbans->result()[0]->ban_id ?>">-- <?= $linbans->result()[0]->ban_nombre ?> --</option>
+								<option value="<?=$linbans->ban_id;?>">-- <?=$linbans->ban_nombre;?> --</option>
 
 						<?php
 							foreach ($ban->result() as $ban) { ?>
@@ -56,9 +56,9 @@
 						<label for="lin_es_largo_plazo">¿La Linea es a Largo Plazo?</label>
 						
 						<select name="lin_es_largo_plazo" class="form-control" required="">
-							<option value="<?= $lin->result()[0]->lin_es_largo_plazo ?>">-- 
+							<option value="<?= $lin->lin_es_largo_plazo ?>">-- 
 								<?php
-									$var = $lin->result()[0]->lin_es_largo_plazo;
+									$var = $lin->lin_es_largo_plazo;
 									if ( $var == 0) {
 										echo "NO";
 									}

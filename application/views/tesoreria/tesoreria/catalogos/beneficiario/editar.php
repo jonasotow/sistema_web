@@ -12,7 +12,7 @@
 								'name'	=>	'nombre_beneficiarios',
 								'class' => 'form-control',
 								'required' => '',
-								'value' => $beneficiario->result()[0]->ben_nombre
+								'value' => $beneficiario->ben_nombre
 
 							);
 						?>

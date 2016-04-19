@@ -17,8 +17,10 @@ class Tesoreria_model extends My_Model {
     function obtenerBanco($id){
         $this->db->where('ban_id',$id);
         $query = $this->db->get('ban_bancos_mstr');
-        if($query->num_rows() > 0) return $query;
-        else return false;
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
     function actualizarBanco($id, $data){
         $datos = array('ban_nombre'=>$data['nombre_bancos']);
@@ -41,8 +43,10 @@ class Tesoreria_model extends My_Model {
     function obtenerBeneficiario($id){
         $this->db->where('ben_id',$id);
         $query = $this->db->get('ben_beneficiarios_mstr');
-        if($query->num_rows() > 0) return $query;
-        else return false;
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
     function actualizarBeneficiario($id, $data){
         $datos = array('ben_nombre'=>$data['nombre_beneficiarios']);
@@ -65,8 +69,10 @@ class Tesoreria_model extends My_Model {
     function obtenerUnidad($id){
         $this->db->where('une_id',$id);
         $query = $this->db->get('une_uninegocio_mstr');
-        if($query->num_rows() > 0) return $query;
-        else return false;
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
     function actualizarUnidad($id, $data){
         $datos = array('une_nombre'=>$data['nombre_unidades']);
@@ -96,8 +102,10 @@ class Tesoreria_model extends My_Model {
     function obtenerLinea($id){
         $this->db->where('lin_id',$id);
         $query = $this->db->get('lin_lineas_mstr');
-        if($query->num_rows() > 0) return $query;
-        else return false;
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
     function obtenerLineasBancos(){
         $this->db->select('*');
@@ -111,9 +119,11 @@ class Tesoreria_model extends My_Model {
         $this->db->where('lin_id',$id);
         $this->db->from('lin_lineas_mstr');
         $this->db->join('ban_bancos_mstr', 'ban_bancos_mstr.ban_id = lin_lineas_mstr.lin_banco_id');
-        $consulta = $this->db->get();
-        if($consulta->num_rows() > 0) return $consulta;
-        else return false;
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
     function deleteLinea($id){ 
         $this->db->delete('lin_lineas_mstr',array('lin_id'=>$id));
@@ -151,8 +161,10 @@ class Tesoreria_model extends My_Model {
     function obtenerCuenta($id){
         $this->db->where('cue_id',$id);
         $query = $this->db->get('cue_cuentas_mstr');
-        if($query->num_rows() > 0) return $query;
-        else return false;
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
     function obtenerCuentasBancosUne(){
         $this->db->select('*');
@@ -168,9 +180,11 @@ class Tesoreria_model extends My_Model {
         $this->db->from('cue_cuentas_mstr');
         $this->db->join('ban_bancos_mstr', 'ban_bancos_mstr.ban_id = cue_cuentas_mstr.cue_banco_id');
         $this->db->join('une_uninegocio_mstr', 'une_uninegocio_mstr.une_id = cue_cuentas_mstr.cue_uninegocio_id');
-        $consulta = $this->db->get();
-        if($consulta->num_rows() > 0) return $consulta;
-        else return false;
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
     }
     function deleteCuenta($id){ 
         $this->db->delete('cue_cuentas_mstr',array('cue_id'=>$id));

@@ -12,7 +12,7 @@
 								'name'	=>	'nombre_bancos',
 								'class' => 'form-control',
 								'required' => '',
-								'value' => $banco->result()[0]->ban_nombre
+								'value' => $banco->ban_nombre
 							);
 						?>
 						<div class="col-md-6">		

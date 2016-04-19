@@ -1,14 +1,15 @@
 <?php
-	$id_une = $une->result()[0]->une_id; 
+	$id_une = $une->une_id; 
 ?>
 
 <section class="vimifos-content mdl-layout__content">
 	<section class="flujo ">
 		<div class="panel panel-primary">
-			<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast"><?=$title;?> DE <?=$une->result()[0]->une_nombre; ?> EN <?=$divisa;?> </div>
+			<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast"><?=$title;?> DE <?=$une->une_nombre; ?> EN <?=$divisa;?> </div>
 			<div class="panel-body shadow">
 				<div class="col-md-12 ">
 					<div class="form-group">
+					<?php if ($movcuebanune) {?>
 						<div class="panel panel-default">
 							<table class="table ">
 								<thead>
@@ -29,8 +30,8 @@
 									</tr>
 								</thead>
 								<tbody>
-								<?php
-								if ($movcuebanune) {
+								
+								<?php 
 								foreach ($movcuebanune->result() as $movcuebanune) { ?>
 	
 								<?php 
@@ -92,17 +93,17 @@
 														<div class="modal-body">
 															<div class="form-group">
 																<label for="tra_cue_orig_id" class="control-label right col-xs-2">Cuenta Origen:</label>
-																<input value="<?=$movcuebanune->cued_id;?>" name="tra_cue_orig_id" type="hidden">
+																<input value="<?=$movcuebanune->cued_id;?>" name="tra_cue_orig_id" id="<?=$movcuebanune->cued_id;?>" type="hidden">
 																<label class="col-xs-5 left control-label">
 																	<?=$movcuebanune->ban_nombre;?> - <?=$movcuebanune->cue_nombre;?> <?=$movcuebanune->cue_numero;?> - <?=$movcuebanune->cue_divisa;?>: $<?=number_format($movcuebanune->cued_sald_fin);?>
-																<input value="<?=$movcuebanune->cued_sald_fin;?>" name="saldoori" type="hidden">
 																</label>																	
+																<input value="<?=$movcuebanune->cued_sald_fin;?>" name="saldoori" type="hidden">
 															</div>
 
 															<div class="form-group">
 																<label for="datos_destino" class="control-label right col-xs-2">Cuenta Destino:</label>
 																<div class="col-xs-7">
-																	<select name="datos_destino" style="width:100%" class="form-control left" required="">
+																	<select name="datos_destino" id="datos_destino<?=$movcuebanune->cued_id;?>" style="width:100%" class="form-control left" required="">
 																		<option value> -- Seleccione una Cuenta -- </option>
 																<?php
 																	foreach ($obtenertodo as $bancos) { ?>
@@ -127,12 +128,7 @@
 																	'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
 																);
 															?>
-															<?php
-																$tra_descripcion = array(
-																	'required'=>'', 'class'=>'form-control', 
-																	'name'=>'tra_descripcion', 
-																);
-															?>
+												
 															<div class="form-group">
 																<label class="control-label right col-xs-2">Importe:</label>
 																<div class="input-group left col-xs-3">
@@ -152,7 +148,6 @@
 																</div>
 															</div>
 															<div class="form-group">
-															
 																<label class="control-label right col-xs-2">Operado por:</label>
 																<div class="col-xs-3">
 																	<select name="tra_responsable" class="form-control left" required="">
@@ -163,6 +158,9 @@
 																	</select>
 																</div>
 															</div>
+
+															<input value="" type="hidden" name="montoanterior" id="montodetrs<?=$movcuebanune->cued_id;?>">
+
 														</div><!-- modal-body -->
 														<div class="modal-footer">
 															<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -171,6 +169,29 @@
 													<?=form_close() ?>
 												</div><!-- modal-content -->
 											</div><!-- modal-dialog -->
+											<script type="text/javascript">	
+												var path = '<?= base_url()?>index.php';
+
+												$(document).ready(function() {
+													$("#datos_destino<?=$movcuebanune->cued_id;?>").change(function() {
+														$("#datos_destino<?=$movcuebanune->cued_id;?> option:selected").each(function() {
+
+
+															var sof =$('#<?=$movcuebanune->cued_id;?>').val();
+															var vim =$('#datos_destino<?=$movcuebanune->cued_id;?>').val();
+												    		var arr = vim.split('|');
+
+															$.post(path + 'flujo/montotraspaso', { 
+																id_origen : sof,
+																id_destino : arr[0]
+															}, function(resp) {
+																$("#montodetrs<?=$movcuebanune->cued_id;?>").val(resp);
+															});
+														});
+													})
+												});
+
+											</script>
 										</div><!-- modal -->
 									</div>
 
@@ -198,57 +219,11 @@
 									</div>
 								<?php }
 								?>
-
-									<?php } 
-									}else{
-									echo'
-										Uy tenemos un error
-									';											 
-									}?>
-
-									<?php
-										foreach ($saldototalune_trapaso as $saldototalune_trapaso) { 
-
-										$saldotraspasoune = $saldototalune_trapaso->tra_monto;
-									}?>
-									<?php if ($saldotraspasoune <= 0) { $saldotraspasoune_css = "zero"; } else { $saldotraspasoune_css = "saldo";}?>
-
-									<?php
-										foreach ($saldototalune as $saldoune) { ?>
-
-											<?php 
-												$saldoopera_total = $saldoune->cued_sald_ini - $saldoune->cued_cheq_circ;
-												$saldoandep_total = $saldoopera_total - $saldoune->cued_cheques - $saldoune->cued_pagos_lin;
-												$saldoantras_total = $saldoandep_total + $saldoune->cued_depos_fir + $saldoune->cued_depos_24h;?>
-
-										<?php if ($saldoune->cued_sald_ini <= 0) { $cued_sald_ini = "zero"; } else { $cued_sald_ini = "saldo";}?>
-										<?php if ($saldoune->cued_cheq_circ <= 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
-										<?php if ($saldoopera_total <= 0) { $saldoopera_total_css = "zero"; } else { $saldoopera_total_css = "saldo";}?>
-										<?php if ($saldoune->cued_cheques <= 0) { $cued_cheques = "zero"; } else { $cued_cheques = "saldo";}?>
-										<?php if ($saldoune->cued_pagos_lin <= 0) { $cued_pagos_lin = "zero"; } else { $cued_pagos_lin = "saldo";}?>
-										<?php if ($saldoune->cued_cheq_circ <= 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
-										<?php if ($saldoandep_total <= 0) { $saldoandep_total_css = "zero"; } else { $saldoandep_total_css = "saldo";}?>
-										<?php if ($saldoune->cued_depos_fir <= 0) { $cued_depos_fir = "zero"; } else { $cued_depos_fir = "saldo";}?>
-										<?php if ($saldoune->cued_depos_24h <= 0) { $cued_depos_24h = "zero"; } else { $cued_depos_24h = "saldo";}?>
-										<?php if ($saldoantras_total <= 0) { $saldoantras_total_css = "zero"; } else { $saldoantras_total_css = "saldo";}?>
-										<?php if ($saldotraspasoune <= 0) { $saldotraspasoune_css = "zero"; } else { $saldotraspasoune_css = "saldo";}?>				<?php if ($saldoune->cued_sald_fin <= 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
-
-									<tr class="total">
-										<td >Total:</td>
-										<td class="<?=$cued_sald_ini;?>"><?=number_format($saldoune->cued_sald_ini);?></td>
-										<td class="<?=$cued_cheq_circ;?>"><?=number_format($saldoune->cued_cheq_circ);?></td>
-										<td class="<?=$saldoopera_total_css;?>"><?=number_format($saldoopera_total);?></td>
-										<td class="<?=$cued_cheques;?>"><?=number_format($saldoune->cued_cheques);?></td>
-										<td class="<?=$cued_pagos_lin;?>"><?=number_format($saldoune->cued_pagos_lin);?></td>
-										<td class="<?=$saldoandep_total_css;?>"><?=number_format($saldoandep_total);?></td>
-										<td class="<?=$cued_depos_fir;?>"><?=number_format($saldoune->cued_depos_fir);?></td>
-										<td class="<?=$cued_depos_24h;?>"><?=number_format($saldoune->cued_depos_24h);?></td>
-										<td class="<?=$saldoantras_total_css;?>"><?=number_format($saldoantras_total);?></td>
-										<td class="<?=$saldotraspasoune_css;?>"><?=number_format($saldotraspasoune);?></td>
-										<td class="<?=$cued_sald_fin;?>"><?=number_format($saldoune->cued_sald_fin);?></td>
-									</tr>
-									<?php }
-									?>
+								<?php } 
+									}else{ ?>
+										<div class="fcriterio">No hay cuentas con este criterio</div>
+								<?php }?>
+																	
 								</tbody>
 							</table>
 						</div>
