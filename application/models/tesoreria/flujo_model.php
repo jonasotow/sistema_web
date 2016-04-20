@@ -80,6 +80,7 @@ class Flujo_model extends My_Model {
         $this->db->where('cued_fecha = CURDATE()'); // filtro por fecha actual.
         $this->db->group_by('cued_id ');
         $this->db->order_by('cued_id', 'asc');
+        $this->db->order_by('cue_descripcion', 'asc');
         $consulta = $this->db->get();
         if($consulta->num_rows() > 0) return $consulta;
         else return false;

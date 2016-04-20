@@ -56,7 +56,7 @@
 									<tr>
 										<td> 
 											<a href="<?=base_url().'flujo/editarflujo'?>/<?= $movcuebanune->cued_id;?>">
-												<?=$movcuebanune->ban_nombre; ?>-<?= $movcuebanune->cue_numero;?>
+												<?=$movcuebanune->ban_nombre; ?> - <?=$movcuebanune->cue_numero;?> - <?=$movcuebanune->cue_descripcion;?>
 											</a>
 										</td>
 										<td class="<?=$cued_sald_ini;?>"><?=number_format($movcuebanune->cued_sald_ini);?></td>

@@ -24,7 +24,7 @@
 					foreach ($reportetrapasos as $reportetrapasos) { ?> 
 					<tr> 
 						<th scope="row"><?=$reportetrapasos->tra_fecha;?></th> 
-						<td><?=$reportetrapasos->une_nombre;?></td>
+						<td><?=$reportetrapasos->une_nombre;?> <?=$reportetrapasos->T1CD;?></td>
 						<td><?=$reportetrapasos->T1C;?> <?=$reportetrapasos->T1N;?></td> 
 						<td><?=$reportetrapasos->T2C;?> <?=$reportetrapasos->T2N;?></td> 
 						<td><?=$reportetrapasos->divisa;?></td> 

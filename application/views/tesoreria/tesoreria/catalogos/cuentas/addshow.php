@@ -50,7 +50,7 @@
 								<select name="cue_descripcion" class="form-control" required="">
 									<option value>-- Seleccione una Opción	--</option>
 									<option value="GUADALAJARA">GUADALAJARA</option>
-									<option value="EUR">OBREGON</option>
+									<option value="OBREGON">OBREGON</option>
 								</select>
 
 								<label for="cue_es_inversion">¿Es Cuenta de Inversión?</label>

@@ -26,15 +26,19 @@
 				<?php
 					if ($saldosunes) {
 					foreach ($saldosunes as $saldosunes) { ?> 
+						<?php 
+							$saldoopera = $saldosunes->cued_sald_ini - $saldosunes->cued_cheq_circ;
+							$saldoandep = $saldoopera - $saldosunes->cued_cheques - $saldosunes->cued_pagos_lin;?>
+
 					<tr> 
-						<th scope="row"><?=$saldosunes->une_nombre;?></th> 
+						<th scope="row"><?=$saldosunes->une_nombre;?> <?=$saldosunes->cue_descripcion;?> </th> 
 						<td><?=$saldosunes->cue_divisa;?></td>
 						<td class="moneda"><?=number_format($saldosunes->cued_sald_ini);?></td> 
 						<td class="moneda"><?=number_format($saldosunes->cued_cheq_circ);?></td> 
-						<td class="moneda"></td> 
+						<td class="moneda"><?=number_format($saldoopera);?></td> 
 						<td class="moneda"><?=number_format($saldosunes->cued_cheques);?></td> 
 						<td class="moneda"><?=number_format($saldosunes->cued_pagos_lin);?></td> 
-						<td class="moneda"></td> 
+						<td class="moneda"><?=number_format($saldoandep);?></td> 
 						<td class="moneda"><?=number_format($saldosunes->cued_depos_fir);?></td> 
 						<td class="moneda"><?=number_format($saldosunes->cued_depos_24h);?></td> 
 						<td class="moneda"><?=number_format($saldosunes->tra_monto);?></td> 
