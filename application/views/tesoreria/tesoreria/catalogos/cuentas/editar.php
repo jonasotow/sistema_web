@@ -47,7 +47,7 @@
 							<?=form_input($cue_numero) ?>
 
 							<label for="cue_descripcion">Selecciones Origen </label>
-							<select name="cue_descripcion" class="form-control" required="">
+							<select name="cue_descripcion" class="form-control">
 								<option value="<?= $ctabanune->cue_descripcion ?>">-- <?= $ctabanune->cue_descripcion ?> --</option>
 								<option value="GUADALAJARA">GUADALAJARA</option>
 								<option value="EUR">OBREGON</option>

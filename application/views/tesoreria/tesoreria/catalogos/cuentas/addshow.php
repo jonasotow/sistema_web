@@ -47,7 +47,7 @@
 								<?= form_input($cue_numero) ?>
 
 								<label for="cue_descripcion">Seleccione la Ciudad</label>
-								<select name="cue_descripcion" class="form-control" required="">
+								<select name="cue_descripcion" class="form-control">
 									<option value>-- Seleccione una Opción	--</option>
 									<option value="GUADALAJARA">GUADALAJARA</option>
 									<option value="OBREGON">OBREGON</option>

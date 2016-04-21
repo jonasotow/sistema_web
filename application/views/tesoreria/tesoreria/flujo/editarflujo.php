@@ -25,11 +25,53 @@
 							'value' => $obtenercuentaune->cued_sald_ini 
 						);
 					?>
+						<?php
+						$cued_cheq_circ = array(
+							'type'=>'text',
+							'id'=>'valor5',
+							'tabindex'=>'2',
+							'onkeyup'=>'sumar();',
+							'pattern'=>'[0-9]{1,}',
+							'style' => 'width: 150%',
+							'class' => 'form-control',
+							'name'	=>	'cued_cheq_circ',
+							'required title' => 'INGRESE SOLO NÚMEROS',
+							'value' => $obtenercuentaune->cued_cheq_circ 
+						);
+					?>
+					<?php
+						$cued_cheques = array(
+							'type'=>'text',
+							'id'=>'valor4',
+							'tabindex'=>'3',
+							'onkeyup'=>'sumar();',
+							'pattern'=>'[0-9]{1,}',
+							'style' => 'width: 150%',
+							'name' => 'cued_cheques',
+							'class' => 'form-control',
+							'required title' => 'INGRESE SOLO NÚMEROS',
+							'value' => $obtenercuentaune->cued_cheques 
+						);
+					?>
+					<?php
+						$cued_pagos_lin = array(
+							'type'=>'text',
+							'id'=>'valor6',
+							'tabindex'=>'4',
+							'onkeyup'=>'sumar();',
+							'pattern'=>'[0-9]{1,}',
+							'style' => 'width: 150%',
+							'class' => 'form-control',
+							'name'	=>	'cued_pagos_lin',
+							'required title' => 'INGRESE SOLO NÚMEROS',
+							'value' => $obtenercuentaune->cued_pagos_lin 
+						);
+					?>
 					<?php
 						$cued_depos_fir = array(
 							'type'=>'text',
 							'id'=>'valor2',
-							'tabindex'=>'2',
+							'tabindex'=>'5',
 							'onkeyup'=>'sumar();',
 							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
@@ -43,7 +85,7 @@
 						$cued_depos_24h = array(
 							'type'=>'text',
 							'id'=>'valor3',
-							'tabindex'=>'3',
+							'tabindex'=>'6',
 							'onkeyup'=>'sumar();',
 							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
@@ -51,49 +93,6 @@
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
 							'value' => $obtenercuentaune->cued_depos_24h 
-						);
-					?>
-					<?php
-						$cued_cheques = array(
-							'type'=>'text',
-							'id'=>'valor4',
-							'tabindex'=>'5',
-							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
-							'style' => 'width: 150%',
-							'name' => 'cued_cheques',
-							'class' => 'form-control',
-							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_cheques 
-						);
-					?>
-
-					<?php
-						$cued_cheq_circ = array(
-							'type'=>'text',
-							'id'=>'valor5',
-							'tabindex'=>'4',
-							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
-							'style' => 'width: 150%',
-							'class' => 'form-control',
-							'name'	=>	'cued_cheq_circ',
-							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_cheq_circ 
-						);
-					?>
-					<?php
-						$cued_pagos_lin = array(
-							'type'=>'text',
-							'id'=>'valor6',
-							'tabindex'=>'6',
-							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
-							'style' => 'width: 150%',
-							'class' => 'form-control',
-							'name'	=>	'cued_pagos_lin',
-							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_pagos_lin 
 						);
 					?>
 					<?php
@@ -134,19 +133,6 @@
 							<div class="input-group-addon">$</div>
 							<?=form_input($cued_sald_ini); ?>
 						</div>
-						<?= form_label('DEPOSITOS EN FIRME:','cued_depos_fir')?>		
-						<div class="input-group col-md-4">
-							<div class="input-group-addon">$</div>
-							<?=form_input($cued_depos_fir); ?>
-						</div>
-						<?= form_label('DEPOSITOS 24 HRS:','cued_depos_24h')?>		
-						<div class="input-group col-md-4">
-							<div class="input-group-addon">$</div>
-							<?=form_input($cued_depos_24h); ?>
-						</div>
-					</div>
-
-					<div class="col-md-4">
 						<?= form_label('CHEQUES CIRCULACIÓN:','cued_cheq_circ')?>		
 						<div class="input-group col-md-4">
 							<div class="input-group-addon">$</div>
@@ -161,6 +147,16 @@
 						<div class="input-group col-md-4">
 							<div class="input-group-addon">$</div>
 							<?=form_input($cued_pagos_lin); ?>
+						</div>
+						<?= form_label('DEPOSITOS EN FIRME:','cued_depos_fir')?>		
+						<div class="input-group col-md-4">
+							<div class="input-group-addon">$</div>
+							<?=form_input($cued_depos_fir); ?>
+						</div>
+						<?= form_label('DEPOSITOS 24 HRS:','cued_depos_24h')?>		
+						<div class="input-group col-md-4">
+							<div class="input-group-addon">$</div>
+							<?=form_input($cued_depos_24h); ?>
 						</div>
 					</div>
 

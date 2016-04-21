@@ -56,7 +56,7 @@
 									<tr>
 										<td> 
 											<a href="<?=base_url().'flujo/editarflujo'?>/<?= $movcuebanune->cued_id;?>">
-												<?=$movcuebanune->ban_nombre; ?> - <?=$movcuebanune->cue_numero;?> - <?=$movcuebanune->cue_descripcion;?>
+												<?=$movcuebanune->ban_nombre; ?> - <?=$movcuebanune->cue_numero;?> <?=$movcuebanune->cue_descripcion;?>
 											</a>
 										</td>
 										<td class="<?=$cued_sald_ini;?>"><?=number_format($movcuebanune->cued_sald_ini);?></td>
@@ -139,11 +139,12 @@
 																<div class="col-xs-3">
 																	<select name="tra_descripcion" class="form-control left" required="">
 																		<option value> -- Tipo de movimiento  -- </option>
-																		<option value="SPEI">SPEI</option>
-																		<option value="TRASPASO">TRASPASO</option>
 																		<option value="CHEQUE">CHEQUE</option>
 																		<option value="CORREO">CORREO</option>
+																		<option value="SPEI">PAGO INTERNACIONAL</option>
+																		<option value="SPEI">SPEI</option>
 																		<option value="TELEFONICO">TELEFONICO</option>
+																		<option value="TRASPASO">TRASPASO</option>
 																	</select>
 																</div>
 															</div>
