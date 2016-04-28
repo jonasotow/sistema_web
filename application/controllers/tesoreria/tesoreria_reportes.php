@@ -54,7 +54,7 @@ class Tesoreria_reportes extends MY_Controller {
         $usuario = $data['usuario'];
         $this->template['usuario'] = $data['usuario'];
         $this->load->library('email');
-        $this->email->from('web@vimifos.com', 'Notificaciones Vimifos');
+        $this->email->from('web@vimifos.com', 'Notificaciones Vimifos - SIT');
         $this->email->to('jsoto@vimifos.com');
         $this->email->cc('jmquiroz@vimifos.com');
         $this->email->subject('Notificación de Captura de saldos de '.$usuario);

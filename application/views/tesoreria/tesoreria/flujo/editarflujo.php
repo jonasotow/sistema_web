@@ -1,10 +1,15 @@
  <section class="vimifos-content mdl-layout__content">
 	<div class="panel panel-primary">
 		<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast">
-			<?=$title;?> | <?=$obtenercuentaune->une_nombre;?> - <?=$obtenercuentaune->cue_divisa;?> - <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?> 
+			<?=$title;?> | <?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> - <?=$obtenercuentaune->cue_divisa;?> - <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?> 
 		</div>
 		<div class="panel-body shadow">
 			<?=form_open("/flujo/updateFlujo/".$id) ?>
+
+			<input type="hidden" name="datoscuenta" value="<?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> <?=$obtenercuentaune->cue_divisa;?> <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?>">
+			<input value="<?=$usuario;?>" name="usuario" type="hidden">
+
+
 			<div class="form">
 				<?php
 					$sumaentradas = $obtenercuentaune->cued_sald_ini + $obtenercuentaune->cued_depos_fir + $obtenercuentaune->cued_depos_24h; 

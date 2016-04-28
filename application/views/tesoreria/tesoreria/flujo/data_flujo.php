@@ -5,7 +5,8 @@
 <section class="vimifos-content mdl-layout__content">
 	<section class="flujo ">
 		<div class="panel panel-primary">
-			<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast"><?=$title;?> DE <?=$une->une_nombre; ?> EN <?=$divisa;?> </div>
+			<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast">
+				<?=$title;?> DE <?=$une->une_nombre;?> EN <?=$divisa;?> </div>
 			<div class="panel-body shadow">
 				<div class="col-md-12 ">
 					<div class="form-group">
@@ -26,6 +27,7 @@
 										<th>SALDO ANTES DE TRASPASOS</th>
 										<th>TRASPASO</th>
 										<th>SALDO FINAL DEL DIA</th>
+										<th></th>
 										<th></th>
 									</tr>
 								</thead>
@@ -56,7 +58,7 @@
 									<tr>
 										<td> 
 											<a href="<?=base_url().'flujo/editarflujo'?>/<?= $movcuebanune->cued_id;?>">
-												<?=$movcuebanune->ban_nombre; ?> - <?=$movcuebanune->cue_numero;?> <?=$movcuebanune->cue_descripcion;?>
+												<?=$movcuebanune->ban_nombre; ?>  - <?=$movcuebanune->cue_numero;?> <?=$movcuebanune->cue_descripcion;?>
 											</a>
 										</td>
 										<td class="<?=$cued_sald_ini;?>"><?=number_format($movcuebanune->cued_sald_ini);?></td>
@@ -71,23 +73,157 @@
 										<td class="<?=$tra_monto;?>"><?=number_format($movcuebanune->tra_monto);?></td>
 										<td class="<?=$cued_sald_fin;?> info"><?=number_format($movcuebanune->cued_sald_fin);?></td>
 										<td>
-											<button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored " data-toggle="modal" data-target="#traspaso<?=$movcuebanune->cued_id?>"><i class="material-icons">add</i></button>
 											
+											<button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored " data-toggle="modal" data-target="#pagovim<?=$movcuebanune->cued_id?>"><i class="material-icons">add</i></button>
+
+										</td>
+										<td>
+											
+											<button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored " data-toggle="modal" data-target="#traspaso<?=$movcuebanune->cued_id?>"><i class="material-icons">add</i></button>
+
 										</td>
 									</tr>
 
-									
-
+						
 								<?php
 									if ($movcuebanune->cued_sald_fin > 0) { ?>
+
+									<div class="flujomodal">
+										<div class="modal fade" id="pagovim<?=$movcuebanune->cued_id;?>" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title text-upper" id="myModalLabel">Pagos entre Vimifos</h4>
+													</div>
+													<?=form_open("/flujo/addpagovim/") ?>
+														<div class="modal-body" id="clear">
+															<div class="form-group">
+																<label for="tra_cue_orig_id" class="control-label right col-xs-2">Cuenta Origen:</label>
+																<label class="col-xs-5 left control-label">
+																	<?=$movcuebanune->ban_nombre;?> - 
+																	<?=$movcuebanune->cue_nombre;?> 
+																	<?=$movcuebanune->cue_numero;?> - 
+																	<?=$movcuebanune->cue_divisa;?>: 
+																	$<?=number_format($movcuebanune->cued_sald_fin);?>
+																</label>
+																<input type="hidden" name="divisa" value="<?=$movcuebanune->cue_divisa;?>">
+																<input type="hidden" name="uneid" value="<?=$id_une;?>">
+																<input value="<?=$movcuebanune->cued_id;?>" name="idorigen" id="<?=$movcuebanune->cued_id;?>" type="hidden">
+													
+															</div>
+													
+															<div class="form-group">
+																<label for="unenego" class="control-label right col-xs-2">Unidad de Negocio:</label>
+																<div class="col-xs-7">
+																	<select name="unenego" id="unenego<?=$movcuebanune->cued_id;?>" style="width:50%" class="form-control left" required="" onclick="Ldivpag();" >
+																		<option value> -- Seleccione una unidad -- </option>
+																	<?php
+																		foreach ($todo as $t) { ?>
+																		<option value="<?=$t->une_id;?>"><?=$t->une_nombre;?></option>
+																	<?php } ?>
+																	</select>
+																</div>
+															</div>
+
+															<div class="form-group" id="cleard">
+																<label for="cue_divisa" class="control-label right col-xs-2">Divisa:</label>
+																<div class="col-xs-7">
+																	<select name="cue_divisa" id="cuedivisa<?=$movcuebanune->cued_id;?>" style="width:50%" class="form-control left" required="">
+																		<option value> -- Seleccione Divisa -- </option>
+																		<option value="USD">USD</option>
+																		<option value="MXN">MXN</option>
+																		<option value="EUR">EUR</option>
+																	</select>
+																</div>
+															</div>
+															<div class="form-group" id="cleard">
+																<label for="mcpagovim" class="control-label right col-xs-2">Cuenta a pagar:</label>
+																<div class="col-xs-7">
+																	<select style="width:80%" class="form-control left" name="mcpagovim" id="mcpagovim<?=$movcuebanune->cued_id;?>">
+																	</select>
+																</div>
+															</div>
+															<?php
+																$pagointvim = array(
+																	'name'=>'pagointvim', 
+																	'placeholder' => 'Importe ',
+																	'class' => 'form-control',
+																	'type'=>'text',
+																	'pattern'=>'[0-9]{0,11}',
+																	'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
+																);
+															?>
+															<div class="form-group">
+																<label class="control-label right col-xs-2">Importe:</label>
+																<div class="input-group left col-xs-3">
+																	<div class="input-group-addon">$</div>
+																	<?=form_input($pagointvim) ?>
+																</div>
+														
+														</div><!-- modal-body -->
+														<div class="modal-footer">
+															<button type="reset" class="btn btn-default" data-dismiss="modal" onclick="limtodo();">Cancelar</button>
+															<button type="submit" class="btn btn-success">Capturar</button>
+														</div>
+													<?=form_close() ?>
+												</div><!-- modal-content -->
+											</div><!-- modal-dialog -->
+
+											<script type="text/javascript">	
+												var path = '<?=base_url()?>index.php/';
+												$(document).ready(function() {
+													$("#unenego<?=$movcuebanune->cued_id;?>").change(function() {
+														$("#unenego<?=$movcuebanune->cued_id;?> option:selected" ).each(function() {
+															$("#cuedivisa<?=$movcuebanune->cued_id;?>").change(function() {
+																$("#cuedivisa<?=$movcuebanune->cued_id;?> option:selected" ).each(function() {
+
+															var div =$('#cuedivisa<?=$movcuebanune->cued_id;?>').val();
+															var idune =$('#unenego<?=$movcuebanune->cued_id;?>').val();
+												    	
+															$.post(path + 'flujo/mcpagovim', { 
+																divisa : div,
+																idune : idune
+															}, 
+															function(resp) {
+																$("#mcpagovim<?=$movcuebanune->cued_id;?>").html(resp);
+																	});
+																});
+															});
+														});
+													})
+												});
+
+											</script>
+											<script type="text/javascript">
+												function limtodo() {
+												var t = document.getElementById("clear").getElementsByTagName("select");
+												for (var i=0; i<t.length; i++) {
+												    t[i].value = "";
+												    }
+												}
+											</script>
+											<script type="text/javascript">
+												function Ldivpag() {
+												var t = document.getElementById("cleard").getElementsByTagName("select");
+												for (var i=0; i<t.length; i++) {
+												    t[i].value = "";
+												    }
+												}
+											</script>
+
+
+										</div><!-- modal -->
+									</div>
+						
+ 									
+					<!-- Traspaso -->
 
 									<div class="flujomodal">
 										<div class="modal fade" id="traspaso<?=$movcuebanune->cued_id;?>" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
 											<div class="modal-dialog">
 												<div class="modal-content">
 													<div class="modal-header">
-														
-														<h4 class="modal-title text-upper" id="myModalLabel">Traspaso a la fecha <?=date('Y-m-d')?></h4>
+														<h4 class="modal-title text-upper" id="myModalLabel">Traspaso entre cuentas</h4>
 													</div>
 													<?=form_open("/flujo/addtranspaso/") ?>
 														<div class="modal-body">
@@ -160,7 +296,7 @@
 																</div>
 															</div>
 
-															<input value="" type="hidden" name="montoanterior" id="montodetrs<?=$movcuebanune->cued_id;?>">
+															<input value="" name="montoanterior" id="montodetrs<?=$movcuebanune->cued_id;?>">
 
 														</div><!-- modal-body -->
 														<div class="modal-footer">
@@ -171,7 +307,7 @@
 												</div><!-- modal-content -->
 											</div><!-- modal-dialog -->
 											<script type="text/javascript">	
-												var path = '<?= base_url()?>index.php';
+												var path = '<?= base_url()?>index.php/';
 
 												$(document).ready(function() {
 													$("#datos_destino<?=$movcuebanune->cued_id;?>").change(function() {
