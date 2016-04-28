@@ -264,7 +264,9 @@
 																	'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
 																);
 															?>
-												
+															<div id="montodetrshtml<?=$movcuebanune->cued_id;?>">
+																
+															</div>
 															<div class="form-group">
 																<label class="control-label right col-xs-2">Importe:</label>
 																<div class="input-group left col-xs-3">
@@ -296,7 +298,9 @@
 																</div>
 															</div>
 
-															<input value="" name="montoanterior" id="montodetrs<?=$movcuebanune->cued_id;?>">
+
+															<input value="" type="hidden" name="montoanterior" id="montodetrsval<?=$movcuebanune->cued_id;?>">
+
 
 														</div><!-- modal-body -->
 														<div class="modal-footer">
@@ -322,7 +326,13 @@
 																id_origen : sof,
 																id_destino : arr[0]
 															}, function(resp) {
-																$("#montodetrs<?=$movcuebanune->cued_id;?>").val(resp);
+																$("#montodetrshtml<?=$movcuebanune->cued_id;?>").html(resp);
+															});
+															$.post(path + 'flujo/montotraspasoval', { 
+																id_origen : sof,
+																id_destino : arr[0]
+															}, function(resp) {
+																$("#montodetrsval<?=$movcuebanune->cued_id;?>").val(resp);
 															});
 														});
 													})

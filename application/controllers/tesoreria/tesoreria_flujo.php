@@ -198,7 +198,15 @@ class Tesoreria_flujo extends MY_Controller {
         $id_origen = $this->input->post('id_origen');
         $id_destino = $this->input->post('id_destino');
         $fecha = date('Y-m-d');
-        $this->template['montodetrs'] = $this->flujo_model->montodetrs($id_origen,$id_destino,$fecha);  
+     
+        $this->template['montodetrshtml'] = $this->flujo_model->montodetrshtml($id_origen,$id_destino,$fecha);  
+    }  
+    function montotraspasoval(){
+        $id_origen = $this->input->post('id_origen');
+        $id_destino = $this->input->post('id_destino');
+        $fecha = date('Y-m-d');
+        $this->template['montodetrsval'] = $this->flujo_model->montodetrsval($id_origen,$id_destino,$fecha);  
+    
     }
 
     function mcpagovim(){

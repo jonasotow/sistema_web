@@ -6,7 +6,7 @@ class Flujo_model extends My_Model {
 	}
 
 // Consultas por JavaScript
-    function montodetrs($id_origen,$id_destino,$fecha){
+    function montodetrsval($id_origen,$id_destino,$fecha){
         $this->db->select('tra_fecha, tra_cue_dest_id, T1.cue_nombre, T1.cue_numero, tra_cue_orig_id, T2.cue_nombre, T2.cue_numero, une_nombre, tra_monto, tra_descripcion, tra_responsable, T1.cue_divisa');
         $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cued_cuentas_det, tra_traspasos_mstr');
         $this->db->join('cue_cuentas_mstr as T1 ', 'T1.cue_id = tra_cue_orig_id');
@@ -24,6 +24,33 @@ class Flujo_model extends My_Model {
 
         foreach ($consulta->result_array() as $reg) {
             $cadena.="{$reg['tra_monto']}";
+        }
+        echo $cadena;
+    
+    }
+       function montodetrshtml($id_origen,$id_destino,$fecha){
+        $this->db->select('tra_fecha, tra_cue_dest_id, T1.cue_nombre, T1.cue_numero, tra_cue_orig_id, T2.cue_nombre, T2.cue_numero, une_nombre, tra_monto, tra_descripcion, tra_responsable, T1.cue_divisa');
+        $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cued_cuentas_det, tra_traspasos_mstr');
+        $this->db->join('cue_cuentas_mstr as T1 ', 'T1.cue_id = tra_cue_orig_id');
+        $this->db->join('cue_cuentas_mstr as T2 ', 'T2.cue_id = tra_cue_dest_id');
+        $this->db->where('T1.cue_id = cued_id');     
+        $this->db->where('T1.cue_uninegocio_id = une_id');
+        $this->db->where('T1.cue_banco_id = ban_id');
+        $this->db->where('tra_fecha = cued_fecha'); 
+        $this->db->where('T1.cue_id', $id_origen); 
+        $this->db->where('tra_fecha', $fecha); // filtro por fecha actual.
+        $this->db->where('T2.cue_id', $id_destino); 
+        $consulta = $this->db->get();
+
+        $cadena = "";
+        $html = "<div class='form-group'>
+                    <label class='control-label right col-xs-2 red'>Traspaso existente:</label>
+                    <div class='input-group left col-xs-3'>
+                    <div class='input-group-addon red'>$</div>
+                ";
+
+        foreach ($consulta->result_array() as $reg) {
+            $cadena.="$html<input class='form-control red' disabled value='{$reg['tra_monto']}'> ";
         }
         echo $cadena;
     
