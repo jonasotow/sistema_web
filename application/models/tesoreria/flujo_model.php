@@ -43,9 +43,9 @@ class Flujo_model extends My_Model {
         $consulta = $this->db->get();
 
         $cadena = "";
-        $html = "<div class='form-group'>
+        $html = "<div class='form-group trasant'>
                     <label class='control-label right col-xs-2 red'>Traspaso existente:</label>
-                    <div class='input-group left col-xs-3'>
+                    <div class='input-group left col-xs-3' >
                     <div class='input-group-addon red'>$</div>
                 ";
 
@@ -55,7 +55,7 @@ class Flujo_model extends My_Model {
         echo $cadena;
     
     }
-    function mcpagovim($idune, $divisa){
+    function mcpagovim($idune, $cueogin, $divisa){
         $this->db->select('*');
         $this->db->from('cue_cuentas_mstr');
         $this->db->join('cued_cuentas_det', 'cued_cuentas_det.cued_id = cue_cuentas_mstr.cue_id');
@@ -63,20 +63,22 @@ class Flujo_model extends My_Model {
         $this->db->join('une_uninegocio_mstr', 'une_uninegocio_mstr.une_id = cue_cuentas_mstr.cue_uninegocio_id');
         $this->db->where('une_id', $idune);
         $this->db->where('cue_divisa', $divisa);
+        $this->db->where('cued_id <>', $cueogin);
         $this->db->where('cued_fecha = CURDATE()'); 
+        $this->db->order_by('cued_id', 'asc');
+        $this->db->group_by('cued_id ');
         $consulta = $this->db->get();
       
         $cadena = "";
         $simbolo = "SALDO $";
         foreach ($consulta->result_array() as $reg) {
-            $cadena.="<option value='{$reg['cue_id']}|{$reg['cued_sald_fin']}'>
-            {$reg['ban_nombre']} {$reg['cue_numero']} {$reg['cue_nombre']} $simbolo{$reg['cued_sald_fin']}</option>";
+            $cadena.="<option value='{$reg['cue_id']}|{$reg['cued_sald_fin']}|{$reg['cued_pagos_lin']}'>
+            {$reg['ban_nombre']} {$reg['cue_numero']} {$reg['cue_nombre']} {$reg['cue_divisa']} $simbolo{$reg['cued_sald_fin']}</option>";
 
         }
         echo $cadena;
 
     }
-
 
 // Consultas
     function saldototalune($id,$divisa){
@@ -111,6 +113,7 @@ class Flujo_model extends My_Model {
         $this->db->where('ban_bancos_mstr.ban_id = cue_cuentas_mstr.cue_banco_id');
         $this->db->where('une_id', $id);
         $this->db->where('cue_divisa', $divisa);
+        $this->db->where('tra_tipomov = 1');
         $this->db->where('cued_fecha = CURDATE()'); // filtro por fecha actual.
         $this->db->order_by('cued_id', 'asc');
         $consulta = $this->db->get();
@@ -158,11 +161,13 @@ class Flujo_model extends My_Model {
         $this->db->where('cue_cuentas_mstr.cue_id = cued_cuentas_det.cued_id');     
         $this->db->where('cue_cuentas_mstr.cue_uninegocio_id = une_uninegocio_mstr.une_id');
         $this->db->where('ban_bancos_mstr.ban_id = cue_cuentas_mstr.cue_banco_id');
+        $this->db->order_by('une_nombre', 'asc');
         $consulta = $this->db->get();
         if($consulta->num_rows() > 0) return $consulta->result();
         else return false;
     }
     function obtenerUnidades(){
+        $this->db->order_by('une_nombre', 'asc');
         $query = $this->db->get('une_uninegocio_mstr');
         if($query->num_rows() > 0) return $query;
         else return false;
@@ -181,6 +186,7 @@ class Flujo_model extends My_Model {
         $this->db->from('cue_cuentas_mstr');
         $this->db->join('une_uninegocio_mstr', 'une_uninegocio_mstr.une_id = cue_cuentas_mstr.cue_uninegocio_id');
         $this->db->where('une_id',$id); 
+        $this->db->where('une_nombre', 'asc');
         $consulta = $this->db->get();
         if($consulta->num_rows() > 0) return $consulta;
         else return false;
@@ -272,13 +278,14 @@ class Flujo_model extends My_Model {
                  ));
     }
 
-
-
 // Insert *** Agregar Pago Vimifos**
 
     function nuevopagovim($id_o,$id_d,$fecha,$data){
-        $this->db->insert('tra_traspasos_mstr',
-            array(
+        $this->db->where('tra_cue_orig_id',$id_o);
+        $this->db->where('tra_cue_dest_id',$id_d);
+        $this->db->where('tra_fecha',$fecha);
+        $query = $this->db->get('tra_traspasos_mstr');
+        $datos = array(
                 'tra_cue_orig_id'=> $id_o,
                 'tra_cue_dest_id' => $id_d,
                 'tra_monto' => $data['pagointvim'],
@@ -286,9 +293,20 @@ class Flujo_model extends My_Model {
                 'tra_responsable' => $data['respo'],
                 'tra_tipomov' => $data['tipo'],
                 'tra_fecha' => $fecha,
+                );
 
+        if ($query->num_rows() > 0)
+        {
+            $this->db->where('tra_cue_orig_id',$id_o);
+            $this->db->where('tra_cue_dest_id',$id_d);
+            $this->db->where('tra_fecha',$fecha);
+            $this->db->update('tra_traspasos_mstr', $datos);
 
-                ));
+        }
+        else
+        {
+            $this->db->insert('tra_traspasos_mstr', $datos);
+        }
 
     }
 
@@ -306,6 +324,8 @@ class Flujo_model extends My_Model {
             'tra_descripcion' => $data['tra_descripcion'],
             'tra_responsable' => $data['tra_responsable'],
             'tra_fecha' => $fecha,
+            'tra_tipomov' => $data['tipo'],
+
         );
 
         if ($query->num_rows() > 0)
@@ -322,7 +342,7 @@ class Flujo_model extends My_Model {
         }
     
     }
-// Update *** Actualizar saldo flujo cuenta origen ***
+// Update *** Actualizar saldo flujo cuenta origen *** Traspaso
     function actualizarsaldoorigen($saldonuevoorigen,$id_o,$fecha){
         $datos = array(
                 'cued_sald_fin' => $saldonuevoorigen,
@@ -331,13 +351,37 @@ class Flujo_model extends My_Model {
         $this->db->where('cued_fecha',$fecha);
         $query = $this->db->update('cued_cuentas_det',$datos);
     }
-
-// Update *** Actualizar saldo flujo cuenta destino ***
-    function actualizarsaldodestino($saldonuevodestino,$id,$fecha){
+    function actualizarsaldodestino($saldonuevodestino,$id_d,$fecha){
         $datos = array(
                 'cued_sald_fin' => $saldonuevodestino,
                  );
-        $this->db->where('cued_id',$id);
+        $this->db->where('cued_id',$id_d);
+        $this->db->where('cued_fecha',$fecha);
+        $query = $this->db->update('cued_cuentas_det',$datos);
+    }
+
+    function grabrarnvosalpagoslin($id_o,$fecha,$saldodepagos){
+        $datos = array(
+                'cued_pagos_lin' => $saldodepagos,
+                );
+        $this->db->where('cued_id',$id_o);
+        $this->db->where('cued_fecha',$fecha);
+        $this->db->update('cued_cuentas_det', $datos);
+    }
+// Update *** Actualizar saldo flujo cuenta origen *** Pago Vim
+    function actualizarsaldoorigenpgo($saldonuevoorigen,$id_o,$fecha){
+        $datos = array(
+                'cued_sald_fin' => $saldonuevoorigen,
+                 );
+        $this->db->where('cued_id',$id_o);
+        $this->db->where('cued_fecha',$fecha);
+        $query = $this->db->update('cued_cuentas_det',$datos);
+    }
+    function actualizarsaldodestinopgo($saldonuevodestino,$id_d,$fecha){
+        $datos = array(
+                'cued_sald_fin' => $saldonuevodestino,
+                 );
+        $this->db->where('cued_id',$id_d);
         $this->db->where('cued_fecha',$fecha);
         $query = $this->db->update('cued_cuentas_det',$datos);
     }

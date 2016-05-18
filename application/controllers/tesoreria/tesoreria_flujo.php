@@ -12,13 +12,8 @@ class Tesoreria_flujo extends MY_Controller {
     function index(){
 	    $this->template['title'] = 'Flujo';
         $this->template['id'] = $this->uri->segment(3);
-        if(!$this->template['id']){
-            $this->template['une'] = $this->flujo_model->obtenerUnidades();
-        }
-        else{
-            $this->template['une'] = $this->flujo_model->flujoindex($this->template['id']);
-        }
-
+        $this->template['une'] = $this->flujo_model->obtenerUnidades();
+       
         $this->template['contadorflujo'] = $this->flujo_model->contadorflujo();
         if($this->template['contadorflujo'] > 0){
             $this->template['datos'] = 'Datos';
@@ -60,6 +55,7 @@ class Tesoreria_flujo extends MY_Controller {
     function editarflujo(){
         $this->template['title'] = 'Flujo';
         $this->template['id'] = $this->uri->segment(3);
+        $this->template['todo'] = $this->flujo_model->obtenertods();
         $this->template['obtenercuentaune'] = $this->flujo_model->obtenercuentaune($this->template['id']);
         $this->template['obternertraspasoenflujoorigen'] = $this->flujo_model->obternertraspasoenflujoorigen($this->template['id']);
         $this->template['obternertraspasoenflujodestino'] = $this->flujo_model->obternertraspasoenflujodestino($this->template['id']);
@@ -81,7 +77,13 @@ class Tesoreria_flujo extends MY_Controller {
                 'datoscuenta'=> $this->input->post('datoscuenta')
         );
 
- //     Envio de correo       
+        $result_datos_destino = $_POST['cuentaretorn'];
+        $separa_datos_destino = explode('|', $result_datos_destino);
+        $id = $separa_datos_destino[0];
+        $divisa = $separa_datos_destino[1];
+
+
+ /*     Envio de correo       
         $cuenta = strtoupper($datos['datoscuenta']);
         $usuario = strtoupper($datos['usuario']);
         $this->template['usuario'] = $datos['usuario'];
@@ -91,12 +93,22 @@ class Tesoreria_flujo extends MY_Controller {
         $this->email->subject('SE CAPTURO O MODIFICO EL SALDO DE UNA CUENTA '.$usuario);
         $this->email->message('LA CUENTA '.$cuenta .' SE CAPTURO O MODIFICADA POR '.$usuario);
         $this->email->send();
- //     Envio de correo       
+ */         
 
         $fecha = date('Y-m-d');
         $this->template['id'] = $this->uri->segment(3);
         $this->template['flujo'] = $this->flujo_model->actualizarFlujo($this->template['id'],$data,$fecha);
-        redirect(base_url('index.php/flujo/'));
+
+  // Regresar a flujo con datos
+        $this->template['title'] = 'Flujo';
+        $this->template['divisa'] = $divisa;
+        $this->template['todo'] = $this->flujo_model->obtenertods();
+        $this->template['saldototalune'] = $this->flujo_model->saldototalune($id,$divisa);
+        $this->template['movcuebanune'] = $this->flujo_model->obtenermovcuebanunes($id,$divisa);
+        $this->template['saldototalune_trapaso'] = $this->flujo_model->saldototalune_trapaso($id,$divisa);
+        $this->template['obtenertodo'] = $this->flujo_model->obtenertodo($id,$divisa);
+        $this->template['une'] = $this->flujo_model->obtenerUnidad($id);
+        $this->_run('flujo/data_flujo');
     }
 
 // Pagos vimifos
@@ -113,32 +125,49 @@ class Tesoreria_flujo extends MY_Controller {
         $result_datos_destino = $_POST['mcpagovim'];
         $separa_datos_destino = explode('|', $result_datos_destino);
         $id_d = $separa_datos_destino[0];
-
+        $saldo_destino = $separa_datos_destino[1];
+        $pagos_lin = $separa_datos_destino[2];
 
         $data = array(
             'pagointvim' => $this->input->post('pagointvim'),
             'descrip' => $descrip,
             'respo' => $respo,
             'tipo' => $tipo,
+            'saldooripg' => $this->input->post('saldooripg'),
+
             );
 
-    // Envia datos a model    
-        $this->flujo_model->nuevopagovim($id_d,$id_o,$fecha,$data);
+        $tra_monto = $data['pagointvim'];
+// Pagos
+        $saldodepagos = $pagos_lin + $tra_monto;
 
+// Restar traspaso a origen *****
+        $saldoori = $data['saldooripg']; 
+        $stuori = $saldoori;
+        $saldonuevoorigen = $stuori - $tra_monto;
+
+// Sumar traspaso a destino *****
+        $saldodest = $saldo_destino;
+        $studes = $saldodest;
+        $saldonuevodestino = $studes + $tra_monto;
+
+// Envia datos a model    
+        $this->flujo_model->nuevopagovim($id_d,$id_o,$fecha,$data);
+        $this->flujo_model->grabrarnvosalpagoslin($id_o,$fecha,$saldodepagos);
+        $this->flujo_model->actualizarsaldoorigenpgo($saldonuevoorigen,$id_o,$fecha);
+        $this->flujo_model->actualizarsaldodestinopgo($saldonuevodestino,$id_d,$fecha);
 
   // Regresar a flujo con datos
         $this->template['title'] = 'Flujo';
         $this->template['divisa'] = $divisa;
+        $this->template['todo'] = $this->flujo_model->obtenertods();
         $this->template['saldototalune'] = $this->flujo_model->saldototalune($id,$divisa);
         $this->template['movcuebanune'] = $this->flujo_model->obtenermovcuebanunes($id,$divisa);
         $this->template['saldototalune_trapaso'] = $this->flujo_model->saldototalune_trapaso($id,$divisa);
         $this->template['obtenertodo'] = $this->flujo_model->obtenertodo($id,$divisa);
         $this->template['une'] = $this->flujo_model->obtenerUnidad($id);
         $this->_run('flujo/data_flujo');
-
-
     }
-
 
 // Traspasos *****
     function addtranspaso(){
@@ -149,6 +178,8 @@ class Tesoreria_flujo extends MY_Controller {
         $saldo_destino = $separa_datos_destino[1];
         $divisa = $separa_datos_destino[2];
         $id = $separa_datos_destino[3];
+        $tipo = "1";
+
 
         $data = array(
                 'tra_cue_orig_id' => $this->input->post('tra_cue_orig_id'),
@@ -158,6 +189,7 @@ class Tesoreria_flujo extends MY_Controller {
                 'saldoori' => $this->input->post('saldoori'),
                 'tra_responsable' => $this->input->post('tra_responsable'),
                 'montoanterior' => $this->input->post('montoanterior'),
+                'tipo' => $tipo,
                  );
 
         $fecha = date('Y-m-d');
@@ -185,6 +217,7 @@ class Tesoreria_flujo extends MY_Controller {
     // Regresar a flujo con datos
         $this->template['title'] = 'Flujo';
         $this->template['divisa'] = $divisa;
+        $this->template['todo'] = $this->flujo_model->obtenertods();
         $this->template['saldototalune'] = $this->flujo_model->saldototalune($id,$divisa);
         $this->template['movcuebanune'] = $this->flujo_model->obtenermovcuebanunes($id,$divisa);
         $this->template['saldototalune_trapaso'] = $this->flujo_model->saldototalune_trapaso($id,$divisa);
@@ -212,7 +245,8 @@ class Tesoreria_flujo extends MY_Controller {
     function mcpagovim(){
         $idune = $this->input->post('idune');
         $divisa = $this->input->post('divisa');
-        $this->template['mcpagovim'] = $this->flujo_model->mcpagovim($idune, $divisa);  
+        $cueogin = $this->input->post('cueogin');
+        $this->template['mcpagovim'] = $this->flujo_model->mcpagovim($idune, $cueogin, $divisa);  
 
     }
 

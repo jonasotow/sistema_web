@@ -8,6 +8,8 @@
 
 			<input type="hidden" name="datoscuenta" value="<?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> <?=$obtenercuentaune->cue_divisa;?> <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?>">
 			<input value="<?=$usuario;?>" name="usuario" type="hidden">
+			<input type="hidden" name="cuentaretorn" value="<?=$obtenercuentaune->une_id;?>|<?=$obtenercuentaune->cue_divisa;?>">
+
 
 
 			<div class="form">
