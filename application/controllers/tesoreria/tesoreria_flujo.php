@@ -13,20 +13,38 @@ class Tesoreria_flujo extends MY_Controller {
 	    $this->template['title'] = 'Flujo';
         $this->template['id'] = $this->uri->segment(3);
         $this->template['une'] = $this->flujo_model->obtenerUnidades();
-       
         $this->template['contadorflujo'] = $this->flujo_model->contadorflujo();
         if($this->template['contadorflujo'] > 0){
             $this->template['datos'] = 'Datos';
         }
         else{
             $this->template['datos'] = 'Cero';
-            $obtenercuentasflujo = $this->flujo_model->obtenercuentasflujo();
-                foreach ($obtenercuentasflujo as $cuentas) {
+// Ceros *****
+            $cuentasflujo = $this->flujo_model->cuentasflujo();
+                foreach ($cuentasflujo as $cuentas) {
                 $data =  array(
                     'cued_id' => $cuentas->cue_id,
                     );
                 $fecha = date('Y-m-d');    
-                $this->template['agregarsaldoencero'] = $this->flujo_model->agregarsaldoencero($fecha,$data);
+            $this->template['agregarsaldoencero'] = $this->flujo_model->agregarsaldoencero($fecha,$data);
+            }
+// Saldo anterior *****  
+            $flujoinvfecha = $this->flujo_model->flujoinvfecha();
+                foreach ($flujoinvfecha as $flujoinvfecha) {
+            $this->template['fs'] = $flujoinvfecha->cued_fecha;
+
+            }
+            $fech = $this->template['fs'];
+            $cuentasflujoinv = $this->flujo_model->cuentasflujoinv($fech);
+                foreach ($cuentasflujoinv as $cuentass) {
+                    $datos = array(
+                        'cued_id' => $cuentass->cue_id,
+                        'cued_sald_fin' => $cuentass->cued_sald_fin,
+                    );
+            $fecha = date('Y-m-d');    
+            $this->template['agregarsaldoant'] = $this->flujo_model->agregarsaldoant($fecha,$datos);
+            $this->template['agregarsaldoenceroinv'] = $this->flujo_model->agregarsaldoenceroinv($fecha,$datos);
+          
             }
         }
         $this->_run('flujo/home');
@@ -247,8 +265,6 @@ class Tesoreria_flujo extends MY_Controller {
         $divisa = $this->input->post('divisa');
         $cueogin = $this->input->post('cueogin');
         $this->template['mcpagovim'] = $this->flujo_model->mcpagovim($idune, $cueogin, $divisa);  
-
     }
-
 
 }

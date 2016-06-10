@@ -23,7 +23,6 @@
 										<th>PAGOS VIMIFOS</th>
 										<th>SALDO ANTES DE DEPOSITOS</th>
 										<th>DEPOSITOS EN FIRME</th>
-										<th>DEPOSITOS 24 HRS</th>
 										<th>SALDO ANTES DE TRASPASOS</th>
 										<th>TRASPASO</th>
 										<th>SALDO FINAL DEL DIA</th>
@@ -38,7 +37,7 @@
 								<?php 
 									$saldoopera = $movcuebanune->cued_sald_ini - $movcuebanune->cued_cheq_circ;
 									$saldoandep = $saldoopera - $movcuebanune->cued_cheques - $movcuebanune->cued_pagos_lin;
-									$saldoantras = $saldoandep + $movcuebanune->cued_depos_fir + $movcuebanune->cued_depos_24h;?>
+									$saldoantras = $saldoandep + $movcuebanune->cued_depos_fir;?>
 
 
 								<?php if ($movcuebanune->cued_sald_ini <= 0) { $cued_sald_ini = "zero"; } else { $cued_sald_ini = "saldo";}?>
@@ -49,7 +48,6 @@
 								<?php if ($movcuebanune->cued_cheq_circ <= 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
 								<?php if ($saldoandep <= 0) { $saldoandep_css = "zero"; } else { $saldoandep_css = "saldo";}?>
 								<?php if ($movcuebanune->cued_depos_fir <= 0) { $cued_depos_fir = "zero"; } else { $cued_depos_fir = "saldo";}?>
-								<?php if ($movcuebanune->cued_depos_24h <= 0) { $cued_depos_24h = "zero"; } else { $cued_depos_24h = "saldo";}?>
 								<?php if ($saldoantras <= 0) { $saldoantras_css = "zero"; } else { $saldoantras_css = "saldo";}?>
 								<?php if ($movcuebanune->tra_monto <= 0) { $tra_monto = "zero"; } else { $tra_monto = "saldo";}?>						
 								<?php if ($movcuebanune->cued_sald_fin <= 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
@@ -62,17 +60,16 @@
 												<?=$movcuebanune->ban_nombre; ?>  - <?=$movcuebanune->cue_numero;?> <?=$movcuebanune->cue_descripcion;?>
 											</a>
 										</td>
-										<td class="<?=$cued_sald_ini;?>"><?=number_format($movcuebanune->cued_sald_ini);?></td>
-										<td class="<?=$cued_cheq_circ;?>"><?=number_format($movcuebanune->cued_cheq_circ);?></td>
-										<td class="<?=$saldoopera_css;?>"><?=number_format($saldoopera);?></td>
-										<td class="<?=$cued_cheques;?>"><?=number_format($movcuebanune->cued_cheques);?></td>
-										<td class="<?=$cued_pagos_lin;?>"><?=number_format($movcuebanune->cued_pagos_lin);?></td>
-										<td class="<?=$saldoandep_css;?>"><?=number_format($saldoandep);?></td>
-										<td class="<?=$cued_depos_fir;?>"><?=number_format($movcuebanune->cued_depos_fir);?></td>
-										<td class="<?=$cued_depos_24h;?>"><?=number_format($movcuebanune->cued_depos_24h);?></td>
-										<td class="<?=$saldoantras_css;?>"><?=number_format($saldoantras);?></td>
-										<td class="<?=$tra_monto;?>"><?=number_format($movcuebanune->tra_monto);?></td>
-										<td class="<?=$cued_sald_fin;?> info"><?=number_format($movcuebanune->cued_sald_fin);?></td>
+										<td class="<?=$cued_sald_ini;?>"><?=number_format($movcuebanune->cued_sald_ini,2, '.','.');?></td>
+										<td class="<?=$cued_cheq_circ;?>"><?=number_format($movcuebanune->cued_cheq_circ,2, '.','.');?></td>
+										<td class="<?=$saldoopera_css;?>"><?=number_format($saldoopera,2, '.','.');?></td>
+										<td class="<?=$cued_cheques;?>"><?=number_format($movcuebanune->cued_cheques,2, '.','.');?></td>
+										<td class="<?=$cued_pagos_lin;?>"><?=number_format($movcuebanune->cued_pagos_lin,2, '.','.');?></td>
+										<td class="<?=$saldoandep_css;?>"><?=number_format($saldoandep,2, '.','.');?></td>
+										<td class="<?=$cued_depos_fir;?>"><?=number_format($movcuebanune->cued_depos_fir,2, '.','.');?></td>
+										<td class="<?=$saldoantras_css;?>"><?=number_format($saldoantras,2, '.','.');?></td>
+										<td class="<?=$tra_monto;?>"><?=number_format($movcuebanune->tra_monto,2, '.','.');?></td>
+										<td class="<?=$cued_sald_fin;?> info"><?=number_format($movcuebanune->cued_sald_fin,2, '.','.');?></td>
 
 										<td class="<?=$statusbtn;?>">
 											<!-- Right aligned menu below button -->
@@ -113,7 +110,7 @@
 																	<?=$movcuebanune->cue_numero;?>  
 																	<?=$movcuebanune->cue_nombre;?> -
 																	<?=$movcuebanune->cue_divisa;?> SALDO:
-																	$<?=number_format($movcuebanune->cued_sald_fin);?>
+																	$<?=number_format($movcuebanune->cued_sald_fin,2, '.','.');?>
 																</label>
 																<input type="hidden" name="divisa" value="<?=$movcuebanune->cue_divisa;?>">
 																<input type="hidden" name="uneid" value="<?=$id_une;?>">
@@ -148,7 +145,6 @@
 																	'placeholder' => 'Importe ',
 																	'class' => 'form-control',
 																	'type'=>'text',
-																	'pattern'=>'[0-9]{0,11}',
 																	'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
 																);
 															?>
@@ -211,7 +207,7 @@
 																<label for="tra_cue_orig_id" class="control-label right col-xs-2">Cuenta Origen:</label>
 																<input value="<?=$movcuebanune->cued_id;?>" name="tra_cue_orig_id" id="<?=$movcuebanune->cued_id;?>" type="hidden">
 																<label class="col-xs-5 left control-label">
-																	<?=$movcuebanune->ban_nombre;?> - <?=$movcuebanune->cue_nombre;?> <?=$movcuebanune->cue_numero;?> - <?=$movcuebanune->cue_divisa;?>: $<?=number_format($movcuebanune->cued_sald_fin);?>
+																	<?=$movcuebanune->ban_nombre;?> - <?=$movcuebanune->cue_nombre;?> <?=$movcuebanune->cue_numero;?> - <?=$movcuebanune->cue_divisa;?>: $<?=number_format($movcuebanune->cued_sald_fin,2, '.','.');?>
 																</label>																	
 																<input value="<?=$movcuebanune->cued_sald_fin;?>" name="saldoori" type="hidden">
 															</div>
@@ -224,7 +220,7 @@
 																	foreach ($obtenertodo as $bancos) { ?>
 																		<option value="<?=$bancos->cued_id;?>|<?=$bancos->cued_sald_fin;?>|<?=$bancos->cue_divisa;?>|<?=$id_une;?>">
 																			<?=$bancos->ban_nombre;?> - <?=$bancos->cue_nombre;?> <?=$bancos->cue_numero;?> - 
-																			<?=$bancos->cue_divisa;?>: $<?=number_format($bancos->cued_sald_fin);?> 
+																			<?=$bancos->cue_divisa;?>: $<?=number_format($bancos->cued_sald_fin,2, '.','.');?> 
 																		</option>
 																	
 																<?php } ?>
@@ -238,7 +234,6 @@
 																	'placeholder' => 'Importe ',
 																	'class' => 'form-control ',
 																	'type'=>'text',
-																	'pattern'=>'[0-9]{0,11}',
 																	'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
 																);
 															?>
@@ -381,7 +376,7 @@
 											<?php 
 												$saldoopera_total = $saldoune->cued_sald_ini - $saldoune->cued_cheq_circ;
 												$saldoandep_total = $saldoopera_total - $saldoune->cued_cheques - $saldoune->cued_pagos_lin;
-												$saldoantras_total = $saldoandep_total + $saldoune->cued_depos_fir + $saldoune->cued_depos_24h;?>
+												$saldoantras_total = $saldoandep_total + $saldoune->cued_depos_fir;?>
 
 										<?php if ($saldoune->cued_sald_ini <= 0) { $cued_sald_ini = "zero"; } else { $cued_sald_ini = "saldo";}?>
 										<?php if ($saldoune->cued_cheq_circ <= 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
@@ -391,24 +386,22 @@
 										<?php if ($saldoune->cued_cheq_circ <= 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
 										<?php if ($saldoandep_total <= 0) { $saldoandep_total_css = "zero"; } else { $saldoandep_total_css = "saldo";}?>
 										<?php if ($saldoune->cued_depos_fir <= 0) { $cued_depos_fir = "zero"; } else { $cued_depos_fir = "saldo";}?>
-										<?php if ($saldoune->cued_depos_24h <= 0) { $cued_depos_24h = "zero"; } else { $cued_depos_24h = "saldo";}?>
 										<?php if ($saldoantras_total <= 0) { $saldoantras_total_css = "zero"; } else { $saldoantras_total_css = "saldo";}?>
 										<?php if ($saldotraspasoune <= 0) { $saldotraspasoune_css = "zero"; } else { $saldotraspasoune_css = "saldo";}?>				
 										<?php if ($saldoune->cued_sald_fin <= 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
 
 									<tr class="total info">
 										<td >Total:</td>
-										<td class="<?=$cued_sald_ini;?>"><?=number_format($saldoune->cued_sald_ini);?></td>
-										<td class="<?=$cued_cheq_circ;?>"><?=number_format($saldoune->cued_cheq_circ);?></td>
-										<td class="<?=$saldoopera_total_css;?>"><?=number_format($saldoopera_total);?></td>
-										<td class="<?=$cued_cheques;?>"><?=number_format($saldoune->cued_cheques);?></td>
-										<td class="<?=$cued_pagos_lin;?>"><?=number_format($saldoune->cued_pagos_lin);?></td>
-										<td class="<?=$saldoandep_total_css;?>"><?=number_format($saldoandep_total);?></td>
-										<td class="<?=$cued_depos_fir;?>"><?=number_format($saldoune->cued_depos_fir);?></td>
-										<td class="<?=$cued_depos_24h;?>"><?=number_format($saldoune->cued_depos_24h);?></td>
-										<td class="<?=$saldoantras_total_css;?>"><?=number_format($saldoantras_total);?></td>
-										<td class="<?=$saldotraspasoune_css;?>"><?=number_format($saldotraspasoune);?></td>
-										<td class="<?=$cued_sald_fin;?>"><?=number_format($saldoune->cued_sald_fin);?></td>
+										<td class="<?=$cued_sald_ini;?>"><?=number_format($saldoune->cued_sald_ini,2, '.','.');?></td>
+										<td class="<?=$cued_cheq_circ;?>"><?=number_format($saldoune->cued_cheq_circ,2, '.','.');?></td>
+										<td class="<?=$saldoopera_total_css;?>"><?=number_format($saldoopera_total,2, '.','.');?></td>
+										<td class="<?=$cued_cheques;?>"><?=number_format($saldoune->cued_cheques,2, '.','.');?></td>
+										<td class="<?=$cued_pagos_lin;?>"><?=number_format($saldoune->cued_pagos_lin,2, '.','.');?></td>
+										<td class="<?=$saldoandep_total_css;?>"><?=number_format($saldoandep_total,2, '.','.');?></td>
+										<td class="<?=$cued_depos_fir;?>"><?=number_format($saldoune->cued_depos_fir,2, '.','.');?></td>
+										<td class="<?=$saldoantras_total_css;?>"><?=number_format($saldoantras_total,2, '.','.');?></td>
+										<td class="<?=$saldotraspasoune_css;?>"><?=number_format($saldotraspasoune,2, '.','.');?></td>
+										<td class="<?=$cued_sald_fin;?>"><?=number_format($saldoune->cued_sald_fin,2, '.','.');?></td>
 									</tr>
 									<?php }
 									?>

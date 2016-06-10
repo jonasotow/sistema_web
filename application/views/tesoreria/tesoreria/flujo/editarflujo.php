@@ -1,7 +1,8 @@
  <section class="vimifos-content mdl-layout__content">
 	<div class="panel panel-primary">
 		<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast">
-			<?=$title;?> | <?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> - <?=$obtenercuentaune->cue_divisa;?> - <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?> 
+			<?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> 
+			<br> <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?> - <?=$obtenercuentaune->cue_divisa;?>
 		</div>
 		<div class="panel-body shadow">
 			<?=form_open("/flujo/updateFlujo/".$id) ?>
@@ -24,12 +25,11 @@
 							'id'=>'valor1',
 							'tabindex'=>'1',
 							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
 							'name' => 'cued_sald_ini',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_sald_ini 
+							'value' => number_format($obtenercuentaune->cued_sald_ini,2, '.','.')
 						);
 					?>
 						<?php
@@ -38,12 +38,11 @@
 							'id'=>'valor5',
 							'tabindex'=>'2',
 							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
 							'class' => 'form-control',
 							'name'	=>	'cued_cheq_circ',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_cheq_circ 
+							'value' => number_format($obtenercuentaune->cued_cheq_circ,2, '.','.')
 						);
 					?>
 					<?php
@@ -52,12 +51,11 @@
 							'id'=>'valor4',
 							'tabindex'=>'3',
 							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
 							'name' => 'cued_cheques',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_cheques 
+							'value' => number_format($obtenercuentaune->cued_cheques,2, '.','.')
 						);
 					?>
 					<?php
@@ -66,12 +64,11 @@
 							'id'=>'valor6',
 							'tabindex'=>'4',
 							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
 							'class' => 'form-control',
 							'name'	=>	'cued_pagos_lin',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_pagos_lin 
+							'value' => number_format($obtenercuentaune->cued_pagos_lin,2, '.','.')
 						);
 					?>
 					<?php
@@ -80,12 +77,11 @@
 							'id'=>'valor2',
 							'tabindex'=>'5',
 							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
 							'name' => 'cued_depos_fir',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_depos_fir 
+							'value' => number_format($obtenercuentaune->cued_depos_fir,2, '.','.') 
 						);
 					?>
 					<?php
@@ -94,12 +90,11 @@
 							'id'=>'valor3',
 							'tabindex'=>'6',
 							'onkeyup'=>'sumar();',
-							'pattern'=>'[0-9]{1,}',
 							'style' => 'width: 150%',
 							'name' => 'cued_depos_24h',
 							'class' => 'form-control',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_depos_24h 
+							'value' => number_format($obtenercuentaune->cued_depos_24h,2, '.','.') 
 						);
 					?>
 					<?php
@@ -110,7 +105,7 @@
 							'style' => 'width: 150%',
 							'class' => 'form-control disabe',
 							'name'	=>	'tra_monto_favor',
-							'value' => $obternertraspasoenflujoorigen->tra_monto 
+							'value' => number_format($obternertraspasoenflujoorigen->tra_monto,2, '.','.') 
 						);
 					?>
 					<?php
@@ -121,7 +116,7 @@
 							'style' => 'width: 150%',
 							'class' => 'form-control disabe',
 							'name'	=>	'tra_monto_contra',
-							'value' => $obternertraspasoenflujodestino->tra_monto 
+							'value' => number_format($obternertraspasoenflujodestino->tra_monto,2, '.','.') 
 						);
 					?>
 					<?php
@@ -131,7 +126,7 @@
 							'style' => 'width: 150%',
 							'class' => 'form-control disabe',
 							'name'	=>	'cued_sald_fin',
-							'value' => $totaldesaldo
+							'value' => number_format($totaldesaldo,2, '.','.') 
 						);
 					?>
 					<div class="col-md-4">

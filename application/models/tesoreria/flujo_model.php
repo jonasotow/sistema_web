@@ -19,9 +19,7 @@ class Flujo_model extends My_Model {
         $this->db->where('tra_fecha', $fecha); // filtro por fecha actual.
         $this->db->where('T2.cue_id', $id_destino); 
         $consulta = $this->db->get();
-
         $cadena = "";
-
         foreach ($consulta->result_array() as $reg) {
             $cadena.="{$reg['tra_monto']}";
         }
@@ -41,14 +39,12 @@ class Flujo_model extends My_Model {
         $this->db->where('tra_fecha', $fecha); // filtro por fecha actual.
         $this->db->where('T2.cue_id', $id_destino); 
         $consulta = $this->db->get();
-
         $cadena = "";
         $html = "<div class='form-group trasant'>
                     <label class='control-label right col-xs-2 red'>Traspaso existente:</label>
                     <div class='input-group left col-xs-3' >
                     <div class='input-group-addon red'>$</div>
                 ";
-
         foreach ($consulta->result_array() as $reg) {
             $cadena.="$html<input class='form-control red' disabled value='{$reg['tra_monto']}'> ";
         }
@@ -255,14 +251,16 @@ class Flujo_model extends My_Model {
       //  return $consulta;
         $this->db->select( 'COUNT(*) AS `contador`' );
         $this->db->where('cued_fecha = CURDATE();');
-        $query = $this->db->get ( 'cued_cuentas_det' );
+        $query = $this->db->get ('cued_cuentas_det' );
         return $query->row ()->contador;
     }
-    function obtenercuentasflujo(){
+// Ceros *****
+    function cuentasflujo(){
         $this->db->select('cue_id');
+        $this->db->where('cue_es_inversion', '0');
         $dat = $this->db->get('cue_cuentas_mstr');
         return $dat->result();
-    }
+    } 
     function agregarsaldoencero($fecha,$data){
         $this->db->insert('cued_cuentas_det',
              array(
@@ -275,6 +273,57 @@ class Flujo_model extends My_Model {
                 'cued_depos_fir' => 0,
                 'cued_depos_24h' => 0,
                 'cued_sald_fin' => 0                
+                 ));
+    }
+    function agregarsaldoenceroinv($fecha,$datos){
+        $this->db->insert('cueinv_inversiones_det',
+             array(
+                'cueinv_id' => $datos['cued_id'],
+                'cueinv_fecha' => $fecha,
+                'cueinv_sald_ini' =>0,
+                'cueinv_sald_fin' => 0,
+                'cueinv_tasa_bruta' => 0,
+                'cueinv_tasa_neta' => 0,
+                'cueinv_int_gene' => 0,
+                'cueinv_dias' => 0,
+                'cueinv_ocargos' => 0,
+                'cueinv_ocargos' => 0,
+                'cueinv_oabonos' => 0,
+                'cueinv_descripcion' => 0,
+                               
+                 ));
+    }
+
+// Saldo anterior *****
+    function flujoinvfecha(){
+        $this->db->select('*');
+        $this->db->join('cued_cuentas_det', 'cued_id = cue_id');
+        $this->db->where('cue_es_inversion', '1');
+        $this->db->order_by('cued_fecha', 'desc');
+        $this->db->limit(1);
+        $dat = $this->db->get('cue_cuentas_mstr');
+        return $dat->result();
+    }
+    function cuentasflujoinv($fech){
+        $this->db->select('*');
+        $this->db->join('cued_cuentas_det', 'cued_id = cue_id');
+        $this->db->where('cue_es_inversion', '1');
+        $this->db->where('cued_fecha', $fech);
+        $dat = $this->db->get('cue_cuentas_mstr');
+        return $dat->result();
+    }
+    function agregarsaldoant($fecha,$datos){
+        $this->db->insert('cued_cuentas_det',
+             array(
+                'cued_id' => $datos['cued_id'],
+                'cued_fecha' => $fecha,
+                'cued_sald_ini' => $datos['cued_sald_fin'],
+                'cued_cheq_circ' => 0,
+                'cued_cheques' => 0,
+                'cued_pagos_lin' => 0,
+                'cued_depos_fir' => 0,
+                'cued_depos_24h' => 0,
+                'cued_sald_fin' => $datos['cued_sald_fin']               
                  ));
     }
 
