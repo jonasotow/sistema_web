@@ -157,7 +157,7 @@ class Tesoreria_flujo extends MY_Controller {
 
         $tra_monto = $data['pagointvim'];
 // Pagos
-        $saldodepagos = $pagos_lin + $tra_monto;
+        $saldodepagos = $tra_monto;
 
 // Restar traspaso a origen *****
         $saldoori = $data['saldooripg']; 
@@ -171,7 +171,7 @@ class Tesoreria_flujo extends MY_Controller {
 
 // Envia datos a model    
         $this->flujo_model->nuevopagovim($id_d,$id_o,$fecha,$data);
-        $this->flujo_model->grabrarnvosalpagoslin($id_o,$fecha,$saldodepagos);
+        $this->flujo_model->grabrarnvosalpagoslin($id_d,$fecha,$saldodepagos);
         $this->flujo_model->actualizarsaldoorigenpgo($saldonuevoorigen,$id_o,$fecha);
         $this->flujo_model->actualizarsaldodestinopgo($saldonuevodestino,$id_d,$fecha);
 

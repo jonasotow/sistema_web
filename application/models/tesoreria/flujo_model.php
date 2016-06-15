@@ -117,13 +117,13 @@ class Flujo_model extends My_Model {
         else return false;
     }
     function obtenermovcuebanunes($id,$divisa){
-        $this->db->select('*');
+        $this->db->select('*, IF(tra_tipomov = "1", abs(tra_monto), abs(0)) as tra_montoz');
         $this->db->select_sum('tra_monto');
         $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cue_cuentas_mstr, cued_cuentas_det');
-        $this->db->join('tra_traspasos_mstr','tra_traspasos_mstr.tra_cue_dest_id = cued_cuentas_det.cued_id AND tra_traspasos_mstr.tra_fecha = cued_cuentas_det.cued_fecha', 'left');
-        $this->db->where('cue_cuentas_mstr.cue_id = cued_cuentas_det.cued_id');     
-        $this->db->where('cue_cuentas_mstr.cue_uninegocio_id = une_uninegocio_mstr.une_id');
-        $this->db->where('ban_bancos_mstr.ban_id = cue_cuentas_mstr.cue_banco_id');
+        $this->db->join('tra_traspasos_mstr','tra_cue_dest_id = cued_id AND tra_fecha = cued_fecha', 'left');
+        $this->db->where('cue_id = cued_id');     
+        $this->db->where('cue_uninegocio_id = une_id');
+        $this->db->where('ban_id = cue_banco_id');
         $this->db->where('une_id', $id);
         $this->db->where('cue_divisa', $divisa);
         $this->db->where('cued_fecha = CURDATE()'); // filtro por fecha actual.
@@ -149,7 +149,7 @@ class Flujo_model extends My_Model {
         if($consulta->num_rows() > 0) return $consulta->result();
         else return false;
     }
-        function obtenertods(){
+    function obtenertods(){
         $this->db->distinct();
         $this->db->select('une_nombre, une_id');
         $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cue_cuentas_mstr, cued_cuentas_det');
@@ -280,7 +280,7 @@ class Flujo_model extends My_Model {
              array(
                 'cueinv_id' => $datos['cued_id'],
                 'cueinv_fecha' => $fecha,
-                'cueinv_sald_ini' =>0,
+                'cueinv_sald_ini' => $datos['cued_sald_fin'],
                 'cueinv_sald_fin' => 0,
                 'cueinv_tasa_bruta' => 0,
                 'cueinv_tasa_neta' => 0,
@@ -289,8 +289,7 @@ class Flujo_model extends My_Model {
                 'cueinv_ocargos' => 0,
                 'cueinv_ocargos' => 0,
                 'cueinv_oabonos' => 0,
-                'cueinv_descripcion' => 0,
-                               
+                'cueinv_descripcion' => 0,        
                  ));
     }
 
@@ -335,22 +334,20 @@ class Flujo_model extends My_Model {
         $this->db->where('tra_fecha',$fecha);
         $query = $this->db->get('tra_traspasos_mstr');
         $datos = array(
-                'tra_cue_orig_id'=> $id_o,
-                'tra_cue_dest_id' => $id_d,
+                'tra_cue_orig_id'=> $id_d,
+                'tra_cue_dest_id' => $id_o,
                 'tra_monto' => $data['pagointvim'],
                 'tra_descripcion' => $data['descrip'],
                 'tra_responsable' => $data['respo'],
                 'tra_tipomov' => $data['tipo'],
                 'tra_fecha' => $fecha,
                 );
-
         if ($query->num_rows() > 0)
         {
             $this->db->where('tra_cue_orig_id',$id_o);
             $this->db->where('tra_cue_dest_id',$id_d);
             $this->db->where('tra_fecha',$fecha);
             $this->db->update('tra_traspasos_mstr', $datos);
-
         }
         else
         {
@@ -409,11 +406,11 @@ class Flujo_model extends My_Model {
         $query = $this->db->update('cued_cuentas_det',$datos);
     }
 
-    function grabrarnvosalpagoslin($id_o,$fecha,$saldodepagos){
+    function grabrarnvosalpagoslin($id_d,$fecha,$saldodepagos){
         $datos = array(
                 'cued_pagos_lin' => $saldodepagos,
                 );
-        $this->db->where('cued_id',$id_o);
+        $this->db->where('cued_id',$id_d);
         $this->db->where('cued_fecha',$fecha);
         $this->db->update('cued_cuentas_det', $datos);
     }

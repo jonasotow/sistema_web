@@ -10,8 +10,7 @@
 					
 					<div class="container">
 						<div class="carousel-caption">
-							<h1 class="mdl-typography--text-uppercase">Bienvenidos al Sistema de Tesoreria</h1>
-							<p>Encontraras todo la información financiera de todos las empresas de VIMIFOS.</p>
+							<h1 class="mdl-typography--text-uppercase">SISTEMA INTEGRAL DE TESORERIA - SIT</h1>
 						</div>
 					</div>
 				</div>

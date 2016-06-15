@@ -16,7 +16,7 @@
 			<div class="form">
 				<?php
 					$sumaentradas = $obtenercuentaune->cued_sald_ini + $obtenercuentaune->cued_depos_fir + $obtenercuentaune->cued_depos_24h; 
-					$restaflujo = $obtenercuentaune->cued_cheq_circ + $obtenercuentaune->cued_cheques + $obtenercuentaune->cued_pagos_lin;
+					$restaflujo = $obtenercuentaune->cued_cheq_circ + $obtenercuentaune->cued_cheques;
 					$totaldesaldo = $obtenercuentaune->cued_sald_fin;
 				?>	
 					<?php
@@ -58,19 +58,7 @@
 							'value' => number_format($obtenercuentaune->cued_cheques,2, '.','.')
 						);
 					?>
-					<?php
-						$cued_pagos_lin = array(
-							'type'=>'text',
-							'id'=>'valor6',
-							'tabindex'=>'4',
-							'onkeyup'=>'sumar();',
-							'style' => 'width: 150%',
-							'class' => 'form-control',
-							'name'	=>	'cued_pagos_lin',
-							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => number_format($obtenercuentaune->cued_pagos_lin,2, '.','.')
-						);
-					?>
+
 					<?php
 						$cued_depos_fir = array(
 							'type'=>'text',
@@ -146,10 +134,7 @@
 							<?=form_input($cued_cheques); ?>
 						</div>
 						<?= form_label('PAGOS DE LINEA:','cued_pagos_lin')?>		
-						<div class="input-group col-md-4">
-							<div class="input-group-addon">$</div>
-							<?=form_input($cued_pagos_lin); ?>
-						</div>
+
 						<?= form_label('DEPOSITOS EN FIRME:','cued_depos_fir')?>		
 						<div class="input-group col-md-4">
 							<div class="input-group-addon">$</div>

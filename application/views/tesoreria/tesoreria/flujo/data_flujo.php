@@ -12,7 +12,8 @@
 					<div class="form-group">
 					<?php if ($movcuebanune) {?>
 						<div class="panel panel-default">
-							<table class="table ">
+							<div class="table-responsive">
+							<table class="table table-hover">
 								<thead>
 									<tr>
 										<th>Cuenta</th>
@@ -36,7 +37,7 @@
 	
 								<?php 
 									$saldoopera = $movcuebanune->cued_sald_ini - $movcuebanune->cued_cheq_circ;
-									$saldoandep = $saldoopera - $movcuebanune->cued_cheques - $movcuebanune->cued_pagos_lin;
+									$saldoandep = $saldoopera - $movcuebanune->cued_cheques;
 									$saldoantras = $saldoandep + $movcuebanune->cued_depos_fir;?>
 
 
@@ -49,9 +50,8 @@
 								<?php if ($saldoandep <= 0) { $saldoandep_css = "zero"; } else { $saldoandep_css = "saldo";}?>
 								<?php if ($movcuebanune->cued_depos_fir <= 0) { $cued_depos_fir = "zero"; } else { $cued_depos_fir = "saldo";}?>
 								<?php if ($saldoantras <= 0) { $saldoantras_css = "zero"; } else { $saldoantras_css = "saldo";}?>
-								<?php if ($movcuebanune->tra_monto <= 0) { $tra_monto = "zero"; } else { $tra_monto = "saldo";}?>						
+								<?php if ($movcuebanune->tra_monto <= 0) { $tra_monto = "zero"; } else { $tra_monto = "saldo";}?>				
 								<?php if ($movcuebanune->cued_sald_fin <= 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
-
 								<?php if ($movcuebanune->cued_sald_fin <= 0) { $statusbtn = "hidden"; } else { $statusbtn = "activo";}?>
 
 									<tr>
@@ -60,16 +60,16 @@
 												<?=$movcuebanune->ban_nombre; ?>  - <?=$movcuebanune->cue_numero;?> <?=$movcuebanune->cue_descripcion;?>
 											</a>
 										</td>
-										<td class="<?=$cued_sald_ini;?>"><?=number_format($movcuebanune->cued_sald_ini,2, '.','.');?></td>
-										<td class="<?=$cued_cheq_circ;?>"><?=number_format($movcuebanune->cued_cheq_circ,2, '.','.');?></td>
-										<td class="<?=$saldoopera_css;?>"><?=number_format($saldoopera,2, '.','.');?></td>
-										<td class="<?=$cued_cheques;?>"><?=number_format($movcuebanune->cued_cheques,2, '.','.');?></td>
-										<td class="<?=$cued_pagos_lin;?>"><?=number_format($movcuebanune->cued_pagos_lin,2, '.','.');?></td>
-										<td class="<?=$saldoandep_css;?>"><?=number_format($saldoandep,2, '.','.');?></td>
-										<td class="<?=$cued_depos_fir;?>"><?=number_format($movcuebanune->cued_depos_fir,2, '.','.');?></td>
-										<td class="<?=$saldoantras_css;?>"><?=number_format($saldoantras,2, '.','.');?></td>
-										<td class="<?=$tra_monto;?>"><?=number_format($movcuebanune->tra_monto,2, '.','.');?></td>
-										<td class="<?=$cued_sald_fin;?> info"><?=number_format($movcuebanune->cued_sald_fin,2, '.','.');?></td>
+										<td class="<?=$cued_sald_ini;?>"><?=number_format($movcuebanune->cued_sald_ini,2, '.',',');?></td>
+										<td class="<?=$cued_cheq_circ;?>"><?=number_format($movcuebanune->cued_cheq_circ,2, '.',',');?></td>
+										<td class="<?=$saldoopera_css;?>"><?=number_format($saldoopera,2, '.',',');?></td>
+										<td class="<?=$cued_cheques;?>"><?=number_format($movcuebanune->cued_cheques,2, '.',',');?></td>
+										<td class="<?=$cued_pagos_lin;?>"><?=number_format($movcuebanune->cued_pagos_lin,2, '.',',');?></td>
+										<td class="<?=$saldoandep_css;?>"><?=number_format($saldoandep,2, '.',',');?></td>
+										<td class="<?=$cued_depos_fir;?>"><?=number_format($movcuebanune->cued_depos_fir,2, '.',',');?></td>
+										<td class="<?=$saldoantras_css;?>"><?=number_format($saldoantras,2, '.',',');?></td>
+										<td class="<?=$tra_monto;?>"><?=number_format($movcuebanune->tra_montoz,2, '.',',');?></td>
+										<td class="<?=$cued_sald_fin;?> info"><?=number_format($movcuebanune->cued_sald_fin,2, '.',',');?></td>
 
 										<td class="<?=$statusbtn;?>">
 											<!-- Right aligned menu below button -->
@@ -110,7 +110,7 @@
 																	<?=$movcuebanune->cue_numero;?>  
 																	<?=$movcuebanune->cue_nombre;?> -
 																	<?=$movcuebanune->cue_divisa;?> SALDO:
-																	$<?=number_format($movcuebanune->cued_sald_fin,2, '.','.');?>
+																	$<?=number_format($movcuebanune->cued_sald_fin,2, '.',',');?>
 																</label>
 																<input type="hidden" name="divisa" value="<?=$movcuebanune->cue_divisa;?>">
 																<input type="hidden" name="uneid" value="<?=$id_une;?>">
@@ -207,7 +207,7 @@
 																<label for="tra_cue_orig_id" class="control-label right col-xs-2">Cuenta Origen:</label>
 																<input value="<?=$movcuebanune->cued_id;?>" name="tra_cue_orig_id" id="<?=$movcuebanune->cued_id;?>" type="hidden">
 																<label class="col-xs-5 left control-label">
-																	<?=$movcuebanune->ban_nombre;?> - <?=$movcuebanune->cue_nombre;?> <?=$movcuebanune->cue_numero;?> - <?=$movcuebanune->cue_divisa;?>: $<?=number_format($movcuebanune->cued_sald_fin,2, '.','.');?>
+																	<?=$movcuebanune->ban_nombre;?> - <?=$movcuebanune->cue_nombre;?> <?=$movcuebanune->cue_numero;?> - <?=$movcuebanune->cue_divisa;?>: $<?=number_format($movcuebanune->cued_sald_fin,2, '.',',');?>
 																</label>																	
 																<input value="<?=$movcuebanune->cued_sald_fin;?>" name="saldoori" type="hidden">
 															</div>
@@ -220,7 +220,7 @@
 																	foreach ($obtenertodo as $bancos) { ?>
 																		<option value="<?=$bancos->cued_id;?>|<?=$bancos->cued_sald_fin;?>|<?=$bancos->cue_divisa;?>|<?=$id_une;?>">
 																			<?=$bancos->ban_nombre;?> - <?=$bancos->cue_nombre;?> <?=$bancos->cue_numero;?> - 
-																			<?=$bancos->cue_divisa;?>: $<?=number_format($bancos->cued_sald_fin,2, '.','.');?> 
+																			<?=$bancos->cue_divisa;?>: $<?=number_format($bancos->cued_sald_fin,2, '.',',');?> 
 																		</option>
 																	
 																<?php } ?>
@@ -392,22 +392,23 @@
 
 									<tr class="total info">
 										<td >Total:</td>
-										<td class="<?=$cued_sald_ini;?>"><?=number_format($saldoune->cued_sald_ini,2, '.','.');?></td>
-										<td class="<?=$cued_cheq_circ;?>"><?=number_format($saldoune->cued_cheq_circ,2, '.','.');?></td>
-										<td class="<?=$saldoopera_total_css;?>"><?=number_format($saldoopera_total,2, '.','.');?></td>
-										<td class="<?=$cued_cheques;?>"><?=number_format($saldoune->cued_cheques,2, '.','.');?></td>
-										<td class="<?=$cued_pagos_lin;?>"><?=number_format($saldoune->cued_pagos_lin,2, '.','.');?></td>
-										<td class="<?=$saldoandep_total_css;?>"><?=number_format($saldoandep_total,2, '.','.');?></td>
-										<td class="<?=$cued_depos_fir;?>"><?=number_format($saldoune->cued_depos_fir,2, '.','.');?></td>
-										<td class="<?=$saldoantras_total_css;?>"><?=number_format($saldoantras_total,2, '.','.');?></td>
-										<td class="<?=$saldotraspasoune_css;?>"><?=number_format($saldotraspasoune,2, '.','.');?></td>
-										<td class="<?=$cued_sald_fin;?>"><?=number_format($saldoune->cued_sald_fin,2, '.','.');?></td>
+										<td class="<?=$cued_sald_ini;?>"><?=number_format($saldoune->cued_sald_ini,2, '.',',');?></td>
+										<td class="<?=$cued_cheq_circ;?>"><?=number_format($saldoune->cued_cheq_circ,2, '.',',');?></td>
+										<td class="<?=$saldoopera_total_css;?>"><?=number_format($saldoopera_total,2, '.',',');?></td>
+										<td class="<?=$cued_cheques;?>"><?=number_format($saldoune->cued_cheques,2, '.',',');?></td>
+										<td class="<?=$cued_pagos_lin;?>"><?=number_format($saldoune->cued_pagos_lin,2, '.',',');?></td>
+										<td class="<?=$saldoandep_total_css;?>"><?=number_format($saldoandep_total,2, '.',',');?></td>
+										<td class="<?=$cued_depos_fir;?>"><?=number_format($saldoune->cued_depos_fir,2, '.',',');?></td>
+										<td class="<?=$saldoantras_total_css;?>"><?=number_format($saldoantras_total,2, '.',',');?></td>
+										<td class="<?=$saldotraspasoune_css;?>"><?=number_format($saldotraspasoune,2, '.',',');?></td>
+										<td class="<?=$cued_sald_fin;?>"><?=number_format($saldoune->cued_sald_fin,2, '.',',');?></td>
 									</tr>
 									<?php }
 									?>
 																	
 								</tbody>
 							</table>
+							</div>
 						</div>
 					</div>
 				</div>

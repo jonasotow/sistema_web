@@ -2445,10 +2445,14 @@ table th[class*="col-"] {
   background-color: #ebcccc;
 }
 .table-responsive {
-  min-height: .01%;
-  overflow-x: auto;
+  width: 100%;
+  margin-bottom: 15px;
+  overflow-y: hidden;
+  -ms-overflow-style: -ms-autohiding-scrollbar;  
+  border: 1px solid #ddd;
+
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1200px) {
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
