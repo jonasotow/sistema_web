@@ -29,7 +29,8 @@ class Aplicaciones_aplicaciones extends MY_Controller {
 		$dbLogin = $this->load->database('login', TRUE);
 		$this->session->set_userdata('app', "aplicaciones/");
 		$this->template['application'] = $this->aplicaciones_model->applications();
-		$this->_run('home');
+		redirect(base_url('tesoreria/home'));
+
 	}
 }
 /* End of file inicio_class.php */

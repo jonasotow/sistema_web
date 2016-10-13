@@ -29,6 +29,7 @@ class Tipocambio_model extends My_Model {
         if($consulta->num_rows() > 0) return $consulta->result();
         else return false;
     }
+    
 
 }
 

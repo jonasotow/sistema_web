@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/sistema_web';
+$config['base_url']	= 'http://localhost/sistema_web/';
 
 /*
 |--------------------------------------------------------------------------

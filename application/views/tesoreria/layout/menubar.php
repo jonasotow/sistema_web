@@ -23,7 +23,8 @@
         </span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link a-prin" href="<?=site_url('flujo');?>">Flujo</a>
-			<a class="mdl-navigation__link a-prin" href="<?=site_url('inversion');?>">Inversión</a>
+            <a class="mdl-navigation__link a-prin" href="<?=site_url('inversion');?>">Inversión</a>
+			<a class="mdl-navigation__link a-prin" href="<?=site_url('divisas');?>">Compra de Divisas</a>
             <a class="mdl-navigation__link a-prin" href="<?=site_url('tipocambio');?>">Tipo de Cambio</a>
             <div class="vimifos-drawer-separator"></div>
 			<a class="mdl-navigation__link a-prin" href="<?=site_url('reportes');?>">Reportes</a>

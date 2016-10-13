@@ -17,16 +17,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	if (strtoupper(substr(PHP_OS, 0, 3)) === 'LIN' AND getcwd() === '/var/www/sistema_web') {
-    	define('ENVIRONMENT', 'production');
-	}elseif (strtoupper(substr(PHP_OS, 0, 3)) === 'LIN' AND getcwd() === '/var/www/sistemaweb_cb') {
-    	define('ENVIRONMENT', 'testing');
-	}elseif (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    	define('ENVIRONMENT', 'development');
-	}else{
-		echo "Error de configuracion";
-		return FALSE;
-	}
+		define('ENVIRONMENT', 'development');
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -44,33 +36,14 @@ if (defined('ENVIRONMENT'))
 			error_reporting(E_ALL);
 			define('CHOSTNAME', 'localhost');
 			define('CBD', '_lc');
-			define('CPASSWORD', '');
+			define('CPASSWORD', 'saz0906');
 			define('CDBDRIVER', 'mysql');
 			define('ENTORNO_DESARROLLO', 'development');
 			define('BASE_URL_DNS', 'http://localhost/sistema_web/');
-			define('WEBSERVICE_PEDIDOS', 'http://10.2.0.49:8080/WebVimifos/getSolicitud_cb?wsdl');
+			ini_set('display_errors', 1);
 		break;
 	
-		case 'testing1':
-			define('CHOSTNAME', '10.2.0.57');
-			define('CBD', '_cb');
-			define('CPASSWORD', 'vp1011itsz1962');
-			define('CDBDRIVER', 'mssql');
-			define('ENTORNO_DESARROLLO', 'testing');
-			define('BASE_URL_DNS', 'http://test.vimifos.com/');
-			define('WEBSERVICE_PEDIDOS', 'http://10.2.0.49:8080/WebVimifos/getSolicitud_cb?wsdl');
-		break;
-			
-		case 'production1':
-			error_reporting(0);
-			define('CHOSTNAME', '10.2.0.57');
-			define('CBD', '');
-			define('CPASSWORD', 'vp1011itsz1962');
-			define('CDBDRIVER', 'mssql');
-			define('ENTORNO_DESARROLLO', '');
-			define('BASE_URL_DNS', 'http://aplicaciones.vimifos.com/');
-			define('WEBSERVICE_PEDIDOS', 'http://10.2.0.49:8080/WebVimifos/getSolicitud?wsdl');
-		break;
+
 
 		default:
 			exit('The application environment is not set correctly.');

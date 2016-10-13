@@ -10,12 +10,10 @@
         var valor4=verificar("valor4");
         var valor5=verificar("valor5");
         var valor6=verificar("valor6");
-        var valor7=verificar("valor7");
-        var valor8=verificar("valor8");
 
         // realizamos la suma de los valores y los ponemos en la casilla del
         // formulario que contiene el total
-        document.getElementById("total").value=parseFloat(valor1)+parseFloat(valor2)+parseFloat(valor3)+parseFloat(valor7)-parseFloat(valor4)-parseFloat(valor5)-parseFloat(valor6)-parseFloat(valor8);
+        document.getElementById("total").value=parseFloat(valor1)-parseFloat(valor2)-parseFloat(valor3)+parseFloat(valor4)+parseFloat(valor5)-parseFloat(valor6);
     }
   
 

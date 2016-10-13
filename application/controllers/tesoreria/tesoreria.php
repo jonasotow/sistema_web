@@ -11,7 +11,9 @@ class Tesoreria extends MY_Controller {
     }
 
     public function index() {
+
         $this->_run('tesoreria/home');
+
     }
 
 }

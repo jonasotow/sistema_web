@@ -9,7 +9,11 @@
 
 	<title>Vimifos</title>
 	<!-- El CSS -->
-
+	<script type="text/javascript">
+		  //<![CDATA[
+			 base_url = '<?=base_url();?>index.php/';
+		  //]]>
+	</script>
 	<link rel="shortcut icon" href="<?=base_url().'assets/img/favicon.ico'?>" />
 	<link rel="stylesheet" href="<?=base_url().'assets/css/font-awesome.css'?>" >
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/bootstrap.css'?>" >
@@ -26,21 +30,19 @@
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/perfect-scrollbar.css'?>" >
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/bootstrap-datetimepicker.css'?>" >
 
+  	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/pace.css'?>" />
+
 	<!-- Un tipo de Fuente desde Google Fonts -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-	<script type="text/javascript">
-		  //<![CDATA[
-			 base_url = '<?=base_url();?>index.php/';
-		  //]]>
-	</script>
+
 	<!-- El archivo JS de  -->
+	<script src="<?=base_url().'assets/js/tesoreria/pace.js'?>"></script>
 
 	<script src="<?=base_url().'assets/js/jquery-1.11.1.min.js'?>"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
 	<script src="<?=base_url().'assets/js/tesoreria/moment.js';?>"></script>
-	<script src="<?=base_url().'assets/js/tesoreria/transition.js';?>"></script>
 	<script src="<?=base_url().'assets/js/tesoreria/collapse.js';?>"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="<?=base_url().'assets/js/tesoreria/bootstrap-datetimepicker.js'?>"></script>
@@ -48,6 +50,8 @@
 	<script src="<?=base_url().'assets/js/tesoreria/perfect-scrollbar.js';?>"></script>
 	<script src="<?=base_url().'assets/js/tesoreria/sumastream.js';?>"></script>
 	<script src="<?=base_url().'assets/js/tesoreria/material.min.js';?>"></script>
+
+ 
 
 </head>
 <body>

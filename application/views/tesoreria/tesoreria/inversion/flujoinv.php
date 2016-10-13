@@ -49,7 +49,7 @@
 									<td>
 										<div class="dias"><?=$cuentasinv->cueinv_dias;?></div>
 									</td>
-									<td class="">
+									<td>
 										<!-- Right aligned menu below button -->
 										<button id="demo-menu-lower-right<?=$cuentasinv->cueinv_id;?>"
 											        class="mdl-button mdl-js-button mdl-button--icon">

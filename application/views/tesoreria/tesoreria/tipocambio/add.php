@@ -57,7 +57,7 @@
 						
 						<div class="mdl-card__actions mdl-card--border">
 							<button type="submit" class="btn btn-success">Guardar</button>
-							<a href="<?=base_url().'catalogos/bancos' ?>" type="button" class="btn btn-default">Cancelar</a>
+							<a href="<?=base_url().'tesoreria/home' ?>" type="button" class="btn btn-default">Cancelar</a>
 						</div>
 					<?=form_close();?>
 				</div>

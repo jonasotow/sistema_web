@@ -195,6 +195,43 @@ class MY_Controller extends CI_Controller {
     	$this->template['sub_menu'] = $this->inicio_model->menu();
      	$this->load->model('tesoreria/modelo_generico_model');
      	$this->template['displaytipo'] = $this->inicio_model->displaytipo();
+
+// Iniciar saldo para operaciones
+
+     	$this->template['contadorflujo'] = $this->inicio_model->contadorflujo();
+        if($this->template['contadorflujo'] > 0){
+            $this->template['datos'] = 'Datos';
+        }
+        else{
+            $this->template['datos'] = 'Cero';
+// Ceros *****
+            $cuentasflujo = $this->inicio_model->cuentasflujo();
+                foreach ($cuentasflujo as $cuentas) {
+                $data =  array(
+                    'cued_id' => $cuentas->cue_id,
+                    );
+                $fecha = date('Y-m-d');    
+            $this->template['agregarsaldoencero'] = $this->inicio_model->agregarsaldoencero($fecha,$data);
+            }
+// Saldo anterior *****  
+            $flujoinvfecha = $this->inicio_model->flujoinvfecha();
+                foreach ($flujoinvfecha as $flujoinvfecha) {
+            $this->template['fs'] = $flujoinvfecha->cued_fecha;
+
+            }
+            $fech = $this->template['fs'];
+            $cuentasflujoinv = $this->inicio_model->cuentasflujoinv($fech);
+                foreach ($cuentasflujoinv as $cuentass) {
+                    $datos = array(
+                        'cued_id' => $cuentass->cue_id,
+                        'cued_sald_fin' => $cuentass->cued_sald_fin,
+                    );
+            $fecha = date('Y-m-d');    
+            $this->template['agregarsaldoant'] = $this->inicio_model->agregarsaldoant($fecha,$datos);
+            $this->template['agregarsaldoenceroinv'] = $this->inicio_model->agregarsaldoenceroinv($fecha,$datos);
+          
+            }
+        }
     }
     
     /*

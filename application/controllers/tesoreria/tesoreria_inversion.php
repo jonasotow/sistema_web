@@ -11,41 +11,7 @@ class Tesoreria_inversion extends MY_Controller {
     }
     function index(){
         $this->template['title'] = 'Inversiones';
-        $this->template['contadorflujo'] = $this->inversion_model->contadorflujo();
         $this->template['cuentasinv'] = $this->inversion_model->flujocuentasinversion();
-        if($this->template['contadorflujo'] > 0){
-            $this->template['datos'] = 'Datos';
-        }
-        else{
-            $this->template['datos'] = 'Cero';
-// Ceros *****
-            $cuentasflujo = $this->inversion_model->cuentasflujo();
-                foreach ($cuentasflujo as $cuentas) {
-                $data =  array(
-                    'cued_id' => $cuentas->cue_id,
-                    );
-                $fecha = date('Y-m-d');    
-            $this->template['agregarsaldoencero'] = $this->inversion_model->agregarsaldoencero($fecha,$data);
-            }
-// Saldo anterior *****  
-            $flujoinvfecha = $this->inversion_model->flujoinvfecha();
-                foreach ($flujoinvfecha as $flujoinvfecha) {
-            $this->template['fs'] = $flujoinvfecha->cued_fecha;
-
-            }
-            $fech = $this->template['fs'];
-            $cuentasflujoinv = $this->inversion_model->cuentasflujoinv($fech);
-                foreach ($cuentasflujoinv as $cuentass) {
-                    $datos = array(
-                        'cued_id' => $cuentass->cue_id,
-                        'cued_sald_fin' => $cuentass->cued_sald_fin,
-                    );
-            $fecha = date('Y-m-d');    
-            $this->template['agregarsaldoant'] = $this->inversion_model->agregarsaldoant($fecha,$datos);
-            $this->template['agregarsaldoantinv'] = $this->inversion_model->agregarsaldoantinv($fecha,$datos);
-          
-            }
-        }
         $this->template['todo'] = $this->inversion_model->obtenertods();
         $this->template['ctainversion'] = $this->inversion_model->cuentasinversion();
         $this->_run('inversion/flujoinv');

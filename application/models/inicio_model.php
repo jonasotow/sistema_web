@@ -40,6 +40,95 @@ class Inicio_model extends CI_Model {
         else return false;
     }
 
+    // Contador de datos en el flujo
+
+    function contadorflujo(){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+      //  $consulta = $this->db->count_all('cued_cuentas_det');
+      //  return $consulta;
+        $this->db->select( 'COUNT(*) AS `contador`' );
+        $this->db->where('cued_fecha = CURDATE();');
+        $query = $this->db->get ('cued_cuentas_det' );
+        return $query->row ()->contador;
+    }
+// Ceros *****
+    function cuentasflujo(){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->select('cue_id');
+        $this->db->where('cue_es_inversion', '0');
+        $dat = $this->db->get('cue_cuentas_mstr');
+        return $dat->result();
+    } 
+    function agregarsaldoencero($fecha,$data){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->insert('cued_cuentas_det',
+             array(
+                'cued_id' => $data['cued_id'],
+                'cued_fecha' => $fecha,
+                'cued_sald_ini' => 0,
+                'cued_cheq_circ' => 0,
+                'cued_cheques' => 0,
+                'cued_pagos_lin' => 0,
+                'cued_depos_fir' => 0,
+                'cued_depos_24h' => 0,
+                'cued_sald_fin' => 0                
+                 ));
+    }
+    function agregarsaldoenceroinv($fecha,$datos){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->insert('cueinv_inversiones_det',
+             array(
+                'cueinv_id' => $datos['cued_id'],
+                'cueinv_fecha' => $fecha,
+                'cueinv_sald_ini' => $datos['cued_sald_fin'],
+                'cueinv_sald_fin' => 0,
+                'cueinv_tasa_bruta' => 0,
+                'cueinv_tasa_neta' => 0,
+                'cueinv_int_gene' => 0,
+                'cueinv_dias' => 0,
+                'cueinv_ocargos' => 0,
+                'cueinv_ocargos' => 0,
+                'cueinv_oabonos' => 0,
+                'cueinv_descripcion' => 0,        
+                 ));
+    }
+
+// Saldo anterior *****
+    function flujoinvfecha(){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->select('*');
+        $this->db->join('cued_cuentas_det', 'cued_id = cue_id');
+        $this->db->where('cue_es_inversion', '1');
+        $this->db->order_by('cued_fecha', 'desc');
+        $this->db->limit(1);
+        $dat = $this->db->get('cue_cuentas_mstr');
+        return $dat->result();
+    }
+    function cuentasflujoinv($fech){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->select('*');
+        $this->db->join('cued_cuentas_det', 'cued_id = cue_id');
+        $this->db->where('cue_es_inversion', '1');
+        $this->db->where('cued_fecha', $fech);
+        $dat = $this->db->get('cue_cuentas_mstr');
+        return $dat->result();
+    }
+    function agregarsaldoant($fecha,$datos){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->insert('cued_cuentas_det',
+             array(
+                'cued_id' => $datos['cued_id'],
+                'cued_fecha' => $fecha,
+                'cued_sald_ini' => $datos['cued_sald_fin'],
+                'cued_cheq_circ' => 0,
+                'cued_cheques' => 0,
+                'cued_pagos_lin' => 0,
+                'cued_depos_fir' => 0,
+                'cued_depos_24h' => 0,
+                'cued_sald_fin' => $datos['cued_sald_fin']               
+                 ));
+    }
+
     function submenu(){
         /*if(method_exists($this,'_menuSub' . ucfirst($this->session->userdata('app'))))
             return $this->{'_menuSub ' . ucfirst($this->session->userdata('app'))}();*/

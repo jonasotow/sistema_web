@@ -57,7 +57,7 @@ class Inicio_class extends MY_Controller {
   					$this->session->set_userdata('logged_user', $logged_user);
   					$this->session->set_userdata('username',$this->input->post('username',TRUE));
   					$this->session->set_userdata('password',$this->input->post('password',TRUE));
-         				redirect(site_url('aplicaciones/home'));
+         				redirect(site_url('tesoreria/home'));
   				} else {
   					// De lo contrario se activa el error_login.
   					$data['error_login'] = TRUE;

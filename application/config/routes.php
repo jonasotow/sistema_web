@@ -51,21 +51,8 @@ $exclude = array(
 	);
 	
 $installed = array(
-	'censos',
 	'usuarios',
-	'pedidos',
-	'proswine',
 	'aplicaciones',
-	'formulacion',
-	'agendatecnicos',
-	'estadoscta',
-	'preciosmercado',
-	'fletes',
-	'hojastecnicas',
-	'prom',
-	'bioeconomico',
-	'videos',
-	'prenomina',
 	'tesoreria'
 );
 
