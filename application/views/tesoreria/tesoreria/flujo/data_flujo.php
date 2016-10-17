@@ -100,7 +100,6 @@
 												  <li class="mdl-menu__item" data-toggle="modal" data-target="#pagovim<?=$dtf->cued_id?>">Pagos entre filiales</li>
 												  <li class="mdl-menu__item" <?=$statuspb;?> ><a href="<?=base_url()?>flujo/pagobendls">Pagos a Beneficiario</a></li>
 												  <li class="mdl-menu__item" data-toggle="modal" data-target="#traspaso<?=$dtf->cued_id?>">Traspasos</li>
-												  <li class="mdl-menu__item red" data-toggle="modal" data-target="#deletetraspaso<?=$dtf->cued_id?>">Eliminar</li>
 												</ul>
 											</td>
 										</tr>
@@ -117,57 +116,7 @@
 												});
 											});
 										</script>
-									
-
-				<!-- Eliminar Traspaso -->
-
-									<div class="flujomodal">
-										<div class="modal fade" id="deletetraspaso<?=$dtf->cued_id;?>" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header errorht"><h4 class="modal-title text-upper" id="myModalLabel">Eliminar Traspasos</h4></div>
-													<div class="modal-body">
-														<div class="form-group">
-															<label class="col-xs-3 right control-label">Cuenta Origen</label>
-															<label class="col-xs-3 right control-label">Cuenta Destino</label>
-															<label class="col-xs-3 right control-label">Tipo</label>
-															<label class="col-xs-3 right control-label">Responsable</label>
-															<label class="col-xs-3 right control-label">Monto</label>
-															<div class="col-xs-3 right control-label"></div>
-														</div>	
-													<?php foreach ($trapasosctaxcta as $x){ ?>
-														<div class="form-group">
-															<label class="col-xs-3 left control-label">
-																<?=$x->T1C;?>
-																<?=$x->T1N;?>
-															</label>
-															<label class="col-xs-3 left control-label">
-																<?=$x->T2C;?>
-																<?=$x->T2N;?>																	
-															</label>
-															<label class="col-xs-3 left control-label">
-																<?=$x->tra_descripcion;?>
-															</label>	
-															<label class="col-xs-3 left control-label">
-																<?=$x->tra_responsable;?>
-															</label>	
-															<label class="col-xs-3 left control-label">
-																<?=$x->tra_monto;?>
-															</label>
-															<div class="col-xs-1 left control-label">
-																X
-															</div>
-														</div>
-													<?php }	?>															
-
-													</div><!-- modal-body -->
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-													</div>
-												</div><!-- modal-content -->
-											</div><!-- modal-dialog -->
-										</div><!-- modal -->
-									</div>										
+															
 					<!-- Pago a vimifos -->
 
 									<div class="flujomodal">

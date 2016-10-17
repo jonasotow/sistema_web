@@ -18,7 +18,7 @@
 							<select name="cuentapago" class="form-control" id="cuentapago" tabindex="4" required="">
 							</select>
 							<label for="tra_monto">Monto:</label>
-							<div class="input-group col-md-9">
+							<div class="input-group">
 								<div class="input-group-addon">$</div>
 								<input name="tra_monto" class="form-control" tabindex="7" id="valor1" onkeyup="mult()" required="">
 							</div>

@@ -196,6 +196,26 @@ class Flujo_model extends My_Model {
         if($consulta->num_rows() > 0) return $consulta;
         else return false;
     }
+
+    function ctatotal(){
+        //$this->db->select('*, IF(tra_tipomov = "C", abs(tra_monto), abs(0)) as CV, IF(tra_tipomov = "1", abs(tra_monto),sum(tra_monto) as TP, sum(tra_monto) as tra_montoss');
+        $this->db->select('*, sum(IF(tra_tipomov = "0", (tra_monto), abs(0))) as PV, sum(IF(tra_tipomov = "S", (tra_monto), abs(0))) as TS, sum(IF(tra_tipomov = "C", (tra_monto), abs(0))) as CD, sum(IF(tra_tipomov = "1", abs(tra_monto), abs(0))) as TP');
+        $this->db->from('une_uninegocio_mstr, ban_bancos_mstr, cue_cuentas_mstr, cued_cuentas_det');
+        $this->db->join('tra_traspasos_mstr','tra_cue_dest_id = cued_id AND tra_fecha = cued_fecha', 'left');
+        $this->db->where('cue_id = cued_id');     
+        $this->db->where('cue_uninegocio_id = une_id');
+        $this->db->where('ban_id = cue_banco_id');
+        $this->db->where('cued_fecha = CURDATE()'); // filtro por fecha actual.
+        $this->db->group_by('cued_id ');
+        $this->db->order_by('une_nombre', 'asc');
+        $this->db->order_by('cue_descripcion', 'asc');
+        $this->db->order_by('ban_nombre', 'asc');
+        $this->db->order_by('cue_es_inversion', 'asc');
+        $consulta = $this->db->get();
+        if($consulta->num_rows() > 0) return $consulta;
+        else return false;
+    }
+
     function obtenertodo($id,$divisa){
         $this->db->distinct();
         $this->db->select('cued_id, ban_nombre,cue_nombre, cue_numero, cued_sald_fin, cue_divisa');
@@ -523,6 +543,33 @@ class Flujo_model extends My_Model {
 
         }
         echo $cadena;
+    }
+    function obtcta($divisa, $une){
+        $this->db->select('*');
+        $this->db->from('cue_cuentas_mstr');
+        $this->db->join('cued_cuentas_det','cue_id = cued_id');
+        $this->db->join('une_uninegocio_mstr','une_id = cue_uninegocio_id');
+        $this->db->join('ban_bancos_mstr','ban_id = cue_banco_id');
+        $this->db->where('cue_divisa', $divisa);
+        $this->db->where('une_id', $une);
+        $this->db->where('cued_sald_fin !=', '0');
+        $this->db->where('cued_fecha = CURDATE()'); 
+        $consulta = $this->db->get();
+      
+        $cadena = "";
+        $simbolo = "SALDO $";
+
+        if($consulta->num_rows() > 0){
+            foreach ($consulta->result_array() as $reg) {
+            $cadena.="<option value='{$reg['cue_id']}|{$reg['cued_sald_fin']}'>
+            {$reg['ban_nombre']} {$reg['cue_divisa']} {$reg['cue_numero']} {$reg['cue_nombre']} $simbolo{$reg['cued_sald_fin']}</option>";
+            }
+        }else {
+            $cadena.="<option>CUENTAS SIN SALDO</option>";
+        }
+
+        echo $cadena;
+
     }
 
 }

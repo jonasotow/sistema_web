@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/base.css'?>" >
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/reporte.css'?>">
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/tipo.css'?>">
+	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/pagob.css'?>">
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/carousel.css'?>">
 	<link rel="stylesheet" href="<?=base_url().'assets/css/tesoreria/css/inversion.css'?>">
 

@@ -279,9 +279,19 @@ class Tesoreria_flujo extends MY_Controller {
     }
 
     function pagobendls(){
+        $this->template['title'] = 'Pago a Beneficiarios';
+        $this->template['obtben'] = $this->flujo_model->obtBenef();
+        $this->template['movcuebanune'] = $this->flujo_model->ctatotal();
+        $this->template['une'] = $this->flujo_model->obtenerUnidades();
         $this->_run('flujo/pagobendls');
 
     }
+    function obtcta(){
+        $divisa = $this->input->post('divisa');
+        $une = $this->input->post('une');
+        $this->template['obtcta'] = $this->flujo_model->obtcta($divisa, $une);  
+
+    }  
 
 
 }
