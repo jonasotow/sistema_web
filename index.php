@@ -36,7 +36,7 @@ if (defined('ENVIRONMENT'))
 			error_reporting(E_ALL);
 			define('CHOSTNAME', 'localhost');
 			define('CBD', '_lc');
-			define('CPASSWORD', 'saz0906');
+			define('CPASSWORD', '');
 			define('CDBDRIVER', 'mysql');
 			define('ENTORNO_DESARROLLO', 'development');
 			define('BASE_URL_DNS', 'http://localhost/sistema_web/');
