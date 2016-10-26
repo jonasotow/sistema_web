@@ -1,7 +1,6 @@
 <?php
 	$id_une = $une->une_id; 
 ?>
-
 <?php
 	foreach ($obtben as $obtben) {
 		$benvar = "<option value='$obtben->ben_id'>$obtben->ben_nombre</option>";
