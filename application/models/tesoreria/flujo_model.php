@@ -187,6 +187,7 @@ class Flujo_model extends My_Model {
         $this->db->where('ban_id = cue_banco_id');
         $this->db->where('une_id', $id);
         $this->db->where('cue_divisa', $divisa);
+        $this->db->where('cue_es_inversion', 0);
         $this->db->where('cued_fecha = CURDATE()'); // filtro por fecha actual.
         $this->db->group_by('cued_id ');
         $this->db->order_by('cue_descripcion', 'asc');

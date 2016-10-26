@@ -1,7 +1,7 @@
 .disabe
 	background-color #eee
 	opacity 1
-	cursor: not-allowed;
+	cursor not-allowed
 	
 .moneda
 	&:before
@@ -9,6 +9,64 @@
 .red
 	color red
 	font-weight bold
+
+.boxr
+	width 79%
+	display inline-block
+	vertical-align top
+
+	.table-responsive
+		.full
+			width 2400px
+			font-size 12px
+			overflow scroll
+			text-transform uppercase
+			margin-bottom 0
+
+			th
+				text-align center
+				text-transform uppercase
+			td 
+				text-align center
+				text-transform uppercase
+				vertical-align middle
+				height 49px
+			.total
+				font-weight bold
+				font-size 14px
+			.saldo
+				&:before
+					content "$ "
+			.zero
+				color red
+				font-weight bold
+				&:before
+					content "$ "
+	
+.boxl
+	width 20%
+	vertical-align top
+	.col-fixed
+		border 1px solid #ddd
+		text-transform uppercase
+		.tablefix
+			margin-bottom 0
+			th
+				text-align right
+			td 
+				text-align right
+				height 49px
+				vertical-align middle
+			.total
+				font-weight bold
+				font-size 14px
+
+#table_container_left 
+	display inline-block
+	
+#table_container_right 
+	display inline-block
+
 .flujo 
 	.panel-primary 
 		width 98%
@@ -34,15 +92,17 @@
 					.panel
 						margin 0
 						width 100%
-						table
+
+						.table
 							text-transform uppercase
 							font-size 12px
 							width 2600px
+							overflow : scroll;
+							
 							thead
 								tr 
-									th 
+									th
 										text-align center
-								
 							tbody
 								
 								.total
@@ -58,46 +118,46 @@
 										content "$ "
 								tr
 									td 
-										text-align center									
-										
-						.flujomodal	
-							.modal
-								.modal-dialog
-									width 90%
-									.modal-content
-										.modal-header
-											background-color rgb(63,81,181)
-											color #fff
-											border-bottom 1px solid rgb(63,81,181)
-											box-shadow 0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.2),0 1px 8px 0 rgba(0,0,0,.12);
+										text-align center
+											
+.flujomodal	
+	.modal
+		.modal-dialog
+			width 90%
+			.modal-content
+				.modal-header
+					background-color rgb(63,81,181)
+					color #fff
+					border-bottom 1px solid rgb(63,81,181)
+					box-shadow 0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.2),0 1px 8px 0 rgba(0,0,0,.12);
 
-											.close
-												color #fff
-										.errorht
-											background-color #ac2925
-										.modal-body
-											.form-group
-												display flex
-												padding-left 100px
-												span
-													&:before
-														content "$ "
-												label
-													padding-top 7px
-													padding-bottom 7px
-													margin-bottom 0
-												.input-group
-													padding-left 15px
-													float left
-													
-												.textarea
-													overhide
-												.p 
-													margin-left 10px
-											   		
+					.close
+						color #fff
+				.errorht
+					background-color #ac2925
+				.modal-body
+					.form-group
+						display flex
+						padding-left 100px
+						span
+							&:before
+								content "$ "
+						label
+							padding-top 7px
+							padding-bottom 7px
+							margin-bottom 0
+						.input-group
+							padding-left 15px
+							float left
+							
+						.textarea
+							overhide
+						.p 
+							margin-left 10px
+					   		
 
-											.errort
-												font-size 2em
-												text-align center
-												margin 0 auto
-												width 50%
+					.errort
+						font-size 2em
+						text-align center
+						margin 0 auto
+						width 50%

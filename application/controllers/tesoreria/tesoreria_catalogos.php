@@ -190,6 +190,7 @@ class Tesoreria_catalogos extends MY_Controller {
         $this->template['ban'] = $this->tesoreria_model->obtenerBancos();
         $this->template['une'] = $this->tesoreria_model->obtenerUnidades();
         $this->template['ctabanune'] = $this->tesoreria_model->obtenerCuentasBancosUne();
+        $this->template['contarcuentas'] = $this->tesoreria_model->contarcuentas();
         $this->_run('catalogos/cuentas/addshow');
     }
     function editarCuenta(){
@@ -210,7 +211,13 @@ class Tesoreria_catalogos extends MY_Controller {
             'cue_divisa' => $this->input->post('cue_divisa'),
             'cue_es_inversion' => $this->input->post('cue_es_inversion')
         );
-        $this->tesoreria_model->nuevoCuenta($data);
+
+        $cids = $this->input->post('cids');
+        $ncids = $cids + 1;
+        $fecha = date('Y-m-d');
+
+        $this->tesoreria_model->nuevoCuenta($data,$ncids);
+        $this->tesoreria_model->nuevoCuentaCero($ncids,$fecha);
         $this->template['cta'] = $this->tesoreria_model->obtenerCuentas();
         redirect(base_url('index.php/catalogos/cuentas'));
     }

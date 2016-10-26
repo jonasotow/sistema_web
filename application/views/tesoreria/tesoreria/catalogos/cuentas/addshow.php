@@ -3,6 +3,11 @@
 		<div class="vimifos-section-title mdl-typography--display-1-color-contrast">
 			<?=$titles;?>
 		</div>
+
+		<?php
+			$cids = $contarcuentas->cid;
+		?>
+
 		<div class="box-catalogo">
 			<div class="col-md-6 row1 shadow">
 				<div class="form-group">
@@ -87,6 +92,8 @@
 
 								</select>
 							</div>
+							<input type="hidden" name="cids" value="<?=$cids;?>">
+
 						</div>
 						<div class="mdl-card__actions mdl-card--border">
 							<button type="submit" class="btn btn-success">Enviar</button>

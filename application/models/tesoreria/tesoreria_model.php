@@ -141,9 +141,10 @@ class Tesoreria_model extends My_Model {
     }
 
 // Modelo de Cuentas -->
-    function nuevoCuenta($data){
+    function nuevoCuenta($data,$ncids){
         $this->db->insert('cue_cuentas_mstr',
             array(
+                'cue_id'=>$ncids,
                 'cue_banco_id'=>$data['cue_banco_id'], 
                 'cue_uninegocio_id'=>$data['cue_uninegocio_id'], 
                 'cue_numero'=>$data['cue_numero'],
@@ -153,6 +154,31 @@ class Tesoreria_model extends My_Model {
                 'cue_es_inversion'=>$data['cue_es_inversion']
                  ));
     }
+    function contarcuentas(){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->select('MAX(cue_id) AS cid');
+        $query = $this->db->get('cue_cuentas_mstr');
+        if ($query->num_rows() > 0){
+           return $query->row();
+        }
+        return null;
+    }
+    function nuevoCuentaCero($ncids,$fecha){
+        $dbBase = $this->load->database('tesoreria',TRUE);        
+        $this->db->insert('cued_cuentas_det',
+             array(
+                'cued_id' => $ncids,
+                'cued_fecha' => $fecha,
+                'cued_sald_ini' => 0,
+                'cued_cheq_circ' => 0,
+                'cued_cheques' => 0,
+                'cued_pagos_lin' => 0,
+                'cued_depos_fir' => 0,
+                'cued_depos_24h' => 0,
+                'cued_sald_fin' => 0                
+                 ));
+    }
+
     function obtenerCuentas(){
         $query = $this->db->get('cue_cuentas_mstr');
         if($query->num_rows() > 0) return $query;

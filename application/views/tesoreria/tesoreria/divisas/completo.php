@@ -9,8 +9,8 @@
 					<div class="modal-body">
 
 						<div class="mdl-card__actions mdl-card--border center">
-							<a href="http://localhost/sistema_web/divisas/" class="btn btn-success">Realizar otro Movimiento</a>
-							<a href="http://localhost/sistema_web/divisas/transdivisas" class="btn btn-primary">Ver compras y ventas</a>
+							<a href="/sistema_web/divisas/" class="btn btn-success">Realizar otro Movimiento</a>
+							<a href="/sistema_web/divisas/transdivisas" class="btn btn-primary">Ver compras y ventas</a>
 						</div>
 
 					</div>

@@ -12,97 +12,110 @@
 	<section class="flujo ">
 		<div class="panel panel-primary">
 			<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast"><?=$title;?> DE <?=$une->une_nombre;?> EN <?=$divisa;?> </div>
-			<div class="panel-body shadow">
-				<div class="col-md-12 ">
-					<div class="form-group">
-					<?php if ($movcuebanune) {?>
-						<div class="panel panel-default">
-							<div class="table-responsive">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>Cuenta</th>
-											<th>Saldo Inicial</th>
-											<th>Cheques Circulación</th>
-											<th>Saldo de Operación</th>
-											<th>PAGOS</th>
-											<th>PAGOS A FILIALES</th>
-											<th>PAGOS DE FILIALES</th>
-											<th>SALDO ANTES DE DEPOSITOS</th>
-											<th>DEPOSITOS EN FIRME</th>
-											<th>SALDO ANTES DE TRASPASOS</th>
-											<th>COMPRAS DE DIVISAS</th>
-											<th>TRASPASO SALIDA</th>
-											<th>TRASPASO ENTRADA</th>
-											<th>SALDO FINAL DEL DIA</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-									
-									<?php 
-										foreach ($movcuebanune->result() as $dtf) {
-											$saldoopera = $dtf->cued_sald_ini - $dtf->cued_cheq_circ;
-											$saldoandep = $saldoopera - $dtf->cued_cheques;
-											$saldoantras = $saldoandep + $dtf->cued_depos_fir;?>
+			<div class="panel-body">
+			<?php if ($movcuebanune) {?>
 
-									<?php if ($dtf->cued_sald_ini < 0) { $cued_sald_ini = "zero"; } else { $cued_sald_ini = "saldo";}?>
-									<?php if ($dtf->cued_cheq_circ < 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
-									<?php if ($saldoopera < 0) { $saldoopera_css = "zero"; } else { $saldoopera_css = "saldo";}?>
-									<?php if ($dtf->cued_cheques < 0) { $cued_cheques = "zero"; } else { $cued_cheques = "saldo";}?>
-									<?php if ($dtf->PV < 0) { $PV_css = "zero"; } else { $PV_css = "saldo";}?>
-									<?php if ($dtf->cued_pagos_lin < 0) { $cued_pagos_lin = "zero"; } else { $cued_pagos_lin = "saldo";}?>
-									<?php if ($dtf->cued_cheq_circ < 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
-									<?php if ($saldoandep < 0) { $saldoandep_css = "zero"; } else { $saldoandep_css = "saldo";}?>
-									<?php if ($dtf->cued_depos_fir < 0) { $cued_depos_fir = "zero"; } else { $cued_depos_fir = "saldo";}?>
-									<?php if ($saldoantras < 0) { $saldoantras_css = "zero"; } else { $saldoantras_css = "saldo";}?>
-									<?php if ($dtf->CD < 0) { $CD = "zero"; } else { $CD = "saldo";}?>				
-									<?php if ($dtf->TS < 0) { $TS_css = "zero"; } else { $TS_css = "saldo";}?>				
-									<?php if ($dtf->TP < 0) { $TP_css = "zero"; } else { $TP_css = "saldo";}?>				
-									<?php if ($dtf->cued_sald_fin < 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
-									<?php if ($dtf->cued_sald_fin <= 0) { $statusbtn = "hidden"; } else { $statusbtn = "activo";}?>
-									<?php if ($divisa != 'USD') { $statuspb = "disabled"; } else { $statuspb = "";}?>
+				<div class="boxl" id="table_container_left">
+					<div class="col-fixed" >
+						<table class="table table-hover tablefix">
+							<thead>
+								<tr>
+									<th>Cuenta</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($movcuebanune->result() as $dtf) { ?>
+								<tr>
+									<td>
+										<a href="/sistema_web/flujo/editarflujo/<?=$dtf->cued_id?>">
+											<?=$dtf->ban_nombre;?> - <?=$dtf->cue_numero;?> <?=$dtf->cue_descripcion;?>
+										</a>
+									</td>
 
-										<tr>
-											<td> 
-												<?php if ($dtf->cue_es_inversion != '0') { $urlinvtr = "#"; } else { $urlinvtr = "/sistema_web/flujo/editarflujo/$dtf->cued_id";}?>
-												
-												<a href="<?=$urlinvtr?>">
-													<?=$dtf->ban_nombre; ?> - <?=$dtf->cue_numero;?> <?=$dtf->cue_descripcion;?>
-												</a>
-											</td>
-											<td class="<?=$cued_sald_ini;?>"><?=number_format($dtf->cued_sald_ini,2, '.',',');?></td>
-											<td class="<?=$cued_cheq_circ;?>"><?=number_format($dtf->cued_cheq_circ,2, '.',',');?></td>
-											<td class="<?=$saldoopera_css;?>"><?=number_format($saldoopera,2, '.',',');?></td>
-									<!-- Pagos -->				
-											<td class="<?=$cued_cheques;?>"><?=number_format($dtf->cued_cheques,2, '.',',');?></td>
-									<!-- Pagos a Vimifos -->		
-											<td class="<?=$PV_css;?>"><?=number_format($dtf->PV,2, '.',',');?></td>
-									<!-- Pagos de Vimifos -->		
-											<td class="<?=$cued_pagos_lin;?>"><?=number_format($dtf->cued_pagos_lin,2, '.',',');?></td>
-											<td class="<?=$saldoandep_css;?>"><?=number_format($saldoandep,2, '.',',');?></td>
-											<td class="<?=$cued_depos_fir;?>"><?=number_format($dtf->cued_depos_fir,2, '.',',');?></td>
-											<td class="<?=$saldoantras_css;?>"><?=number_format($saldoantras,2, '.',',');?></td>
-											<td class="<?=$CD;?>"><?=number_format($dtf->CD,2, '.',',');?></td>
-											<td class="<?=$TS_css;?>"><?=number_format($dtf->TS,2, '.',',');?></td>
-											<td class="<?=$TP_css;?>"><?=number_format($dtf->TP,2, '.',',');?></td>
-											<td class="<?=$cued_sald_fin;?> info"><?=number_format($dtf->cued_sald_fin,2, '.',',');?></td>
+								</tr>
+							<?php } ?>
+								<tr class="total info"> 
+									<td >Total:</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 
-											<td class="<?=$statusbtn;?>">
-												<!-- Right aligned menu below button -->
-												<button id="demo-menu-lower-right<?=$dtf->cued_id;?>"
-												        class="mdl-button mdl-js-button mdl-button--icon">
+					<div class="boxr" id="table_container_right">
+						<div class="table-responsive">
+							<table class="table table-hover full">
+								<thead>
+									<tr>
+										<th>Saldo Inicial</th>
+										<th>Cheques Circulación</th>
+										<th>Saldo de Operación</th>
+										<th>PAGOS</th>
+										<th>PAGOS A FILIALES</th>
+										<th>PAGOS DE FILIALES</th>
+										<th>SALDO ANTES DE DEPOSITOS</th>
+										<th>DEPOSITOS EN FIRME</th>
+										<th>SALDO ANTES DE TRASPASOS</th>
+										<th>COMPRAS DE DIVISAS</th>
+										<th>TRASPASO SALIDA</th>
+										<th>TRASPASO ENTRADA</th>
+										<th>SALDO FINAL DEL DIA</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php 
+									foreach ($movcuebanune->result() as $dtf) {
+									$saldoopera = $dtf->cued_sald_ini - $dtf->cued_cheq_circ;
+									$saldoandep = $saldoopera - $dtf->cued_cheques;
+									$saldoantras = $saldoandep + $dtf->cued_depos_fir;?>
+
+								<?php if ($dtf->cued_sald_ini < 0) { $cued_sald_ini = "zero"; } else { $cued_sald_ini = "saldo";}?>
+								<?php if ($dtf->cued_cheq_circ < 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
+								<?php if ($saldoopera < 0) { $saldoopera_css = "zero"; } else { $saldoopera_css = "saldo";}?>
+								<?php if ($dtf->cued_cheques < 0) { $cued_cheques = "zero"; } else { $cued_cheques = "saldo";}?>
+								<?php if ($dtf->PV < 0) { $PV_css = "zero"; } else { $PV_css = "saldo";}?>
+								<?php if ($dtf->cued_pagos_lin < 0) { $cued_pagos_lin = "zero"; } else { $cued_pagos_lin = "saldo";}?>
+								<?php if ($dtf->cued_cheq_circ < 0) { $cued_cheq_circ = "zero"; } else { $cued_cheq_circ = "saldo";}?>
+								<?php if ($saldoandep < 0) { $saldoandep_css = "zero"; } else { $saldoandep_css = "saldo";}?>
+								<?php if ($dtf->cued_depos_fir < 0) { $cued_depos_fir = "zero"; } else { $cued_depos_fir = "saldo";}?>
+								<?php if ($saldoantras < 0) { $saldoantras_css = "zero"; } else { $saldoantras_css = "saldo";}?>
+								<?php if ($dtf->CD < 0) { $CD = "zero"; } else { $CD = "saldo";}?>				
+								<?php if ($dtf->TS < 0) { $TS_css = "zero"; } else { $TS_css = "saldo";}?>				
+								<?php if ($dtf->TP < 0) { $TP_css = "zero"; } else { $TP_css = "saldo";}?>				
+								<?php if ($dtf->cued_sald_fin < 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
+								<?php if ($dtf->cued_sald_fin <= 0) { $statusbtn = "hidden"; } else { $statusbtn = "activo";}?>
+								<?php if ($divisa != 'USD') { $statuspb = "disabled"; } else { $statuspb = "";}?>
+									<tr>
+										<td class="<?=$cued_sald_ini;?>"><?=number_format($dtf->cued_sald_ini,2, '.',',');?></td>
+										<td class="<?=$cued_cheq_circ;?>"><?=number_format($dtf->cued_cheq_circ,2, '.',',');?></td>
+										<td class="<?=$saldoopera_css;?>"><?=number_format($saldoopera,2, '.',',');?></td>
+										<td class="<?=$cued_cheques;?>"><?=number_format($dtf->cued_cheques,2, '.',',');?></td>
+										<td class="<?=$PV_css;?>"><?=number_format($dtf->PV,2, '.',',');?></td>
+										<td class="<?=$cued_pagos_lin;?>"><?=number_format($dtf->cued_pagos_lin,2, '.',',');?></td>
+										<td class="<?=$saldoandep_css;?>"><?=number_format($saldoandep,2, '.',',');?></td>
+										<td class="<?=$cued_depos_fir;?>"><?=number_format($dtf->cued_depos_fir,2, '.',',');?></td>
+										<td class="<?=$saldoantras_css;?>"><?=number_format($saldoantras,2, '.',',');?></td>
+										<td class="<?=$CD;?>"><?=number_format($dtf->CD,2, '.',',');?></td>
+										<td class="<?=$TS_css;?>"><?=number_format($dtf->TS,2, '.',',');?></td>
+										<td class="<?=$TP_css;?>"><?=number_format($dtf->TP,2, '.',',');?></td>
+										<td class="<?=$cued_sald_fin;?> info"><?=number_format($dtf->cued_sald_fin,2, '.',',');?></td>
+										<td class="<?=$statusbtn;?>">
+											<!-- Right aligned menu below button -->
+											<button id="demo-menu-lower-right<?=$dtf->cued_id;?>" class="mdl-button mdl-js-button mdl-button--icon">
 												  <i class="material-icons">more_vert</i>
-												</button>
+											</button>
 
-												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 												    for="demo-menu-lower-right<?=$dtf->cued_id;?>">
-												  <li class="mdl-menu__item" data-toggle="modal" data-target="#pagovim<?=$dtf->cued_id?>">Pagos entre filiales</li>
-												  <li class="mdl-menu__item" <?=$statuspb;?> ><a href="<?=base_url()?>flujo/pagobendls">Pagos a Beneficiario</a></li>
-												  <li class="mdl-menu__item" data-toggle="modal" data-target="#traspaso<?=$dtf->cued_id?>">Traspasos</li>
-												</ul>
-											</td>
-										</tr>
+												<li class="mdl-menu__item" data-toggle="modal" data-target="#pagovim<?=$dtf->cued_id?>">Pagos entre filiales</li>
+												<li class="mdl-menu__item" <?=$statuspb;?> ><a href="<?=base_url()?>flujo/pagobendls">Pagos a Beneficiario</a></li>
+												<li class="mdl-menu__item" data-toggle="modal" data-target="#traspaso<?=$dtf->cued_id?>">Traspasos</li>
+											</ul>
+										</td>
+									</tr>
+
+
 										<script type="text/javascript">	
 											var path = '<?=base_url()?>';
 											$("#demo-menu-lower-right<?=$dtf->cued_id;?>" ).click(function() {
@@ -350,8 +363,11 @@
 										</div><!-- modal -->
 									</div>
 
-							
+
+
+
 								<?php } }?>
+
 
 									<?php
 										
@@ -389,7 +405,6 @@
 										<?php if ($su->cued_sald_fin < 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
 
 										<tr class="total info">
-											<td >Total:</td>
 											<td class="<?=$cued_sald_ini;?>"><?=number_format($su->cued_sald_ini,2, '.',',');?></td>
 											<td class="<?=$cued_cheq_circ;?>"><?=number_format($su->cued_cheq_circ,2, '.',',');?></td>
 											<td class="<?=$saldoopera_total_css;?>"><?=number_format($saldoopera_total,2, '.',',');?></td>
@@ -406,13 +421,14 @@
 										</tr>
 
 										<?php }?>
-																		
-									</tbody>
-								</table>
-							</div>
+
+
+								</tbody>
+							</table>
 						</div>
 					</div>
-				</div>
+
+
 			</div>
 		</div>
 	</section>
