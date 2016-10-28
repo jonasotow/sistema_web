@@ -535,6 +535,24 @@ class Flujo_model extends My_Model {
         if($query->num_rows() > 0) return $query->result();
         else return false;
     }
+    function pagoben($ben,$monto,$cuentapago,$fecha){
+        $datos = array(
+                'cueben_beneficiario_id' => $ben,
+                'cueben_monto' => $monto,
+                'cueben_cuenta_id' => $cuentapago,
+                'cueben_fecha' => $fecha
+                );
+        $this->db->insert('cueben_cuentas_beneficiarios_det', $datos);   
+    }
+    function mpagoben($monto,$cuentapago,$fecha){
+        $datos = array(
+                'cued_cheques' => -($monto),
+                );
+        $this->db->where('cued_id',$cuentapago);
+        $this->db->where('cued_fecha',$fecha);
+        $this->db->update('cued_cuentas_det', $datos);
+    }
+
     function obtBenefsql(){
         $consulta = $this->db->get('ben_beneficiarios_mstr');
       

@@ -286,6 +286,21 @@ class Tesoreria_flujo extends MY_Controller {
         $this->_run('flujo/pagobendls');
 
     }
+
+    function pagob(){
+        $ben = $this->input->post('ben');
+        $monto = $this->input->post('tra_monto');
+        $cuentapago = $this->input->post('cuentapago');
+        $fecha = date('Y-m-d');
+
+        $this->template['pagoben'] = $this->flujo_model->pagoben($ben, $monto, $cuentapago, $fecha);        
+        $this->template['mpagoben'] = $this->flujo_model->mpagoben($monto,$cuentapago, $fecha);
+
+    }
+    function completo(){
+        $this->_run('flujo/completo');
+    }
+
     function obtcta(){
         $divisa = $this->input->post('divisa');
         $une = $this->input->post('une');

@@ -15,7 +15,7 @@
 								<option value="EUR">EUR</option>
 							</select>
 							<label class="control-label">Beneficiario:</label>
-							<select name="unenego" class="form-control left" tabindex="4" required="" >
+							<select name="ben" class="form-control left" tabindex="4" required="" >
 								<option value> -- Seleccione Beneficiario -- </option>
 							<?php
 								foreach ($obtben as $b) { ?>

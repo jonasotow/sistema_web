@@ -132,25 +132,18 @@ class Tesoreria_divisas extends MY_Controller {
         $tra_cue_dest_id = $this->input->post('destino');
         $saldoctaorigen = $this->input->post('saldoctaorigen');
         $saldoctadestino = $this->input->post('saldoctadestino');
-        $tra_monton = $this->input->post('tramonton');
-        $tra_tcn = $this->input->post('tratcn');
+        $tramonto = $this->input->post('tramonto');
+        $tratc = $this->input->post('tratc');
+        
+        $tramonton = $this->input->post('tramonton');
+        $tratcn = $this->input->post('tratcn');
 
-        $tra_monto = $this->input->post('tramonto');
-        $tra_tc = $this->input->post('tratc');   
         $tipo = "C";
         $fecha = date('Y-m-d');
 
-        $id_dest = $tra_cue_orig_id;
-        $id_orig = $tra_cue_dest_id;
-
-        $cdivisa = $tra_monto * $tra_tc;
-        $cdivisan = $tra_monton * $tra_tcn;
-        $nsaldodepo = $saldoctadestino - $tra_monto + $tra_monton;
-        $nsaldopago = $saldoctaorigen + $cdivisa - $cdivisan ;
-        $convdv = $tra_monto * $tra_tc;
-
-        $this->divisas_model->editransdivisas($tra_cue_orig_id,$tra_cue_dest_id,$tipo,$fecha,$tra_tc,$tra_monto);
+        $this->divisas_model->editrandivisas($tra_cue_orig_id,$tra_cue_dest_id,$tipo,$fecha,$tratcn,$tramonton);
         redirect(base_url('divisas/completo'));
+
 
     }
 

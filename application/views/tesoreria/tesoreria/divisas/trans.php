@@ -47,26 +47,26 @@
 					</td>
 				</tr>
 					<?php
-						$tra_monton = array(
+						$tramonton = array(
 							'type'=>'text',
 							'id'=>'valor1',
 							'onkeyup'=>'sumar();',
 							'style' => 'width: 150%',
 							'class' => 'form-control',
-							'name'	=>	'tra_monto',
-							'value' => $tdv->tra_monto
+							'name'	=> 'tramonton',
+							'value' => number_format($tdv->tra_monto,2, '.',',')
 						);
 					?>
 
 					<?php
-						$tra_tcn = array(
+						$tratcn = array(
 							'type'=>'text',
 							'id'=>'valor2',
 							'onkeyup'=>'sumar();',
 							'style' => 'width: 150%',
 							'class' => 'form-control',
-							'name'	=>	'tra_tc',
-							'value' => $tdv->tra_tc
+							'name'	=> 'tratcn',
+							'value' => number_format($tdv->tra_tc,4, '.',',') 
 						);
 					?>
 
@@ -80,15 +80,15 @@
 								<?=form_open("/divisas/editransdivisas/") ?>
 								<div class="modal-body">
 
-								<?=form_label('Monto:','tra_monton')?>		
+								<?=form_label('Monto:','tramonton')?>		
 								<div class="input-group col-md-4">
 									<div class="input-group-addon">$</div>
-									<?=form_input($tra_monto); ?>
+									<?=form_input($tramonton); ?>
 								</div>
-								<?=form_label('Tipo de cambio:','tra_tcn')?>		
+								<?=form_label('Tipo de cambio:','tratcn')?>		
 								<div class="input-group col-md-4">
 									<div class="input-group-addon">$</div>
-									<?=form_input($tra_tc); ?>
+									<?=form_input($tratcn); ?>
 								</div>
 									<!-- Input ocultos -->
 									<div>
@@ -96,8 +96,8 @@
 										<input type="hidden" name="destino" value="<?=$tdv->tCuenta_origen;?>">
 										<input type="hidden" name="saldoctaorigen" value="<?=$tdv->cdsaldo_origen;?>">
 										<input type="hidden" name="saldoctadestino" value="<?=$tdv->cdsaldo_destino;?>">
-										<input type="hidden" name="saldoctaorigen" value="<?=$tdv->tra_monto;?>">
-										<input type="hidden" name="saldoctaorigen" value="<?=$tdv->tra_tc;?>">
+										<input type="hidden" name="tramonto" value="<?=$tdv->tra_monto;?>">
+										<input type="hidden" name="tratc" value="<?=$tdv->tra_tc;?>">
 									</div>
 								</div>
 								<div class="modal-footer">

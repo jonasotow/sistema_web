@@ -86,7 +86,6 @@ class Divisas_model extends My_Model {
                 );
 
         $this->db->insert('tra_traspasos_mstr', $datos);
-    
     }
 
     function compradivisascv($dato,$convdv){
@@ -174,19 +173,18 @@ class Divisas_model extends My_Model {
         $this->db->delete('tra_traspasos_mstr');
     }
 
-    function editransdivisas($tra_cue_orig_id,$tra_cue_dest_id,$tipo,$fecha,$tra_tc,$tra_monto){
-
+    function editrandivisas($tratcn,$tramonton,$tra_cue_orig_id,$tra_cue_dest_id,$tipo,$fecha){
+        
+        $datos = array(
+                'tra_tc' =>$tratcn,
+                'tra_monto' => $tramonton,
+             );
         $this->db->where('tra_cue_orig_id',$tra_cue_orig_id);
         $this->db->where('tra_cue_dest_id',$tra_cue_dest_id);
         $this->db->where('tra_tipomov',$tipo);
         $this->db->where('tra_fecha',$fecha);
-
-        $datos = array(
-            'tra_tc' =>$tra_tc,
-            'tra_monto' => $tra_monto,
-             );
-
         $query = $this->db->update('tra_traspasos_mstr',$datos);
+
     }
 
 }
