@@ -111,8 +111,8 @@ class Tesoreria_divisas extends MY_Controller {
         $id_orig = $tra_cue_dest_id;
 
         $cdivisa = $tra_monto * $tra_tc;
-        $nsaldodepo = $saldoctadestino - $tra_monto;
-        $nsaldopago = $saldoctaorigen + $cdivisa;
+        $nsaldopago = $saldoctadestino - $tra_monto;
+        $nsaldodepo = $saldoctaorigen + $cdivisa;
         $convdv = $tra_monto * $tra_tc;
 
         $this->divisas_model->deletetransdivisas($tra_cue_orig_id,$tra_cue_dest_id,$tipo,$fecha);
@@ -128,25 +128,42 @@ class Tesoreria_divisas extends MY_Controller {
 
     function editransdivisas(){
 
-        $tra_cue_orig_id = $this->input->post('origen');
-        $tra_cue_dest_id = $this->input->post('destino');
-        $saldoctaorigen = $this->input->post('saldoctaorigen');
-        $saldoctadestino = $this->input->post('saldoctadestino');
-        $tramonto = $this->input->post('tramonto');
-        $tratc = $this->input->post('tratc');
-        
-        $tramonton = $this->input->post('tramonton');
-        $tratcn = $this->input->post('tratcn');
+        $nconvx = $this->input->post('tramonton') * $this->input->post('tratcn');
 
-        $tipo = "C";
+        $data = array(
+            'tra_cue_orig_id' => $this->input->post('origen'), 
+            'tra_cue_dest_id' => $this->input->post('destino'),
+            'saldoctaorigen' => $this->input->post('saldoctaorigen'),
+            'saldoctadestino' => $this->input->post('saldoctadestino'),
+            'tramonto' => $this->input->post('tramonto'),
+            'tratc' => $this->input->post('tratc'),
+            'tramonton' => $this->input->post('tramonton'),
+            'tratcn' => $this->input->post('tratcn'),
+            'nconv' => $nconvx,
+            'tipo' => "C",
+            'fecha' => date('Y-m-d'),
+            );
+
         $fecha = date('Y-m-d');
+        $id_orig = $data['tra_cue_orig_id'];
+        $id_dest = $data['tra_cue_dest_id'];
 
-        $this->divisas_model->editrandivisas($tra_cue_orig_id,$tra_cue_dest_id,$tipo,$fecha,$tratcn,$tramonton);
-        redirect(base_url('divisas/completo'));
+        $tramonton = $data['tramonton'];
+        $tratcn = $data['tratcn'];
+
+        $tramonto = $data['tramonto'];
+        $tratc = $data['tratc'];
+
+        $conv = $tramonto * $tratc;
+        $nconv = $tramonton * $tratcn;
+        $nsaldodepo = $data['saldoctadestino'] - $tramonto + $tramonton;
+        $nsaldopago = $data['saldoctaorigen'] + $conv - $nconv;
 
 
+        $this->divisas_model->editransdivisas($data);
+        $this->divisas_model->editransdivisasx($data);
+        $this->divisas_model->actsaldodepo($id_dest,$nsaldodepo,$fecha);
+        $this->divisas_model->actsaldopago($id_orig,$nsaldopago,$fecha);
+        redirect(base_url('divisas/transdivisas'));
     }
-
-
-
 }

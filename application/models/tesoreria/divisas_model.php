@@ -128,7 +128,7 @@ class Divisas_model extends My_Model {
     }
 
     function mostrartrans(){
-        $this->db->select('une_nombre, B3.ban_nombre AS Institucion, tra_tc, tra_divisa, tra_monto,
+        $this->db->select('une_nombre, B3.ban_nombre AS institucion, tra_tc, tra_divisa, tra_monto,
             tra_cue_orig_id AS tCuenta_origen, M1.cue_numero AS cNumero_origen, M1.cue_nombre AS cNombre_origen, B1.ban_nombre AS bNombre_origen, C1.cued_sald_fin AS cdsaldo_origen, M1.cue_descripcion AS cDescr_origen,
            tra_cue_dest_id AS tCuenta_destino, M2.cue_numero AS cNumero_destino, M2.cue_nombre AS cNombre_destino, B2.ban_nombre AS bNombre_destino, C2.cued_sald_fin AS cdsaldo_destino, M2.cue_descripcion AS cDescr_destino');
         $this->db->from('une_uninegocio_mstr, tra_traspasos_mstr');
@@ -173,16 +173,27 @@ class Divisas_model extends My_Model {
         $this->db->delete('tra_traspasos_mstr');
     }
 
-    function editrandivisas($tratcn,$tramonton,$tra_cue_orig_id,$tra_cue_dest_id,$tipo,$fecha){
-        
+    function editransdivisas($data){
         $datos = array(
-                'tra_tc' =>$tratcn,
-                'tra_monto' => $tramonton,
+                'tra_tc' => $data['tratcn'],
+                'tra_monto' => $data['tramonton']
              );
-        $this->db->where('tra_cue_orig_id',$tra_cue_orig_id);
-        $this->db->where('tra_cue_dest_id',$tra_cue_dest_id);
-        $this->db->where('tra_tipomov',$tipo);
-        $this->db->where('tra_fecha',$fecha);
+        $this->db->where('tra_fecha',$data['fecha']);
+        $this->db->where('tra_tipomov',$data['tipo']);
+        $this->db->where('tra_cue_orig_id',$data['tra_cue_orig_id']);
+        $this->db->where('tra_cue_dest_id',$data['tra_cue_dest_id']);
+        $query = $this->db->update('tra_traspasos_mstr',$datos);
+
+    }
+    function editransdivisasx($data){
+        $datos = array(
+                'tra_tc' => $data['tratcn'],
+                'tra_monto' => $data['nconv']
+             );
+        $this->db->where('tra_fecha',$data['fecha']);
+        $this->db->where('tra_tipomov',$data['tipo']);
+        $this->db->where('tra_cue_orig_id',$data['tra_cue_dest_id']);
+        $this->db->where('tra_cue_dest_id',$data['tra_cue_orig_id']);
         $query = $this->db->update('tra_traspasos_mstr',$datos);
 
     }

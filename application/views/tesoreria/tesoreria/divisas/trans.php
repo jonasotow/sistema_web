@@ -30,11 +30,11 @@
 				<tr>
 					<td><?=$corigen;?></td>
 					<td><?=$cdestino;?></td>
-					<td><?=$tdv->Institucion;?></td>
+					<td><?=$tdv->institucion;?></td>
 					<td><?=$tdv->tra_divisa;?></td>
 					<td>$<?=number_format($tdv->tra_monto,2, '.',',');?></td>
 					<td>$<?=number_format($tdv->tra_tc,4, '.',',');?></td>
-					<td>$<?=number_format($conv,4, '.',',')?></td>
+					<td>$<?=number_format($conv,2, '.',',')?></td>
 					<td>
 
 						<button class="btn btn-default" data-toggle="modal" data-target="#editransdivisas<?=$urlid;?>">
@@ -49,8 +49,6 @@
 					<?php
 						$tramonton = array(
 							'type'=>'text',
-							'id'=>'valor1',
-							'onkeyup'=>'sumar();',
 							'style' => 'width: 150%',
 							'class' => 'form-control',
 							'name'	=> 'tramonton',
@@ -61,8 +59,6 @@
 					<?php
 						$tratcn = array(
 							'type'=>'text',
-							'id'=>'valor2',
-							'onkeyup'=>'sumar();',
 							'style' => 'width: 150%',
 							'class' => 'form-control',
 							'name'	=> 'tratcn',
@@ -77,33 +73,31 @@
 								<div class="modal-header">
 									<h4 class="modal-title text-upper" id="myModalLabel">Modificar Transacción</h4>
 								</div>
-								<?=form_open("/divisas/editransdivisas/") ?>
-								<div class="modal-body">
-
-								<?=form_label('Monto:','tramonton')?>		
-								<div class="input-group col-md-4">
-									<div class="input-group-addon">$</div>
-									<?=form_input($tramonton); ?>
-								</div>
-								<?=form_label('Tipo de cambio:','tratcn')?>		
-								<div class="input-group col-md-4">
-									<div class="input-group-addon">$</div>
-									<?=form_input($tratcn); ?>
-								</div>
-									<!-- Input ocultos -->
-									<div>
-										<input type="hidden" name="origen" value="<?=$tdv->tCuenta_destino;?>">
-										<input type="hidden" name="destino" value="<?=$tdv->tCuenta_origen;?>">
-										<input type="hidden" name="saldoctaorigen" value="<?=$tdv->cdsaldo_origen;?>">
-										<input type="hidden" name="saldoctadestino" value="<?=$tdv->cdsaldo_destino;?>">
-										<input type="hidden" name="tramonto" value="<?=$tdv->tra_monto;?>">
-										<input type="hidden" name="tratc" value="<?=$tdv->tra_tc;?>">
+								<?=form_open("/divisas/editransdivisas");?>
+									<div class="modal-body">
+										<?=form_label('Monto:','tramonton')?>		
+										<div class="input-group col-md-4">
+											<div class="input-group-addon">$</div>
+											<?=form_input($tramonton); ?>
+										</div>
+										<?=form_label('Tipo de cambio:','tratcn')?>		
+										<div class="input-group col-md-4">
+											<div class="input-group-addon">$</div>
+											<?=form_input($tratcn); ?>
+										</div>
+										<div>
+											<input type="hidden" name="origen" value="<?=$tdv->tCuenta_origen;?>">
+											<input type="hidden" name="destino" value="<?=$tdv->tCuenta_destino;?>">
+											<input type="hidden" name="saldoctaorigen" value="<?=$tdv->cdsaldo_origen;?>">
+											<input type="hidden" name="saldoctadestino" value="<?=$tdv->cdsaldo_destino;?>">
+											<input type="hidden" name="tramonto" value="<?=$tdv->tra_monto;?>">
+											<input type="hidden" name="tratc" value="<?=$tdv->tra_tc;?>">
+										</div>
 									</div>
-								</div>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-success">Aceptar</button>
-									<button type="reset" class="btn btn-default" data-dismiss="modal" onclick="limtodo();">Cancelar</button>
-								</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-success">Aceptar</button>
+										<button type="reset" class="btn btn-default" data-dismiss="modal" onclick="limtodo();">Cancelar</button>
+									</div>
 								<?=form_close();?>
 							</div>
 						</div>
@@ -117,23 +111,23 @@
 								<div class="modal-header errorht">
 									<h4 class="modal-title text-upper" id="myModalLabel">Eliminar Transacción</h4>
 								</div>
-								<?=form_open("/divisas/deletedivisa/");?>
-								<div class="modal-body">
-									<p>Esta seguro que desea eliminar esta transacción</p>
-									<!-- Input ocultos -->
-									<div>
-										<input type="hidden" name="origen" value="<?=$tdv->tCuenta_destino;?>">
-										<input type="hidden" name="destino" value="<?=$tdv->tCuenta_origen;?>">
-										<input type="hidden" name="saldoctaorigen" value="<?=$tdv->cdsaldo_origen;?>">
-										<input type="hidden" name="saldoctadestino" value="<?=$tdv->cdsaldo_destino;?>">
-										<input type="hidden" name="tramonto" value="<?=$tdv->tra_monto;?>">
-										<input type="hidden" name="tratc" value="<?=$tdv->tra_tc;?>">
+								<?=form_open("/divisas/deletedivisa");?>
+									<div class="modal-body">
+										<p>Esta seguro que desea eliminar esta transacción</p>
+										<!-- Input ocultos -->
+										<div>
+											<input type="hidden" name="origen" value="<?=$tdv->tCuenta_origen;?>">
+											<input type="hidden" name="destino" value="<?=$tdv->tCuenta_destino;?>">
+											<input type="hidden" name="saldoctaorigen" value="<?=$tdv->cdsaldo_origen;?>">
+											<input type="hidden" name="saldoctadestino" value="<?=$tdv->cdsaldo_destino;?>">
+											<input type="hidden" name="tramonto" value="<?=$tdv->tra_monto;?>">
+											<input type="hidden" name="tratc" value="<?=$tdv->tra_tc;?>">
+										</div>
 									</div>
-								</div>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-success">Aceptar</button>
-									<button type="reset" class="btn btn-default" data-dismiss="modal" onclick="limtodo();">Cancelar</button>
-								</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-danger">Aceptar</button>
+										<button type="reset" class="btn btn-default" data-dismiss="modal" onclick="limtodo();">Cancelar</button>
+									</div>
 								<?=form_close();?>
 							</div>
 						</div>
