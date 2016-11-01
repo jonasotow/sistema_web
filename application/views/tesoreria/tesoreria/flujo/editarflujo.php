@@ -1,11 +1,10 @@
  <section class="vimifos-content mdl-layout__content">
 	<div class="panel panel-primary">
 		<div class="panel-heading vimifos-section-title mdl-typography--display-1-color-contrast">
-			<?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> 
-			<br> <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?> - <?=$obtenercuentaune->cue_divisa;?>
+			<?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_nombre;?> <?=$obtenercuentaune->cue_numero;?> - <?=$obtenercuentaune->cue_divisa;?>
 		</div>
 		<div class="panel-body shadow">
-			<?=form_open("/flujo/updateFlujo/".$id) ?>
+			<?=form_open("/flujo/updateFlujo/") ?>
 
 			<input type="hidden" name="datoscuenta" value="<?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> <?=$obtenercuentaune->cue_divisa;?> <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?>">
 			<input value="<?=$usuario;?>" name="usuario" type="hidden">
@@ -46,23 +45,22 @@
 						);
 					?>
 					<?php
-						$cued_cheques = array(
+						$cued_pagos = array(
 							'type'=>'text',
 							'id'=>'valor3',
-							'tabindex'=>'3',
 							'onkeyup'=>'sumar();',
 							'style' => 'width: 150%',
-							'name' => 'cued_cheques',
-							'class' => 'form-control',
+							'name' => 'cued_pagos',
+							'class' => 'form-control disabe',
 							'required title' => 'INGRESE SOLO NÚMEROS',
-							'value' => $obtenercuentaune->cued_cheques
+							'value' => $obtenercuentaune->cued_cheques * -1
 						);
 					?>
 					<?php
 						$cued_depos_fir = array(
 							'type'=>'text',
 							'id'=>'valor4',
-							'tabindex'=>'5',
+							'tabindex'=>'3',
 							'onkeyup'=>'sumar();',
 							'style' => 'width: 150%',
 							'name' => 'cued_depos_fir',
@@ -114,10 +112,10 @@
 							<div class="input-group-addon">$</div>
 							<?=form_input($cued_cheq_circ); ?>
 						</div>
-						<?= form_label('PAGOS:','cued_cheques')?>		
+						<?= form_label('PAGOS:','cued_pagos')?>		
 						<div class="input-group col-md-4">
 							<div class="input-group-addon">$</div>
-							<?=form_input($cued_cheques); ?>
+							<?=form_input($cued_pagos); ?>
 						</div>
 
 						<?= form_label('DEPOSITOS EN FIRME:','cued_depos_fir')?>		
@@ -150,7 +148,7 @@
 				</div>
 
 				<div class="mdl-card__actions mdl-card--border col-md-12">
-					<button type="submit" class="btn btn-success" tabindex="7">Actualizar</button>
+					<button type="submit" class="btn btn-success" tabindex="4">Actualizar</button>
 					<a href="<?=base_url().'flujo' ?>" type="button" class="btn btn-default">Cancelar</a>
 				</div>
 			<?= form_close() ?>

@@ -33,7 +33,7 @@ class Divisas_model extends My_Model {
         if($consulta->num_rows() > 0){
             foreach ($consulta->result_array() as $reg) {
             $cadena.="<option value='{$reg['cue_id']}|{$reg['cued_sald_fin']}'>
-            {$reg['ban_nombre']} {$reg['cue_divisa']} {$reg['cue_numero']} {$reg['cue_nombre']} $simbolo{$reg['cued_sald_fin']}</option>";
+            {$reg['ban_nombre']} {$reg['cue_nombre']} {$reg['cue_numero']} {$reg['cue_divisa']} $simbolo{$reg['cued_sald_fin']}</option>";
             }
         }else {
             $cadena.="<option>CUENTAS SIN SALDO</option>";
@@ -57,7 +57,7 @@ class Divisas_model extends My_Model {
         if($consulta->num_rows() > 0){
             foreach ($consulta->result_array() as $reg) {
             $cadena.="<option value='{$reg['cue_id']}|{$reg['cued_sald_fin']}'>
-            {$reg['ban_nombre']} {$reg['cue_divisa']} {$reg['cue_numero']} {$reg['cue_nombre']} $simbolo{$reg['cued_sald_fin']}</option>";
+            {$reg['ban_nombre']} {$reg['cue_nombre']} {$reg['cue_numero']} {$reg['cue_divisa']} $simbolo{$reg['cued_sald_fin']}</option>";
             }
         }else {
             $cadena.="<option>NO TIENES CUENTAS CON ESTA DIVISA</option>";
@@ -188,8 +188,8 @@ class Divisas_model extends My_Model {
     function editransdivisasx($data){
         $datos = array(
                 'tra_tc' => $data['tratcn'],
-                'tra_monto' => $data['nconv']
-             );
+                'tra_monto' => -($data['nconv'])
+             ); 
         $this->db->where('tra_fecha',$data['fecha']);
         $this->db->where('tra_tipomov',$data['tipo']);
         $this->db->where('tra_cue_orig_id',$data['tra_cue_dest_id']);

@@ -27,7 +27,7 @@
 								<tr>
 									<td>
 										<a href="/sistema_web/flujo/editarflujo/<?=$dtf->cued_id?>">
-											<?=$dtf->ban_nombre;?> - <?=$dtf->cue_numero;?> <?=$dtf->cue_descripcion;?>
+											<?=$dtf->ban_nombre;?> - <?=$dtf->cue_nombre;?> <?=$dtf->cue_numero;?>
 										</a>
 									</td>
 

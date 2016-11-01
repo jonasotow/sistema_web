@@ -27,7 +27,7 @@
 								<tr>
 									<td class="cta">
 										<?=$cuentasinv->une_nombre;?>
-										<?=$cuentasinv->ban_nombre;?> 
+										<?=$cuentasinv->cue_nombre;?> 
 										<?=$cuentasinv->cue_numero;?> 
 										<?=$cuentasinv->cue_descripcion;?>
 									</td> 
@@ -91,7 +91,7 @@
 														<label for="cueinv_id" class="control-label right col-xs-2">Cuenta:</label>
 														<label class="col-xs-5 left control-label">
 															<?=$cuentasinv->une_nombre;?>
-															<?=$cuentasinv->ban_nombre;?>
+															<?=$cuentasinv->cue_nombre;?>
 															<?=$cuentasinv->cue_numero;?>
 														</label>
 														<input type="hidden" name="cueinv_id" value="<?=$cuentasinv->cueinv_id;?>">

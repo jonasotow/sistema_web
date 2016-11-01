@@ -13,7 +13,7 @@
 								'placeholder' => 'Ejemplo: 2141483596 ',
 								'class' => 'form-control',
 								'type'=>'text',
-								'pattern'=>'[0-9]{4,11}',
+								'pattern'=>'[0-9]{3,11}',
 								'required title' => 'SOLO NÚMEROS DE 4 A 11 CARACTERES',
 								'value' => $ctabanune->cue_numero
 							);

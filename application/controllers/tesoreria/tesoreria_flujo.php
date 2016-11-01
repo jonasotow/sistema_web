@@ -40,16 +40,6 @@ class Tesoreria_flujo extends MY_Controller {
         $this->_run('flujo/data_flujo');
     }
 
-
-    function editarflujo(){
-        $this->template['title'] = 'Flujo';
-        $this->template['id'] = $this->uri->segment(3);
-        $this->template['todo'] = $this->flujo_model->obtenertods();
-        $this->template['obtenercuentaune'] = $this->flujo_model->obtenercuentaune($this->template['id']);
-        $this->template['obternertraspasoenflujoorigen'] = $this->flujo_model->obternertraspasoenflujoorigen($this->template['id']);
-        $this->template['obternertraspasoenflujodestino'] = $this->flujo_model->obternertraspasoenflujodestino($this->template['id']);
-        $this->_run('flujo/editarflujo');
-    }
     function updateFlujo(){
         $data = array(
             'cued_sald_ini'=> $this->input->post('cued_sald_ini'),
@@ -57,38 +47,26 @@ class Tesoreria_flujo extends MY_Controller {
             'cued_cheques' => $this->input->post('cued_cheques'),
             'cued_depos_fir' => $this->input->post('cued_depos_fir'),
             'cued_sald_fin' => $this->input->post('cued_sald_fin')
-        );
+            );
 
         $datos = array(
                 'usuario'=> $this->input->post('usuario'),
                 'datoscuenta'=> $this->input->post('datoscuenta')
-        );
-
+            );
         $result_datos_destino = $_POST['cuentaretorn'];
         $separa_datos_destino = explode('|', $result_datos_destino);
-        $id = $separa_datos_destino[0];
+        $ids = $separa_datos_destino[0];
         $divisa = $separa_datos_destino[1];
-
-
- /*     Envio de correo       
-        $cuenta = strtoupper($datos['datoscuenta']);
-        $usuario = strtoupper($datos['usuario']);
-        $this->template['usuario'] = $datos['usuario'];
-        $this->load->library('email');
-        $this->email->from('web@vimifos.com', 'Notificaciones Vimifos - SIT');
-        $this->email->to('jsoto@vimifos.com');
-        $this->email->subject('SE CAPTURO O MODIFICO EL SALDO DE UNA CUENTA '.$usuario);
-        $this->email->message('LA CUENTA '.$cuenta .' SE CAPTURO O MODIFICADA POR '.$usuario);
-        $this->email->send();
- */         
 
         $fecha = date('Y-m-d');
         $this->template['id'] = $this->uri->segment(3);
         $this->template['flujo'] = $this->flujo_model->actualizarFlujo($this->template['id'],$data,$fecha);
 
   // Regresar a flujo con datos
-        $this->template['title'] = 'Flujo';
+        $id = $ids;
+        $divisa = $datos['divisa'];
         $this->template['divisa'] = $divisa;
+        $this->template['title'] = 'Flujo';
         $this->template['todo'] = $this->flujo_model->obtenertods();
         $this->template['saldototalune'] = $this->flujo_model->saldototalune($id,$divisa);
         $this->template['movcuebanune'] = $this->flujo_model->obtenermovcuebanunes($id,$divisa);
@@ -100,9 +78,17 @@ class Tesoreria_flujo extends MY_Controller {
         $this->template['une'] = $this->flujo_model->obtenerUnidad($id);
         $this->template['obtben'] = $this->flujo_model->obtBenef();
         $this->_run('flujo/data_flujo');
-
+        //redirect(base_url('flujo/data_flujo'));
     }
-
+    function editarflujo(){
+            $this->template['title'] = 'Flujo';
+            $this->template['id'] = $this->uri->segment(3);
+            $this->template['todo'] = $this->flujo_model->obtenertods();
+            $this->template['obtenercuentaune'] = $this->flujo_model->obtenercuentaune($this->template['id']);
+            $this->template['obternertraspasoenflujoorigen'] = $this->flujo_model->obternertraspasoenflujoorigen($this->template['id']);
+            $this->template['obternertraspasoenflujodestino'] = $this->flujo_model->obternertraspasoenflujodestino($this->template['id']);
+            $this->_run('flujo/editarflujo');
+        }
 // Pagos vimifos
     function addpagovim(){
 
@@ -284,19 +270,27 @@ class Tesoreria_flujo extends MY_Controller {
         $this->template['movcuebanune'] = $this->flujo_model->ctatotal();
         $this->template['une'] = $this->flujo_model->obtenerUnidades();
         $this->_run('flujo/pagobendls');
-
     }
 
     function pagob(){
+        $result_datos_destino = $_POST['cuentapago'];
+        $separa_datos_destino = explode('|', $result_datos_destino);
+        $id_destino = $separa_datos_destino[0];
+        $saldo_total = $separa_datos_destino[1];
+        $saldo_pago = $separa_datos_destino[2];
+
         $ben = $this->input->post('ben');
         $monto = $this->input->post('tra_monto');
-        $cuentapago = $this->input->post('cuentapago');
+        $cuentapago = $id_destino;
+        $saldonuevo = $saldo_total - $monto;
         $fecha = date('Y-m-d');
+        $nsaldopago = $saldo_pago  -($monto);
 
-        $this->template['pagoben'] = $this->flujo_model->pagoben($ben, $monto, $cuentapago, $fecha);        
-        $this->template['mpagoben'] = $this->flujo_model->mpagoben($monto,$cuentapago, $fecha);
-
+        $this->template['pagoben'] = $this->flujo_model->pagoben($ben,$monto,$cuentapago,$fecha);        
+        $this->template['mpagoben'] = $this->flujo_model->mpagoben($nsaldopago,$cuentapago, $fecha,$saldonuevo);
+        redirect(base_url('flujo/completo'));
     }
+
     function completo(){
         $this->_run('flujo/completo');
     }
@@ -310,3 +304,15 @@ class Tesoreria_flujo extends MY_Controller {
 
 
 }
+
+ /*     Envio de correo       
+        $cuenta = strtoupper($datos['datoscuenta']);
+        $usuario = strtoupper($datos['usuario']);
+        $this->template['usuario'] = $datos['usuario'];
+        $this->load->library('email');
+        $this->email->from('web@vimifos.com', 'Notificaciones Vimifos - SIT');
+        $this->email->to('jsoto@vimifos.com');
+        $this->email->subject('SE CAPTURO O MODIFICO EL SALDO DE UNA CUENTA '.$usuario);
+        $this->email->message('LA CUENTA '.$cuenta .' SE CAPTURO O MODIFICADA POR '.$usuario);
+        $this->email->send();
+ */  

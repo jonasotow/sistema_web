@@ -75,7 +75,7 @@ class Flujo_model extends My_Model {
         $html = "<option>-- Seleccione una Cuenta --</option>";
         foreach ($consulta->result_array() as $reg) {
             $cadena.="<option value='{$reg['cued_id']}|{$reg['cued_sald_fin']}|{$reg['cue_divisa']}|{$reg['une_id']}'>
-            {$reg['ban_nombre']} {$reg['cue_numero']} {$reg['cue_nombre']} {$reg['cue_divisa']} $simbolo{$reg['cued_sald_fin']}</option>";
+            {$reg['ban_nombre']} {$reg['cue_nombre']} {$reg['cue_numero']} {$reg['cue_divisa']} $simbolo{$reg['cued_sald_fin']}</option>";
         }
         echo $html.$cadena;
 
@@ -506,7 +506,7 @@ class Flujo_model extends My_Model {
         $datos = array(
                 'cued_sald_ini'=> $data['cued_sald_ini'],
                 'cued_cheq_circ' => $data['cued_cheq_circ'],
-                'cued_cheques' => $data['cued_cheques'],
+                'cued_cheques' => -($data['cued_cheques']),
                 'cued_depos_fir' => $data['cued_depos_fir'],
                 'cued_sald_fin' => $data['cued_sald_fin']
                  );
@@ -544,9 +544,10 @@ class Flujo_model extends My_Model {
                 );
         $this->db->insert('cueben_cuentas_beneficiarios_det', $datos);   
     }
-    function mpagoben($monto,$cuentapago,$fecha){
+    function mpagoben($nsaldopago,$cuentapago,$fecha,$saldonuevo){
         $datos = array(
-                'cued_cheques' => -($monto),
+                'cued_cheques' => $nsaldopago,
+                'cued_sald_fin' => $saldonuevo
                 );
         $this->db->where('cued_id',$cuentapago);
         $this->db->where('cued_fecha',$fecha);
@@ -580,8 +581,8 @@ class Flujo_model extends My_Model {
 
         if($consulta->num_rows() > 0){
             foreach ($consulta->result_array() as $reg) {
-            $cadena.="<option value='{$reg['cue_id']}|{$reg['cued_sald_fin']}'>
-            {$reg['ban_nombre']} {$reg['cue_divisa']} {$reg['cue_numero']} {$reg['cue_nombre']} $simbolo{$reg['cued_sald_fin']}</option>";
+            $cadena.="<option value='{$reg['cue_id']}|{$reg['cued_sald_fin']}|{$reg['cued_cheques']}'>
+            {$reg['ban_nombre']} {$reg['cue_nombre']} {$reg['cue_numero']} {$reg['cue_divisa']} $simbolo{$reg['cued_sald_fin']}</option>";
             }
         }else {
             $cadena.="<option>CUENTAS SIN SALDO</option>";
