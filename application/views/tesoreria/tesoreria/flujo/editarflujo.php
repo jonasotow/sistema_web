@@ -6,11 +6,7 @@
 		<div class="panel-body shadow">
 			<?=form_open("/flujo/updateFlujo/") ?>
 
-			<input type="hidden" name="datoscuenta" value="<?=$obtenercuentaune->une_nombre;?> <?=$obtenercuentaune->cue_descripcion;?> <?=$obtenercuentaune->cue_divisa;?> <?=$obtenercuentaune->ban_nombre;?> <?=$obtenercuentaune->cue_numero;?>">
-			<input value="<?=$usuario;?>" name="usuario" type="hidden">
-			<input type="hidden" name="cuentaretorn" value="<?=$obtenercuentaune->une_id;?>|<?=$obtenercuentaune->cue_divisa;?>">
-
-
+			<input type="hidden" name="cuentaretorn" value="<?=$obtenercuentaune->une_id;?>|<?=$obtenercuentaune->cue_divisa;?>|<?=$obtenercuentaune->cue_id;?>">
 
 			<div class="form">
 				<?php

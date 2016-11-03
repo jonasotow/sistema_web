@@ -9,11 +9,58 @@ class Tesoreria_reportes extends MY_Controller {
         $this->load->helper('form');
         $this->template['module'] = 'tesoreria';
     }
+
     function index(){
         $this->template['title'] = 'reportes';
         $this->template['title2'] = 'notificaciones';
         $this->template['fecha'] = date('Y-m-d');    
         $this->_run('reportes/home');
+    }
+
+    function reportecta(){
+
+        $this->load->library('pdf');
+        $pdfrepor = $this->reporte_model->reportcta();
+        $title = 'Reporte de movimientos de hoy';
+        $fMeses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+        $fDias = array( 'Domingo', 'Lunes', 'Martes','Miercoles', 'Jueves', 'Viernes', 'Sabado');
+        $fhoy = $fDias[date('w')].", ".date('d')." de ".$fMeses[date('m')-1]." de ".date('Y');
+        $fhoycorto = date("Y/m/d");
+     
+        // Fechas
+        $fechadia = "Fecha de impresión: ".$fhoycorto;
+
+        $this->pdf = new pdf();
+        $this->pdf->AddPage('P');
+        $this->pdf->AliasNbPages();
+        $this->pdf->SetTitle("Reporte de Cuentas- SIT");
+        $this->pdf->SetLeftMargin(20);
+        $this->pdf->SetRightMargin(20);
+        $this->pdf->SetFillColor(200,200,200);
+     
+        $this->pdf->SetFont('Arial','B', 8);
+        $this->pdf->Cell(10,7,'#','TBL',0,'C','1');
+        $this->pdf->Cell(40,7,'NOMBRE DE UNIDAD','TB',0,'L','1');
+        $this->pdf->Cell(40,7,'DIVISA','TB',0,'L','1');
+        $this->pdf->Cell(40,7,'CUENTA','TBR',0,'L','1');
+        $this->pdf->Ln(7);
+        $this->pdf->SetFont('Arial', '', 6);
+        foreach ($pdfrepor as $pdfrepor) {
+
+            $cta = $pdfrepor->cue_nombre.' '.$pdfrepor->cue_numero;
+
+          $this->pdf->Cell(10,5,$pdfrepor->cue_id,'BL',0,'C',0);
+          $this->pdf->Cell(40,5,$pdfrepor->une_nombre,'B',0,'L',0);
+          $this->pdf->Cell(40,5,$pdfrepor->cue_divisa,'B',0,'L',0);
+          $this->pdf->Cell(40,5,$cta,'BR',0,'L',0);
+          $this->pdf->Ln(5);
+        }
+
+        $nombredelarchivo = 'reportedecta-'.$fhoycorto.'.pdf';
+
+        ob_end_clean();
+        $this->pdf->Output($nombredelarchivo, 'I');
+  
     }
 
     function reportecd_f(){
@@ -82,7 +129,6 @@ class Tesoreria_reportes extends MY_Controller {
   
     }
 
-
     function reportetrapasos_f(){
         $data = array(
                 'fecha'=> $this->input->post('fecha')
@@ -128,7 +174,7 @@ class Tesoreria_reportes extends MY_Controller {
 
         $this->pdf->SetFont('Arial','B', 9);
         $this->pdf->SetY(20);
-        $this->pdf->Cell(240,10,$fechareport,0,0,'R');
+        $this->pdf->Cell(0,10,$fechareport,0,0,'R');
         $this->pdf->Ln(5);
 
         /*

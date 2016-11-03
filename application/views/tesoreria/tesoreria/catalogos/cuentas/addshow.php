@@ -54,8 +54,8 @@
 								<label for="cue_descripcion">Seleccione la Ciudad</label>
 								<select name="cue_descripcion" class="form-control">
 									<option value>-- Seleccione una Opción	--</option>
-									<option value="GUADALAJARA">GUADALAJARA</option>
-									<option value="OBREGON">OBREGON</option>
+									<option value="GDL">GDL</option>
+									<option value="OBR">OBR</option>
 								</select>
 
 								<label for="cue_es_inversion">¿Es Cuenta de Inversión?</label>

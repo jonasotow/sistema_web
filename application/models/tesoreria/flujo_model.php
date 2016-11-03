@@ -502,7 +502,7 @@ class Flujo_model extends My_Model {
     }
 
 // Update *** Editar flujo ***
-    function actualizarFlujo($id,$data,$fecha){
+    function actualizarFlujo($idcuenta,$data,$fecha){
         $datos = array(
                 'cued_sald_ini'=> $data['cued_sald_ini'],
                 'cued_cheq_circ' => $data['cued_cheq_circ'],
@@ -510,7 +510,7 @@ class Flujo_model extends My_Model {
                 'cued_depos_fir' => $data['cued_depos_fir'],
                 'cued_sald_fin' => $data['cued_sald_fin']
                  );
-        $this->db->where('cued_id',$id);
+        $this->db->where('cued_id',$idcuenta);
         $this->db->where('cued_fecha',$fecha);
         $query = $this->db->update('cued_cuentas_det',$datos);
     }

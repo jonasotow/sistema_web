@@ -65,15 +65,9 @@
 				</div>
 				<div class="col-md-6">
 					<div class="col-md-12">
-						<?=form_open("/reportes/saldosunes_f/")?>
+						<?=form_open("/reportes/reportecta/")?>
 							<div class="form-group">
-								<label for="fecha">SALDOS AL DÍA:</label>
-							    <div class='input-group date' id='datetimepicker'>
-							        <input type="text" name="fecha" class="form-control" value="<?=$fecha?>" required=""  />
-							        <span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
+								<label for="fecha">CUENTAS</label>
 								<div class="buttonaction">
 									<button type="submit" class="btn btn-success">GENERAR</button>
 								</div>
@@ -124,3 +118,5 @@
 		});
 	});
 </script>
+
+

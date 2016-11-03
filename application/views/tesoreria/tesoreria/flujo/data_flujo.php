@@ -84,7 +84,7 @@
 								<?php if ($dtf->TP < 0) { $TP_css = "zero"; } else { $TP_css = "saldo";}?>				
 								<?php if ($dtf->cued_sald_fin < 0) { $cued_sald_fin = "zero"; } else { $cued_sald_fin = "saldo";}?>
 								<?php if ($dtf->cued_sald_fin <= 0) { $statusbtn = "hidden"; } else { $statusbtn = "activo";}?>
-								<?php if ($divisa != 'USD') { $statuspb = "disabled"; } else { $statuspb = "";}?>
+								<?php if ($divisa != 'USD') { $statuspb = "hidden"; } else { $statuspb = "";}?>
 									<tr>
 										<td class="<?=$cued_sald_ini;?>"><?=number_format($dtf->cued_sald_ini,2, '.',',');?></td>
 										<td class="<?=$cued_cheq_circ;?>"><?=number_format($dtf->cued_cheq_circ,2, '.',',');?></td>
@@ -101,12 +101,12 @@
 										<td class="<?=$cued_sald_fin;?> info"><?=number_format($dtf->cued_sald_fin,2, '.',',');?></td>
 										<td class="<?=$statusbtn;?>">
 											<!-- Right aligned menu below button -->
-											<button id="demo-menu-lower-right<?=$dtf->cued_id;?>" class="mdl-button mdl-js-button mdl-button--icon">
+											<button id="vx-menu-lower-right<?=$dtf->cued_id;?>" class="mdl-button mdl-js-button mdl-button--icon">
 												  <i class="material-icons">more_vert</i>
 											</button>
 
 											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-												    for="demo-menu-lower-right<?=$dtf->cued_id;?>">
+												    for="vx-menu-lower-right<?=$dtf->cued_id;?>">
 												<li class="mdl-menu__item" data-toggle="modal" data-target="#pagovim<?=$dtf->cued_id?>">Pagos entre filiales</li>
 												<li class="mdl-menu__item" <?=$statuspb;?> ><a href="<?=base_url()?>flujo/pagobendls">Pagos a Beneficiario</a></li>
 												<li class="mdl-menu__item" data-toggle="modal" data-target="#traspaso<?=$dtf->cued_id?>">Traspasos</li>

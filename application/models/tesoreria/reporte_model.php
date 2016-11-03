@@ -5,6 +5,18 @@ class Reporte_model extends My_Model {
     	parent::__construct();
 	}
 
+    function reportcta(){
+        $this->db->select('*');
+        $this->db->from('cue_cuentas_mstr, cued_cuentas_det, une_uninegocio_mstr');
+        $this->db->where('cue_id = cued_id');
+        $this->db->where('cue_uninegocio_id = une_id');
+        $this->db->group_by('cue_id');
+        $consulta = $this->db->get();
+        if($consulta->num_rows() > 0) return $consulta->result();
+        else return false;
+    }   
+
+
     function reportecd_f($fecha){
         $this->db->select('tra_fecha, tra_cue_dest_id, T1.cue_descripcion as T1CD, T1.cue_nombre AS T1C, T1.cue_numero AS T1N, tra_cue_orig_id, T2.cue_nombre AS T2C, T2.cue_numero AS T2N, une_nombre, tra_monto, tra_tc, tra_divisa, tra_descripcion, tra_responsable, T1.cue_divisa AS divisa, B2.ban_nombre AS B2N, B1.ban_nombre AS B1N');
         $this->db->from('une_uninegocio_mstr, cued_cuentas_det, tra_traspasos_mstr');

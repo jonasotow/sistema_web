@@ -49,22 +49,16 @@ class Tesoreria_flujo extends MY_Controller {
             'cued_sald_fin' => $this->input->post('cued_sald_fin')
             );
 
-        $datos = array(
-                'usuario'=> $this->input->post('usuario'),
-                'datoscuenta'=> $this->input->post('datoscuenta')
-            );
         $result_datos_destino = $_POST['cuentaretorn'];
         $separa_datos_destino = explode('|', $result_datos_destino);
-        $ids = $separa_datos_destino[0];
+        $id = $separa_datos_destino[0];
         $divisa = $separa_datos_destino[1];
+        $idcuenta = $separa_datos_destino[2];
 
         $fecha = date('Y-m-d');
-        $this->template['id'] = $this->uri->segment(3);
-        $this->template['flujo'] = $this->flujo_model->actualizarFlujo($this->template['id'],$data,$fecha);
+        $this->template['flujo'] = $this->flujo_model->actualizarFlujo($idcuenta,$data,$fecha);
 
-  // Regresar a flujo con datos
-        $id = $ids;
-        $divisa = $datos['divisa'];
+  /* Regresar a flujo con datos
         $this->template['divisa'] = $divisa;
         $this->template['title'] = 'Flujo';
         $this->template['todo'] = $this->flujo_model->obtenertods();
@@ -76,9 +70,8 @@ class Tesoreria_flujo extends MY_Controller {
         $this->template['saldototalune_ts'] = $this->flujo_model->saldototalune_ts($id,$divisa);
         $this->template['obtenertodo'] = $this->flujo_model->obtenertodo($id,$divisa);
         $this->template['une'] = $this->flujo_model->obtenerUnidad($id);
-        $this->template['obtben'] = $this->flujo_model->obtBenef();
-        $this->_run('flujo/data_flujo');
-        //redirect(base_url('flujo/data_flujo'));
+        $this->template['obtben'] = $this->flujo_model->obtBenef();*/
+        redirect(base_url('flujo/'));
     }
     function editarflujo(){
             $this->template['title'] = 'Flujo';
